@@ -1,5 +1,6 @@
 ﻿using Humanizer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Records.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,24 @@ namespace Records.Data
 {
     public class DataContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RecordEntity> Records { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
+        public DataContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             //replace between the two connection strings
-            // var connectionString = "server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u";
+             //var connectionString = "server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u";
             var connectionString = "";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
            
-            // optionsBuilder.UseSqlServer("server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u");
+             //optionsBuilder.UseSqlServer("server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u");
             optionsBuilder.LogTo(Message => Debug.WriteLine(Message));
         }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
