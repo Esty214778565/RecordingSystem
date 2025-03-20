@@ -10,7 +10,7 @@ import { User } from '../Models/user';
 })
 export class UserService {
 
-  private apiUrl = 'https://localhost:7043/api/User';
+  private apiUrl = 'https://localhost:7043/api/user';
 
   private UsersSubject = new BehaviorSubject<User[]>([]);
   Users$ = this.UsersSubject.asObservable();
@@ -18,8 +18,12 @@ export class UserService {
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
   }
 
-  private getHeaders(): HttpHeaders {//check if need
-    const token = sessionStorage.getItem('token');
+  private getHeaders(): HttpHeaders {//check wht to do with this
+    // if (typeof window === 'undefined' || window.sessionStorage === undefined) {
+    //   return new HttpHeaders();
+    // }
+    const token = sessionStorage.getItem('token') || '';
+
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -31,6 +35,7 @@ export class UserService {
       tap(Users => this.UsersSubject.next(Users))
     );
   }
+  //gigo
 
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });

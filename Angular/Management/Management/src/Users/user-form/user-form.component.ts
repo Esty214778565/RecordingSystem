@@ -1,70 +1,88 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../../Models/user';
 import { UserService } from '../../Services/user.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
 export class UserFormComponent {
-  @Input() UserId: number = 0;
+  UserId: number = 0;
   isAdd: boolean = false;
-  User: User = new User(0, '', '', '', false);
-
-  UserForm: FormGroup;
-  private UserSubject = new BehaviorSubject<any>({ name: '', email: '', password: '' });
+  User: User = new User(0, '', '', '', "user");
+  UserForm!: FormGroup;
+  private UserSubject = new BehaviorSubject<any>({ name: '', email: '', password: '', role: '' });
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private UserService: UserService,
     private router: Router) {
-    console.log("enter ctor corse form");
+    console.log("enter ctor user form");
 
-    this.UserForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+    this.route.params.subscribe(params => {
+      this.UserId = +params['id'];
+      if (!Number.isNaN(this.UserId)) {
+
+        this.UserService.getUserById(this.UserId).subscribe((data: User) => {
+          this.User = data;
+          this.fillForm(this.User);
+        });
+      }
+      else {
+        this.isAdd = true;
+      }
+      this.UserForm = this.fb.group({
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        role: ['', Validators.required],
+      });
 
 
-    });
-    if (this.UserId > 0) {
-      this.isAdd = true;
-      this.UserService.getUserById(this.UserId).subscribe((data: User) => {
-        this.fillForm(this.User);
-      })
+      if (this.UserId > 0) {
+        this.isAdd = false;
+        this.UserService.getUserById(this.UserId).subscribe((data: User) => {
+          this.fillForm(this.User);
+        })
 
-    }
-  }
-  fillForm(data: any): void {
-    Object.keys(data).forEach(key => {
-      if (this.UserForm.controls[key]) {
-        this.UserForm.controls[key].setValue(data[key]);
       }
     });
   }
+  
+  fillForm(data: any): void {
+      Object.keys(data).forEach(key => {
+        if (this.UserForm.controls[key]) {
+          this.UserForm.controls[key].setValue(data[key]);
+        }
+      });
+    }
   ngOnInit(): void {
-    this.UserSubject.subscribe(User => {
-      this.UserForm.patchValue(User);
-    });
+      this.UserSubject.subscribe(User => {
+        this.UserForm.patchValue(User);
+      });
 
-    this.UserForm.valueChanges.subscribe(value => {
-      this.UserSubject.next(value);
-    });
-  }
+      this.UserForm.valueChanges.subscribe(value => {
+        this.UserSubject.next(value);
+      });
+    }
 
   onSubmit(): void {
-    this.User.name = this.UserForm.value.name;
-    this.User.email = this.UserForm.value.email;
-    this.User.password = this.UserForm.value.password;
-
-    if (this.isAdd) {
+      this.User.name = this.UserForm.value.name;
+      this.User.email = this.UserForm.value.email;
+      this.User.password = this.UserForm.value.password;
+      this.User.role = this.UserForm.value.role;
+      if(this.isAdd) {
       this.UserService.createUser(this.User).subscribe((data: User) => {
         this.User = data;
         this.UserService.getAllUsers().subscribe();
@@ -81,6 +99,6 @@ export class UserFormComponent {
     this.closeModal()
   }
   closeModal() {
-    this.router.navigate(['Users']);
+    this.router.navigate(['users']);
   }
 }

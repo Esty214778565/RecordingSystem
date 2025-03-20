@@ -47,7 +47,7 @@ export class AllUsersComponent implements OnInit {
 
 
   editUser(User: User) {
-    this.router.navigate([`Users/edit/${User.id}`]);
+    this.router.navigate([`users/edit/${User.id}`]);
   }
 
   deleteUser(User: User) {
@@ -59,8 +59,7 @@ export class AllUsersComponent implements OnInit {
   }
 
   addUser() {
-
-    this.router.navigate(['Users/add']);
+    this.router.navigate(['users/add']);
   }
 
 

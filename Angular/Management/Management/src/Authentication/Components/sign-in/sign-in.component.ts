@@ -11,22 +11,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './sign-in.component.css'
 })
 export class SignInComponent {
-  credentials = { email: '', password: '' };
+  credentials = { name: '', password: '' };
 
-
-  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService) { }
+  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService) {
+  }
 
   signIn() {
+
     this.authService.login(this.credentials).subscribe(result => {
-      sessionStorage.setItem('token', result.token);
-      this.authService.isConnected = true;
 
-
-      const user = this.userService.getUserById(result.userId);
-      this.authService.isAdmin = result.role == "Admin" ? true : false;
-
-      this.router.navigate(['users']);
+      if (result.role !== "admin") {
+        // debugger;
+        //  alert("you are not admin you can't login to this application");
+        this.close();
+      }
+      else {
+        sessionStorage.setItem('token', result.token);
+        this.authService.isConnected = true;
+        this.router.navigate(['users']);
+      }
     });
+
   }
   close() {
     this.router.navigate(['']);

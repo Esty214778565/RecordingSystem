@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SignInComponent } from "../sign-in/sign-in.component";
 
 @Component({
@@ -9,9 +9,9 @@ import { SignInComponent } from "../sign-in/sign-in.component";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-isSignIn: boolean=false;
-openSignIn() {
-this.isSignIn=true
-}
+  isSignIn: boolean = false;
+  openSignIn() {
+    this.isSignIn = true
+  }
 
 }
