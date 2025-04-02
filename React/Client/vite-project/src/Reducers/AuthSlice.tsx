@@ -8,11 +8,16 @@ export const loginUser = createAsyncThunk('auth/login', async (userData: UserLog
     console.log("in loginUser in sendLoginRequest");
 
     try {
-        debugger;
+
         const res = await axios.post(`${apiUrl}/auth/login`, userData);
+
         console.log("after login in sendLoginRequest");
+        console.log(res.data);
 
         sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("userId", res.data.id.toString());
+        sessionStorage.setItem("userName", res.data.name);
+        sessionStorage.setItem("role", res.data.role);
 
         try {
             const newUser = await axios.get(`${apiUrl}/user/${res.data.id}`, { headers: { Authorization: `Bearer ${res.data.token}` } });
@@ -33,6 +38,10 @@ export const registerUser = createAsyncThunk('auth/register', async (userData: U
     try {
         const res = await axios.post(`${apiUrl}/auth/register`, userData);
         sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("userId", res.data.id.toString());
+        sessionStorage.setItem("userName", res.data.name);
+        sessionStorage.setItem("role", res.data.role);
+
         try {
             const newUser = await axios.get(`${apiUrl}/user/${res.data.id}`, { headers: { Authorization: `Bearer ${res.data.token}` } });
             return newUser.data as User;//check in server if likeuser login 
@@ -40,7 +49,6 @@ export const registerUser = createAsyncThunk('auth/register', async (userData: U
             return thunkAPI.rejectWithValue("Failed to get by id  user");
         }
     }
-
     catch (error) {
         return thunkAPI.rejectWithValue("Failed to register user");
     }
@@ -69,7 +77,6 @@ export const trygetusers = createAsyncThunk('auth/trygetusers', async (_, thunkA
     const token = sessionStorage.getItem("token"); // or sessionStorage.getItem("authToken");
     console.log(token);
 
-    debugger;
     try {
         const res = await axios.get(`${apiUrl}/user`, {
             headers: {

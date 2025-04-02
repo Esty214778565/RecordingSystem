@@ -1,11 +1,14 @@
 
 import { Outlet } from 'react-router-dom';
-import Connect from './Components/Connect';
+import HomePage from './Components/HomePage';
+
+
 
 const AppLayout = () => {
     return (
-        <><Connect />
-        <Outlet /></>
+        <>
+        <HomePage />
+            <Outlet /></>
     );
 };
 
