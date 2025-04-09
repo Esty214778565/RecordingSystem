@@ -188,7 +188,8 @@ type ModalProps = {
     handleClose: () => void;
 };
 
-const Register = ({ open, handleClose }: ModalProps) => {
+// const Register = ({ open, handleClose }: ModalProps) => {
+const Register = () => {
     const dispatch = useDispatch<UserDispatch>();
     const navigate = useNavigate();
     const [user, setUser] = useState<User>({
@@ -215,11 +216,12 @@ const Register = ({ open, handleClose }: ModalProps) => {
         e.preventDefault();
         await dispatch(registerUser(user));
         navigate('/courses');
-        handleClose();
+        // handleClose();
     };
 
     return (
-        <><Modal open={open} onClose={handleClose}>
+        // <><Modal open={open} onClose={handleClose}>
+        <><Modal open={true} onClose={() => { }}>
             <Box sx={style}>
                 <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', color: '#FF5733' }}>
                     Register

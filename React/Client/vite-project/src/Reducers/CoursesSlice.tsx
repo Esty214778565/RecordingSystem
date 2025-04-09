@@ -116,6 +116,7 @@ export const deleteCourse = createAsyncThunk('course/deleteCourse', async (cours
 export const fetchListOfTeachers = createAsyncThunk(
     'courses/fetchListOfTeachers',
     async (parentId: number, thunkAPI) => {
+        debugger;
         const token = sessionStorage.getItem("token");
         try {
             console.log("in teachers list fech");
@@ -126,7 +127,7 @@ export const fetchListOfTeachers = createAsyncThunk(
                 }
             });
             console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
-            debugger;
+         
             const lessonsArray = res.data;
             const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({
                 ...course, // כל השדות האחרים

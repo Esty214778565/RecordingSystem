@@ -9,7 +9,7 @@ namespace Records.Core.Iservices
 {
     public interface IAuthService
     {
-        Task<(string Token, int Id, string Role)> RegisterAsync(UserDto registration);
-        Task<(string Token, int Id, string Role)> LoginAsync(string username, string password);
+        Task<(string Token, int Id, string Role, string Name)> RegisterAsync(UserDto registration);
+        Task<(string Token, int Id, string Role,string Name)> LoginAsync(string username, string password);
     }
 }

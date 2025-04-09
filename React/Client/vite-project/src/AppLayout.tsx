@@ -7,8 +7,8 @@ import HomePage from './Components/HomePage';
 const AppLayout = () => {
     return (
         <>
-        <HomePage />
-            <Outlet /></>
+            <HomePage />
+            </>
     );
 };
 

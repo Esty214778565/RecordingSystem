@@ -32,7 +32,9 @@ type ModalProps = {
     handleClose: () => void; // Function to close the modal
 };
 
-const Login = ({ open, handleClose }: ModalProps) => {
+// const Login = ({ open, handleClose }: ModalProps) => {
+const Login = () => {
+
     const dispatch = useDispatch<UserDispatch>();
     const navigate = useNavigate();
     const [userLogin, setUserLogin] = useState({
@@ -52,11 +54,12 @@ const Login = ({ open, handleClose }: ModalProps) => {
         e.preventDefault();
         await dispatch(loginUser(userLogin));
         navigate('/courses');
-        handleClose();
+        // handleClose();
     };
 
     return (
-        <Modal open={open} onClose={handleClose}>
+        // <Modal open={open} onClose={handleClose}>
+        <Modal open={true} onClose={() => { }}>
             <Box sx={style}>
                 <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', color: '#FF5733' }}>
                     Login

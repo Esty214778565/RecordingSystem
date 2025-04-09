@@ -77,7 +77,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 interface FileUploaderProps {
-  onUploadSuccess: (presignedUrl: string, fileName: string, fileType: string, fileSize: number) => void;
+  onUploadSuccess: (presignedUrl: string, fileType: string, fileSize: number) => void;
 }
 
 const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
@@ -121,7 +121,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
 
       const basePresignedUrl = presignedUrl.split('?')[0];
       // קריאה לפונקציה על מנת להחזיר את המידע הנדרש
-      onUploadSuccess(basePresignedUrl, file.name, file.type, file.size);
+      onUploadSuccess(basePresignedUrl, file.type, file.size);
 
       alert('הקובץ הועלה בהצלחה!');
 

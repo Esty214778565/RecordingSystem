@@ -5,8 +5,7 @@ import FileUploader from "../UpLoadS3";
 import { Lesson } from "../../Models/Lesson";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Store/Store";
-import { addLesson, fetchLessons } from "../../Reducers/LessonsSlice";
-import { useParams } from "react-router-dom";
+import { addLesson } from "../../Reducers/LessonsSlice";
 
 
 const LessonUploader: React.FC<{ teacherFolderId: number }> = ({ teacherFolderId }) => {
@@ -14,28 +13,25 @@ const LessonUploader: React.FC<{ teacherFolderId: number }> = ({ teacherFolderId
     const [lessonName, setLessonName] = useState<string>('');
     const [lessonDescription, setLessonDescription] = useState<string>('');
     // const { courseId } = useParams<{ courseId: string }>();
-    const [uploadedFileData, setUploadedFileData] = useState<any>(null);
+    // const [uploadedFileData, setUploadedFileData] = useState<any>(null);
     const [loading, setLoading] = useState(false);
-    const handleUploadSuccess = async (presignedUrl: string, fileName: string, fileType: string, fileSize: number) => {
-        
+    const handleUploadSuccess = async (presignedUrl: string, fileType: string, fileSize: number) => {
+
         console.log("persigned url in finish add lesson:" + presignedUrl);
 
         const lessonData: Lesson = {
-            fileName: fileName,
+            fileName: lessonName,//chack if good
             description: lessonDescription,
             s3Key: presignedUrl,
             fileType: fileType,
             size: fileSize,
-
             folderId: Number(teacherFolderId),
         };
-
-        // כאן תוכל להוסיף את הלוגיקה לשמור את הנתונים או לשלוח לשרת
-
         console.log('Lesson Data:', lessonData);
         try {
-            debugger;
+
             setLoading(true);
+            debugger;
             const result = await dispatch(addLesson(lessonData)); // Use `unwrap` to handle the resolved value
             console.log("Lesson successfully saved:", result);
             alert("Lesson uploaded successfully!");

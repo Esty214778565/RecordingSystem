@@ -4,9 +4,7 @@ import { TextField, List, ListItem, ListItemText, Typography, Container, Circula
 import { Outlet, useNavigate } from 'react-router-dom';
 import { fechcoursesKategories } from '../../Reducers/CoursesSlice';
 import { AppDispatch, RootState } from '../../Store/Store';
-import { Download, Upload } from '@mui/icons-material';
-import UpLoadS3 from '../UpLoadS3';
-import DownLoadS3 from '../DownLoadS3';
+
 import AddLesson from '../Lessons/AddLesson';
 
 const AllCourses = () => {
@@ -19,6 +17,12 @@ const AllCourses = () => {
     useEffect(() => {
         dispatch(fechcoursesKategories());
     }, [dispatch]);
+
+    // useEffect(() => {
+    //     if (courses.length > 0) {
+    //         dispatch(fechcoursesKategories());
+    //     }
+    // }, [courses]);
 
     if (!courses || courses.length === 0) {
         return <div>Loading...</div>;

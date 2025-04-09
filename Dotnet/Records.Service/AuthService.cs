@@ -27,12 +27,13 @@ namespace Records.Service
             _mapper = mapper;
             _configuration = configuration;
         }
-        private (string Token, int Id, string Role) GenerateToken(int userId, string role)
+        private (string Token, int Id, string Role,string name) GenerateToken(int userId, string role,string name)
         {
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Name, name)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -46,10 +47,10 @@ namespace Records.Service
                 signingCredentials: creds);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return (Token: tokenString, Id: userId, Role: role);
+            return (Token: tokenString, Id: userId, Role: role,Name:name);
         }
 
-        public async Task<(string Token, int Id, string Role)> RegisterAsync(UserDto registration)
+        public async Task<(string Token, int Id, string Role, string Name)> RegisterAsync(UserDto registration)
         {
             var existingUser = await _userRepository.GetUserByNameAsync(registration.Name);
             if (existingUser != null)
@@ -57,10 +58,10 @@ namespace Records.Service
                 throw new Exception("User already exists");
             }
          var res=  await _userRepository.AddAsync(_mapper.Map<UserEntity>(registration));
-            return GenerateToken(res.Id, res.Role);
+            return GenerateToken(res.Id, res.Role,res.Name);
         }
 
-        public async Task<(string Token, int Id, string Role)> LoginAsync(string username, string password)
+        public async Task<(string Token, int Id, string Role,string Name)> LoginAsync(string username, string password)
         {
             var user = await _userRepository.GetUserByNameAsync(username);
             if (user == null || user.Password != password)
@@ -68,7 +69,7 @@ namespace Records.Service
                 throw new UnauthorizedAccessException("Invalid credentials");
             }
 
-            return GenerateToken(user.Id, user.Role);
+            return GenerateToken(user.Id, user.Role, user.Name);
         }
 
    

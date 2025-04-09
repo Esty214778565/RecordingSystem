@@ -3,7 +3,8 @@ import AppLayout from './AppLayout'
 import AllCourses from './Components/Courses/AllCourses'
 import CourseDetail from './Components/Courses/CourseDetails'
 import LessonTeacher from './Components/Lessons/LessonsTeacher'
-import { Add } from '@mui/icons-material'
+import Login from './Components/Login'
+import Register from './Components/Register'
 
 
 export const Router = createBrowserRouter([
@@ -21,6 +22,14 @@ export const Router = createBrowserRouter([
       //     element: <Register />,
       //     errorElement: <h1>Not Found</h1>
       // }
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
+      },
       {
         path: '/courses',
         element: <AllCourses />,

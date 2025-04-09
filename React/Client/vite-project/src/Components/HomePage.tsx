@@ -6,6 +6,7 @@ import Register from './Register';
 import UpLoadS3 from './UpLoadS3';
 import DownLoadS3 from './DownLoadS3';
 import Try from './Try';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 
 declare module '@mui/material/styles' {
@@ -35,6 +36,8 @@ const theme = createTheme({
 const HomePage = () => {
     const [modalLoginOpen, setModalLoginOpen] = useState<boolean>(false);
     const [modalRegisterOpen, setModalRegisterOpen] = useState<boolean>(false);
+    const navigate = useNavigate();
+
 
     const handleCloseLogin = () => {
         setModalLoginOpen(false);
@@ -77,7 +80,7 @@ const HomePage = () => {
                                 <Button
                                     variant="contained"
                                     sx={{ backgroundColor: theme.palette.custom.main, width: '150px', '&:hover': { backgroundColor: theme.palette.custom.secondary } }}
-                                    onClick={() => setModalLoginOpen(true)}
+                                    onClick={() => navigate('/login')}
                                 >
                                     Login
                                 </Button>
@@ -86,7 +89,7 @@ const HomePage = () => {
                                 <Button
                                     variant="contained"
                                     sx={{ backgroundColor: theme.palette.custom.secondary, width: '150px', '&:hover': { backgroundColor: theme.palette.custom.main } }}
-                                    onClick={() => setModalRegisterOpen(true)}
+                                    onClick={() => navigate('/register')}
                                 >
                                     Register
                                 </Button>
@@ -94,20 +97,21 @@ const HomePage = () => {
                         </Grid>
                     </Box>
                 </Paper>
-                <Login open={modalLoginOpen} handleClose={() => setModalLoginOpen(false)} />
-                <Register open={modalRegisterOpen} handleClose={() => setModalRegisterOpen(false)} />
+                {/* <Login open={modalLoginOpen} handleClose={() => setModalLoginOpen(false)} />
+                <Register open={modalRegisterOpen} handleClose={() => setModalRegisterOpen(false)} /> */}
             </Container>
             <Box sx={{ mt: 4, textAlign: 'center', color: '#777' }}>
                 <Typography variant="body2">
                     &copy; {new Date().getFullYear()} My Website. All rights reserved.
                 </Typography>
             </Box>
-            {/* <UpLoadS3/>
-            <DownLoadS3/> */}
-            
-            <Try />
 
+
+            {/* <Try /> */}
+
+            <Outlet />
         </ThemeProvider>
+
     );
 };
 
