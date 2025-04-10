@@ -1,4 +1,5 @@
-import FileDownload from "./FileDownLoad";
+import FileDownload from "./FileDownload";
+
 
 
 const Try = () => {

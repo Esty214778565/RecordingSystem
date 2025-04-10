@@ -5,6 +5,7 @@ import CourseDetail from './Components/Courses/CourseDetails'
 import LessonTeacher from './Components/Lessons/LessonsTeacher'
 import Login from './Components/Login'
 import Register from './Components/Register'
+import AddLesson from './Components/Lessons/AddLesson'
 
 
 export const Router = createBrowserRouter([
@@ -29,6 +30,10 @@ export const Router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/add-lesson',
+        element: <AddLesson />,
       },
       {
         path: '/courses',

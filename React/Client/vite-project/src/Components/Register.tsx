@@ -223,7 +223,7 @@ const Register = () => {
         // <><Modal open={open} onClose={handleClose}>
         <><Modal open={true} onClose={() => { }}>
             <Box sx={style}>
-                <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', color: '#FF5733' }}>
+                <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', color: '#9b2f87' }}>
                     Register
                 </Typography>
                 <form onSubmit={handleSubmit}>
@@ -246,17 +246,17 @@ const Register = () => {
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: '#40E0D0', // Turquoise border color
+                                    borderColor: '#fd9c98', // Turquoise border color
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: '#40E0D0', // Turquoise on hover
+                                    borderColor: '#fd9c98', // Turquoise on hover
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: '#40E0D0', // Turquoise when focused
+                                    borderColor: '#fd9c98', // Turquoise when focused
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: '#40E0D0', // Turquoise label color
+                                color: '#fd9c98', // Turquoise label color
                             },
                         }} />
                     <TextField
@@ -278,17 +278,17 @@ const Register = () => {
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: '#40E0D0',
+                                color: '#fd9c98',
                             },
                         }} />
                     <TextField
@@ -310,17 +310,17 @@ const Register = () => {
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                                 '&:hover fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                                 '&.Mui-focused fieldset': {
-                                    borderColor: '#40E0D0',
+                                    borderColor: '#fd9c98',
                                 },
                             },
                             '& .MuiInputLabel-root': {
-                                color: '#40E0D0',
+                                color: '#fd9c98',
                             },
                         }} />
                     <FormControl component="fieldset" margin="normal">
@@ -330,7 +330,7 @@ const Register = () => {
                             <FormControlLabel value="teacher" control={<Radio />} label="Teacher" />
                         </RadioGroup>
                     </FormControl>
-                    <Button type="submit" variant="contained" sx={{ backgroundColor: '#FF5733', '&:hover': { backgroundColor: '#FF4500' } }} fullWidth>
+                    <Button type="submit" variant="contained" sx={{ backgroundColor: '#9b2f87', '&:hover': { backgroundColor: '#fd9c98' } }} fullWidth>
                         Register
                     </Button>
                 </form>

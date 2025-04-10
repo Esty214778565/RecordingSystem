@@ -38,6 +38,7 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
                 'Authorization': `Bearer ${token}`
             }
         });
+        debugger;
         return res.data as Lesson;
     } catch (error: any) {
         console.error("Error adding lesson:", error.response?.data || error.message);

@@ -100,13 +100,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       });
 
       const presignedUrl = response.data.url;
-      debugger;
+     
       console.log("persigned url in upload:" + presignedUrl);
 
       console.log(file.type);
 
       // שלב 2: העלאת הקובץ ישירות ל-S3
-      debugger;
+
       await axios.put(presignedUrl, file, {
         headers: {
           'Content-Type': file.type,
@@ -123,18 +123,18 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       // קריאה לפונקציה על מנת להחזיר את המידע הנדרש
       onUploadSuccess(basePresignedUrl, file.type, file.size);
 
-      alert('הקובץ הועלה בהצלחה!');
+      alert('The file was uploaded successfully!');
 
     } catch (error) {
-      console.error('שגיאה בהעלאה:', error);
+      console.error('Upload Error', error);
     }
   };
 
   return (
     <div>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>העלה קובץ</button>
-      {progress > 0 && <div>התקדמות: {progress}%</div>}
+      <button onClick={handleUpload}>Save File</button>
+      {progress > 0 && <div>Process: {progress}%</div>}
     </div>
   );
 };
