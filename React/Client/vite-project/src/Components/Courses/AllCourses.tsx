@@ -87,11 +87,11 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Typography, CircularProgress, Grid, Card, CardContent, CardMedia, Button, Box, Container } from '@mui/material';
+import { TextField, Typography, CircularProgress, Grid, Card, CardContent, CardMedia, Box } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { fechcoursesKategories } from '../../Reducers/CoursesSlice';
 import { AppDispatch, RootState } from '../../Store/Store';
-import AddLesson from '../Lessons/AddLesson';
+
 
 const AllCourses = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -126,7 +126,14 @@ const AllCourses = () => {
         ...course,
         image: DEFAULT_IMAGE_URL, // Add image property if not already present
     }));
-
+    // const getRandomImageUrl = (): string => {
+    //     const randomNumber=  Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+    //  return randomNumber.toString();// Adjust the path as needed
+    // };
+    const getRandomImageUrl = (): string => {
+        const randomNumber = Math.floor(Math.random() * 16) + 1; // Random number between 1 and 10
+        return `./../../../public/Images/img${randomNumber}.jpg`; // Adjust the path as needed
+    };
     return (
         <Box sx={{ width: '100%', height: '100%', backgroundColor: '#f9f9f9' }}>
             {/* Full Width Image with Button */}
@@ -159,7 +166,8 @@ const AllCourses = () => {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={course.image} // Use the image property
+                                        // image={course.image} // Use the image property
+                                        image={getRandomImageUrl()} // Use the image property
                                         alt={course.name}
                                     />
                                     <CardContent>
@@ -172,9 +180,9 @@ const AllCourses = () => {
                         ))}
                     </Grid>
                 )}
-               
-               
-                    <Outlet />
+
+
+                <Outlet />
 
             </Box>
         </Box>

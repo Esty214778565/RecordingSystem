@@ -1,0 +1,52 @@
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace Records.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UploadController : ControllerBase
+    {
+        private readonly IAmazonS3 _s3Client;
+
+        public UploadController(IAmazonS3 s3Client)
+        {
+            _s3Client = s3Client;
+        }
+
+        [HttpGet("presigned-url-up")]
+        public async Task<IActionResult> GetPresignedUrlUp([FromQuery] string fileName)
+        {
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = "my-first-records-bucket.testpnoren",
+                Key = fileName,
+                Verb = HttpVerb.PUT,
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                //ContentType = "video/x-ms-wmv" // או סוג הקובץ המתאים
+                //ContentType = "text/plain" // או סוג הקובץ המתאים
+               ContentType = "audio/mpeg" // או סוג הקובץ המתאים
+            };
+
+            string url = await _s3Client.GetPreSignedURLAsync(request);
+            return Ok(new { url });
+        }
+        [HttpGet("presigned-url-down")]
+        public async Task<IActionResult> GetPresignedUrlDown(string fileName)
+        {
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = "my-first-records-bucket.testpnoren",
+                Key = fileName,
+                Verb=HttpVerb.GET,
+                Expires = DateTime.UtcNow.AddMinutes(15) // URL valid for 15 minutes
+            };
+
+            string url = await _s3Client.GetPreSignedURLAsync(request);
+            return Ok(new { url });
+        }
+    }
+}

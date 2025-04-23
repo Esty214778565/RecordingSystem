@@ -9,7 +9,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async (_, thunkAP
     try {
         const res = await axios.get(`${apiUrl}/user`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
             }
         });
         return res.data as User[];
@@ -125,3 +125,4 @@ const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
+

@@ -1,80 +1,6 @@
-// // React Component
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const FileUploader = () => {
-//   const [file, setFile] = useState<File | null>(null);
-//   const [progress, setProgress] = useState(0);
-
-//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.files) {
-//       setFile(e.target.files[0]);
-//     }
-//   };
-
-//   const handleUpload = async () => {
-//     console.log("enter to handleUpload");
-//     console.log("file:" + file);
-
-
-//     if (!file) return;
-
-//     try {
-//       // שלב 1: קבלת Presigned URL מהשרת
-//       const response = await axios.get('https://localhost:7043/api/upload/presigned-url-up', {
-//         params: { fileName: file.name }
-//       });
-
-//       const presignedUrl = response.data.url;
-//       console.log("persignurl:" + presignedUrl);
-
-//       console.log("file.type" + file.type);
-//       console.log("file.name" + file.name);
-
-//       // שלב 2: העלאת הקובץ ישירות ל-S3
-//       await axios.put(presignedUrl, file, {
-//         headers: {
-//           'Content-Type': file.type,
-//           //'Content-Type': "video/x-ms-wmv",
-//         },
-//         onUploadProgress: (progressEvent) => {
-//           const percent = Math.round(
-//             (progressEvent.loaded * 100) / (progressEvent.total || 1)
-//           );
-//           setProgress(percent);
-//         },
-//       });
-
-//       alert('הקובץ הועלה בהצלחה!');
-
-
-
-//     } catch (error) {
-//       console.error('שגיאה בהעלאה:', error);
-//     }
-
-//   };
-
-//   return (
-//     <div>
-//       <input type="file" onChange={handleFileChange} />
-//       <button onClick={handleUpload}>העלה קובץ</button>
-//       {progress > 0 && <div>התקדמות: {progress}%</div>}
-//     </div>
-
-//   );
-// };
-
-// export default FileUploader;
-
-
-// FileUploader.tsx
-
-
-
-// FileUploader.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import TranscriptionComponent from './Lessons/Transcription';
 
 interface FileUploaderProps {
   onUploadSuccess: (presignedUrl: string, fileType: string, fileSize: number) => void;
@@ -83,7 +9,7 @@ interface FileUploaderProps {
 const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
-
+  const [transcribe, setTranscribe] = useState(false);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
@@ -100,7 +26,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       });
 
       const presignedUrl = response.data.url;
-     
+
       console.log("persigned url in upload:" + presignedUrl);
 
       console.log(file.type);
@@ -129,12 +55,16 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       console.error('Upload Error', error);
     }
   };
-
+  const handletranscribe = () => {
+    setTranscribe(true);
+  }
   return (
     <div>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>Save File</button>
       {progress > 0 && <div>Process: {progress}%</div>}
+      <button onClick={handletranscribe}>Transcribe</button>
+      {transcribe && file && <TranscriptionComponent audioFile={file} />}
     </div>
   );
 };

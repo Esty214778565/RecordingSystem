@@ -119,9 +119,9 @@
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, Container, Typography, Box, Grid, Paper, CssBaseline, AppBar, Toolbar, CardMedia } from '@mui/material';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import AddLesson from './Lessons/AddLesson';
+// import AddLesson from './Lessons/AddLesson';
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -148,24 +148,11 @@ const theme = createTheme({
 });
 
 const HomePage = () => {
-    const [modalLoginOpen, setModalLoginOpen] = useState<boolean>(false);
-    const [modalRegisterOpen, setModalRegisterOpen] = useState<boolean>(false);
+    // const [modalLoginOpen, setModalLoginOpen] = useState<boolean>(false);
+    // const [modalRegisterOpen, setModalRegisterOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const DEFAULT_IMAGE_URL = './../../../public/Images/img1.jpg'; // Default image
-
-    const handleCloseLogin = () => {
-        setModalLoginOpen(false);
-    };
-    const handleLogin = () => {
-        setModalLoginOpen(true);
-    };
-    const handleRegister = () => {
-        setModalRegisterOpen(true);
-    };
-    const handleCloseRegister = () => {
-        setModalRegisterOpen(false);
-    };
 
     return (
         <>
@@ -178,10 +165,9 @@ const HomePage = () => {
                         </Typography>
                         <Typography variant="h4" sx={{ padding: '0.5em', textAlign: 'left', flexGrow: 1, color: theme.palette.custom.main }}>
                             RecordWise
-                            <Typography variant="h6" >
-                                Manage your recordings smartly
-                            </Typography>
-
+                        </Typography>
+                        <Typography variant="h6" sx={{ padding: '0.5em', textAlign: 'left', flexGrow: 1, color: theme.palette.custom.main }}>
+                            Manage your recordings smartly
                         </Typography>
 
                         <Button

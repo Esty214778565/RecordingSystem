@@ -122,7 +122,7 @@ const LessonsTeacher = () => {
     useEffect(() => {
         const fetchTeachers = async () => {
             if (!teacher) {
-                debugger;
+
                 await dispatch(fetchListOfTeachers(Number(teacherId)));
             }
         };
@@ -132,6 +132,7 @@ const LessonsTeacher = () => {
 
     const handleDelete = async (recordId: number) => {
         await dispatch(deleteLesson(recordId));
+
         // await dispatch(fetchListOfTeachers(Number(teacherId)));
 
     };
@@ -215,7 +216,29 @@ const LessonsTeacher = () => {
                                 >
                                     {record.fileName}
                                 </Typography>
-                                <Button
+                                {
+                                    teacher?.teacherId === Number(sessionStorage.getItem("userId")) && (
+                                        <>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                size="small"
+                                                onClick={() => record.id !== undefined && setEditingRecord({ id: record.id, fileName: record.fileName })}
+                                                sx={{ marginRight: '8px' }}
+                                            >
+                                                Edit
+                                            </Button>
+                                            <Button
+                                                variant="outlined"
+                                                color="secondary"
+                                                size="small"
+                                                onClick={() => record.id !== undefined && handleDelete(record.id)}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </>
+                                    )}
+                                {/* <Button
                                     variant="contained"
                                     color="primary"
                                     size="small"
@@ -231,7 +254,7 @@ const LessonsTeacher = () => {
                                     onClick={() => record.id !== undefined && handleDelete(record.id)}
                                 >
                                     Delete
-                                </Button>
+                                </Button> */}
                             </>
                         )}
                         {audioPlayer?.link && <AudioPlayer audioUrl={record.s3Key} />}

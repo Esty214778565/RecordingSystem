@@ -183,10 +183,10 @@ const style = {
     borderRadius: '10px',
 };
 
-type ModalProps = {
-    open: boolean;
-    handleClose: () => void;
-};
+// type ModalProps = {
+//     open: boolean;
+//     handleClose: () => void;
+// };
 
 // const Register = ({ open, handleClose }: ModalProps) => {
 const Register = () => {

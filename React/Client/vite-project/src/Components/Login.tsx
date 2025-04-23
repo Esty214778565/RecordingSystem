@@ -27,10 +27,10 @@ const style = {
     borderRadius: '10px',
 };
 
-type ModalProps = {
-    open: boolean;           // Indicates whether the modal is open
-    handleClose: () => void; // Function to close the modal
-};
+// type ModalProps = {
+//     open: boolean;           // Indicates whether the modal is open
+//     handleClose: () => void; // Function to close the modal
+// };
 
 // const Login = ({ open, handleClose }: ModalProps) => {
 const Login = () => {
