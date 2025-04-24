@@ -22,6 +22,7 @@ export const fechcoursesKategories = createAsyncThunk('courses/fetchCoursesKateg
 
     const token = sessionStorage.getItem("token");
     try {
+        debbugger;
         const res = await axios.get(`${apiUrl}/folder/kategories`, {
             headers: {
                 'Authorization': `Bearer ${token}`

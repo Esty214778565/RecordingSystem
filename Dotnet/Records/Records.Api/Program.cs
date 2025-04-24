@@ -130,10 +130,12 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
+    options.AddPolicy("AllowSpecificOrigins",
+        builder => builder.WithOrigins("http://localhost:5173")
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
@@ -148,7 +150,7 @@ var app = builder.Build();
 //check for files
 app.UseStaticFiles();
 //---ruti shtraicer
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowSpecificOrigins");
 builder.Services.AddEndpointsApiExplorer();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -168,11 +170,12 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
 app.UseRouting();
-app.UseCors("AllowAllOrigins");
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGet("/", async context =>
