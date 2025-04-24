@@ -134,11 +134,11 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins",
-        builder => builder.WithOrigins("https://recordingsystem-server.onrender.com/","http://localhost:5173")
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
                           .AllowAnyMethod()
                           .AllowAnyHeader()
-                           .AllowCredentials());
+                           );
 });
 //public void ConfigureServices(IServiceCollection services)
 //{
@@ -151,7 +151,7 @@ var app = builder.Build();
 //check for files
 app.UseStaticFiles();
 //---ruti shtraicer
-app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowAllOrigins");
 builder.Services.AddEndpointsApiExplorer();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
