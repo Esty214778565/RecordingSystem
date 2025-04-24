@@ -163,10 +163,21 @@ if (app.Environment.IsDevelopment())
 }
 
 
+
+
+
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGet("/", async context =>
+    {
+        await context.Response.WriteAsync("Hello World!");
+    });
+});
 app.MapControllers();
 
 app.Run();
