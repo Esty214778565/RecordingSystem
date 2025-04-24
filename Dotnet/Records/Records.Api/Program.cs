@@ -172,6 +172,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
 app.UseRouting();
+app.UseCors("AllowAllOrigins");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGet("/", async context =>
