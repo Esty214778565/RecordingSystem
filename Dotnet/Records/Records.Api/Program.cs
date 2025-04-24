@@ -137,7 +137,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigins",
         builder => builder.WithOrigins("https://recordingsystem-server.onrender.com/","http://localhost:5173")
                           .AllowAnyMethod()
-                          .AllowAnyHeader());
+                          .AllowAnyHeader()
+                           .AllowCredentials());
 });
 //public void ConfigureServices(IServiceCollection services)
 //{
