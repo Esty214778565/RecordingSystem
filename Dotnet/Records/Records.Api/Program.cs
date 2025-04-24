@@ -171,6 +171,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
+app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGet("/", async context =>
