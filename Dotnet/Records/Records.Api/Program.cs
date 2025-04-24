@@ -135,7 +135,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
-        builder => builder.WithOrigins("http://localhost:5173")
+        builder => builder.WithOrigins("https://recordingsystem-server.onrender.com/","http://localhost:5173")
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
@@ -170,7 +170,7 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAllOrigins");
+//app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
