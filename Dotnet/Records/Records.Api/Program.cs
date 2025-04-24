@@ -172,10 +172,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 //app.UseCors("AllowAllOrigins");
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
-app.UseRouting();
+
 
 app.UseEndpoints(endpoints =>
 {

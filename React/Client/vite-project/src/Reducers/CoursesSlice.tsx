@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Course } from '../Models/Course';
 
-
-const apiUrl = "https://recordingsystem-server.onrender.com/api";
+const apiUrl="https://localhost:7043/api";
+// const apiUrl = "https://recordingsystem-server.onrender.com/api";
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async (_, thunkAPI) => {
     const token = sessionStorage.getItem("token");
@@ -22,7 +22,7 @@ export const fechcoursesKategories = createAsyncThunk('courses/fetchCoursesKateg
 
     const token = sessionStorage.getItem("token");
     try {
-        debbugger;
+      
         const res = await axios.get(`${apiUrl}/folder/kategories`, {
             headers: {
                 'Authorization': `Bearer ${token}`
