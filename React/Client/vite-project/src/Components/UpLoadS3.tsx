@@ -22,7 +22,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
     try {
       // שלב 1: קבלת Presigned URL מהשרת
       const response = await axios.get('https://localhost:7043/api/upload/presigned-url-up', {
-        params: { fileName: file.name }
+        params: { fileName: file.name, fileType: file.type },
       });
 
       const presignedUrl = response.data.url;
@@ -60,7 +60,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
   }
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" accept=".mp3" onChange={handleFileChange} />
       <button onClick={handleUpload}>Save File</button>
       {progress > 0 && <div>Process: {progress}%</div>}
       <button onClick={handletranscribe}>Transcribe</button>

@@ -21,8 +21,6 @@ export class SignInComponent {
     this.authService.login(this.credentials).subscribe(result => {
 
       if (result.role !== "admin") {
-        // debugger;
-        //  alert("you are not admin you can't login to this application");
         this.close();
       }
       else {

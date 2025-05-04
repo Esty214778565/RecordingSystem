@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Course } from '../Models/Course';
 
-const apiUrl="https://localhost:7043/api";
-// const apiUrl = "https://recordingsystem-server.onrender.com/api";
+// const apiUrl="https://localhost:7043/api";
+const apiUrl = "https://recordingsystem-server.onrender.com/api";
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async (_, thunkAPI) => {
     const token = sessionStorage.getItem("token");
@@ -120,21 +120,26 @@ export const fetchListOfTeachers = createAsyncThunk(
         debugger;
         const token = sessionStorage.getItem("token");
         try {
-            console.log("in teachers list fech");
+        console.log("in teachers list fech");
 
-            const res = await axios.get(`${apiUrl}/folder/children/${parentId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
-         
-            const lessonsArray = res.data;
-            const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({
-                ...course, // כל השדות האחרים
-                teacherId: course.userId, // החלפת userId ב-teacherId
-            }));
-            return mappedLessonsArray as Course[];
+        const res = await axios.get(`${apiUrl}/folder/children/${parentId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
+
+        if (Array.isArray(res.data) && res.data.length === 0) {
+            console.warn("No teachers found for the given parent ID:", parentId);
+            return thunkAPI.rejectWithValue("No teachers found");
+        }
+
+        const lessonsArray = res.data;
+        const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({
+            ...course, // כל השדות האחרים
+            teacherId: course.userId, // החלפת userId ב-teacherId
+        }));
+        return mappedLessonsArray as Course[];
         } catch (error) {
             return thunkAPI.rejectWithValue("Failed to fetch courses by parent ID");
         }

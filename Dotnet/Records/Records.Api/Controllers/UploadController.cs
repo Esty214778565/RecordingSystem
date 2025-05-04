@@ -18,17 +18,22 @@ namespace Records.Api.Controllers
         }
 
         [HttpGet("presigned-url-up")]
-        public async Task<IActionResult> GetPresignedUrlUp([FromQuery] string fileName)
+        public async Task<IActionResult> GetPresignedUrlUp([FromQuery] string fileName, [FromQuery] string fileType)
         {
+            //string contentType = fileType.ToLower() switch
+            //{
+            //    "mp3" => "audio/mpeg",
+            //    "txt" => "text/plain",
+            //    _ => throw new ArgumentException("Unsupported file type")
+            //};
+
             var request = new GetPreSignedUrlRequest
             {
                 BucketName = "my-first-records-bucket.testpnoren",
                 Key = fileName,
                 Verb = HttpVerb.PUT,
                 Expires = DateTime.UtcNow.AddMinutes(5),
-                //ContentType = "video/x-ms-wmv" // או סוג הקובץ המתאים
-                //ContentType = "text/plain" // או סוג הקובץ המתאים
-               ContentType = "audio/mpeg" // או סוג הקובץ המתאים
+                ContentType = fileType
             };
 
             string url = await _s3Client.GetPreSignedURLAsync(request);

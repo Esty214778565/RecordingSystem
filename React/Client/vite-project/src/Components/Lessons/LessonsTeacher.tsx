@@ -119,6 +119,15 @@ const LessonsTeacher = () => {
     const { teacherId } = useParams<{ teacherId: string }>();
     const teacher = useSelector((state: RootState) => state.courses.teachers.find(teacher => teacher.id === Number(teacherId)));
 
+    const handleDelete = async (recordId: number) => {
+        await dispatch(deleteLesson(recordId));
+        debugger;
+        //check if needed
+        await dispatch(fetchListOfTeachers(Number(teacherId))); // Refetch teacher's data
+
+
+    };
+
     useEffect(() => {
         const fetchTeachers = async () => {
             if (!teacher) {
@@ -126,23 +135,15 @@ const LessonsTeacher = () => {
                 await dispatch(fetchListOfTeachers(Number(teacherId)));
             }
         };
-
         fetchTeachers();
     }, [dispatch, teacher, teacherId]);
 
-    const handleDelete = async (recordId: number) => {
-        await dispatch(deleteLesson(recordId));
-
-        // await dispatch(fetchListOfTeachers(Number(teacherId)));
-
-    };
-
-/*************  ✨ Windsurf Command ⭐  *************/
+    /*************  ✨ Windsurf Command ⭐  *************/
     /**
      * Handles the update of a lesson record in the database
      * @param recordId The ID of the lesson record to be updated
      */
-/*******  e61e6bcb-acae-436d-9a1b-b74b2d04135b  *******/    const handleUpdate = async (recordId: number) => {
+    const handleUpdate = async (recordId: number) => {
 
         if (updatedFileName.trim()) {
             await dispatch(updateLesson({
@@ -155,6 +156,8 @@ const LessonsTeacher = () => {
             }));
             setEditingRecord(null);
             setUpdatedFileName('');
+            //check if needed
+            await dispatch(fetchListOfTeachers(Number(teacherId))); // Refetch teacher's data
         }
     };
 
@@ -238,23 +241,6 @@ const LessonsTeacher = () => {
                                             </Button>
                                         </>
                                     )}
-                                {/* <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    onClick={() => record.id !== undefined && setEditingRecord({ id: record.id, fileName: record.fileName })}
-                                    sx={{ marginRight: '8px' }}
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    size="small"
-                                    onClick={() => record.id !== undefined && handleDelete(record.id)}
-                                >
-                                    Delete
-                                </Button> */}
                             </>
                         )}
                         {audioPlayer?.link && <AudioPlayer audioUrl={record.s3Key} />}

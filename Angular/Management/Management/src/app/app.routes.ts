@@ -7,7 +7,7 @@ import { UserFormComponent } from '../Users/user-form/user-form.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: SignInComponent },
     {
         path: 'users', component: AllUsersComponent,
         children: [

@@ -182,13 +182,6 @@ const style = {
     p: 4,
     borderRadius: '10px',
 };
-
-// type ModalProps = {
-//     open: boolean;
-//     handleClose: () => void;
-// };
-
-// const Register = ({ open, handleClose }: ModalProps) => {
 const Register = () => {
     const dispatch = useDispatch<UserDispatch>();
     const navigate = useNavigate();
@@ -209,7 +202,8 @@ const Register = () => {
     const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            role: e.target.value,
+            role: "admin",
+            // role: e.target.value,
         });
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

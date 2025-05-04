@@ -22,13 +22,14 @@ export class UserService {
     // if (typeof window === 'undefined' || window.sessionStorage === undefined) {
     //   return new HttpHeaders();
     // }
-    const token = sessionStorage.getItem('token') || '';
+    const token = (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('token')) || '';
 
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
   }
+
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl, { headers: this.getHeaders() }).pipe(
