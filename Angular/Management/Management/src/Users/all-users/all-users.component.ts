@@ -12,19 +12,21 @@ import { FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationService } from '../../Authentication/Services/authentication.service';
+import { UserGraphComponent } from '../users-graph/users-graph.component';
 @Component({
-  selector: 'app-all-users',
-  standalone: true,
-  imports: [MatCardModule, RouterOutlet,
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatGridListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule, MatIconModule],
-  templateUrl: './all-users.component.html',
-  styleUrl: './all-users.component.css'
+    selector: 'app-all-users',
+    imports: [MatCardModule, RouterOutlet,
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatGridListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+         MatIconModule,
+        UserGraphComponent],
+    templateUrl: './all-users.component.html',
+    styleUrl: './all-users.component.css'
 })
 export class AllUsersComponent implements OnInit {
   users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);

@@ -10,7 +10,7 @@ import { User } from '../Models/user';
 })
 export class UserService {
 
-  private apiUrl = 'https://localhost:7043/api/user';
+  private apiUrl = 'https://recordingsystem-server.onrender.com/api/user';
 
   private UsersSubject = new BehaviorSubject<User[]>([]);
   Users$ = this.UsersSubject.asObservable();

@@ -11,11 +11,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-user-form',
-  standalone: true,
-  imports: [MatButtonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule],
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.css'
+    selector: 'app-user-form',
+    imports: [MatButtonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule],
+    templateUrl: './user-form.component.html',
+    styleUrl: './user-form.component.css'
 })
 export class UserFormComponent {
   UserId: number = 0;

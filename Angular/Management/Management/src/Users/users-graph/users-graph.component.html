@@ -1,0 +1,11 @@
+<!-- <div style="display: block; width: 100%; height: 400px;">
+    <canvas baseChart
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [type]="barChartType">
+    </canvas>
+  </div> -->
+  @for ( User of users;track User.id) {
+   <p>{{ User.name }} (ID: {{ User.id }})</p>
+   <p>{{ User.email }}</p>
+  }

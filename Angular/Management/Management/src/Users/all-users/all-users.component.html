@@ -29,6 +29,10 @@
             </div>
         </mat-grid-list>
     </div>
+    <div>
+        <h2>User Graph</h2>
+        <app-user-graph [users]="(users | async) ?? []"></app-user-graph>
+      </div>
     <div class="router-outlet-container">
         <router-outlet></router-outlet>
     </div>

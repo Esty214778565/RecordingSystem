@@ -13,7 +13,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
   login(credentials: { name: string; password: string }): Observable<any> {
     console.log("in auth service login");
-    console.log(`${this.apiUrl}/auth/login`);
+    console.log(this.apiUrl);
     debugger;
     return this.http.post(this.apiUrl, credentials).pipe(
       tap((result: any) => {

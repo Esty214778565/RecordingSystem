@@ -4,11 +4,10 @@ import { AuthenticationService } from '../../Services/authentication.service';
 import { UserService } from '../../../Services/user.service';
 import { FormsModule } from '@angular/forms';
 @Component({
-  selector: 'app-sign-in',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.css'
+    selector: 'app-sign-in',
+imports: [FormsModule],
+    templateUrl: './sign-in.component.html',
+    styleUrl: './sign-in.component.css'
 })
 export class SignInComponent {
   credentials = { name: '', password: '' };
