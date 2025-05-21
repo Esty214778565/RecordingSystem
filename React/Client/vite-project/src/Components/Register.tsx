@@ -202,13 +202,17 @@ const Register = () => {
     const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            role: "admin",
-            // role: e.target.value,
+            //role: "teacher",
+             role: e.target.value,
         });
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await dispatch(registerUser(user));
+        const res: any = await dispatch(registerUser(user));
+        if (res.error) {
+            alert('Login failed');
+            return;
+        }
         navigate('/courses');
         // handleClose();
     };

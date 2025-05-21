@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Course } from '../Models/Course';
 
 // const apiUrl="https://localhost:7043/api";
-const apiUrl = "https://recordingsystem-server.onrender.com/api";
+const apiUrl = "https://localhost:7043/api";
+//const apiUrl = "https://recordingsystem-server.onrender.com/api";
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async (_, thunkAPI) => {
     const token = sessionStorage.getItem("token");
@@ -60,7 +61,6 @@ export const addCourse = createAsyncThunk('course/addCourse', async (courseData:
         ParentFolderId: courseData.parentFolderId,
         UserId: courseData.teacherId
     }
-    debugger;
     try {
         const res = await axios.post(`${apiUrl}/folder`, obj, {
             headers: {
@@ -69,7 +69,12 @@ export const addCourse = createAsyncThunk('course/addCourse', async (courseData:
         });
 
         console.log("Response data in addCourse slice:", res.data);
-        return res.data as Course;
+        // Map the response to ensure updateDate is a Date object (not string)
+        const courseFromRes = {
+            ...res.data,
+            updateDate: res.data.updateDate ? new Date(res.data.updateDate) : undefined
+        } as Course;
+        return courseFromRes;
     } catch (error: any) {
         console.error("Error in addCourse:", error);
         if (error.response) {
@@ -91,9 +96,15 @@ export const updateCourse = createAsyncThunk('course/updateCourse', async (cours
     try {
         const res = await axios.put(`${apiUrl}/folder/${courseData.id}`, courseData, {
             headers: {
-                'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
             }
         });
+        // Map the response to ensure updateDate is a Date object (not string)
+        const courseFromRes = {
+            ...res.data,
+            updateDate: res.data.updateDate ? new Date(res.data.updateDate) : undefined
+        } as Course;
+        return courseFromRes;
         return res.data as Course;
     } catch (error) {
         return thunkAPI.rejectWithValue("Failed to update course");
@@ -117,7 +128,8 @@ export const deleteCourse = createAsyncThunk('course/deleteCourse', async (cours
 export const fetchListOfTeachers = createAsyncThunk(
     'courses/fetchListOfTeachers',
     async (parentId: number, thunkAPI) => {
-        debugger;
+       
+        
         const token = sessionStorage.getItem("token");
         try {
         console.log("in teachers list fech");
@@ -129,10 +141,10 @@ export const fetchListOfTeachers = createAsyncThunk(
         });
         console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
 
-        if (Array.isArray(res.data) && res.data.length === 0) {
-            console.warn("No teachers found for the given parent ID:", parentId);
-            return thunkAPI.rejectWithValue("No teachers found");
-        }
+        // if (Array.isArray(res.data) && res.data.length === 0) {
+        //     console.warn("No teachers found for the given parent ID:", parentId);
+        //     return thunkAPI.rejectWithValue("No teachers found");
+        // }
 
         const lessonsArray = res.data;
         const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({

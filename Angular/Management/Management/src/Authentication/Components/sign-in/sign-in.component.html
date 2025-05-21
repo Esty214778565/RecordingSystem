@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Sign In</h2>
+<!-- <h2 mat-dialog-title>Sign In</h2>
 <form action="" (submit)="signIn()">
   <label>Name</label>
 
@@ -9,4 +9,52 @@
 
   <button mat-button type="submit">Sign In</button>
   <button (click)="close()">Cancel</button>
-</form>
+</form> -->
+<div class="sign-in-container">
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+  
+  <mat-card class="sign-in-card" @fadeIn>
+    <div class="sign-in-header">
+      <div class="logo-container">
+        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="sign-in-title">Sign In</h2>
+      <p class="subtitle">Enter your credentials to access your account</p>
+    </div>
+
+    <mat-divider></mat-divider>
+    
+    <div class="sign-in-content">
+      <form (submit)="signIn()" class="login-form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Name</mat-label>
+          <mat-icon matPrefix class="field-icon">person</mat-icon>
+          <input matInput [(ngModel)]="credentials.name" [ngModelOptions]="{standalone: true}" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix class="field-icon">lock</mat-icon>
+          <input matInput [(ngModel)]="credentials.password" [ngModelOptions]="{standalone: true}" 
+                [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-flat-button color="accent" type="submit" class="submit-button">Sign In</button>
+          <button mat-stroked-button type="button" (click)="close()" class="cancel-button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>

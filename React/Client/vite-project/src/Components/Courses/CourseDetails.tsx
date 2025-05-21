@@ -153,9 +153,9 @@ const CourseDetail = () => {
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Divider sx={{ mb: 2 }} />
-                                        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+                                        {/* <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
                                             Updated on: {new Date(teacher.updateDate).toLocaleDateString()}
-                                        </Typography>
+                                        </Typography> */}
                                         <Paper
                                             elevation={2}
                                             sx={{
@@ -165,6 +165,13 @@ const CourseDetail = () => {
                                             }}
                                         >
 
+                                            {/* <a href={`mailto:8578397@gmail.com?subject=${encodeURIComponent('שאלה למורה')}&body=${encodeURIComponent('תוכן גוף ההודעה')}`}>שלח מייל עם נושא ותוכן</a>  */}
+                                            <a
+                                                href={`mailto:8578397@gmail.com?subject=${encodeURIComponent('שאלה למורה')}&body=${encodeURIComponent('תוכן גוף ההודעה')}`}
+                                                style={{ display: 'inline-block', marginBottom: '12px', color: '#1976d2', textDecoration: 'underline' }}
+                                            >
+                                                שלח מייל עם נושא ותוכן
+                                            </a>
                                             <Outlet />
                                         </Paper>
                                     </AccordionDetails>

@@ -254,8 +254,10 @@ const AddLesson = () => {
         }
     };
 
+
     const fetchTeachersAndAddLesson = async (courseId: number) => {
         try {
+            
             const res = await dispatch(fetchListOfTeachers(courseId));
             if ('payload' in res && res.payload && Array.isArray(res.payload)) {
                 const teachers = res.payload;
@@ -289,7 +291,7 @@ const AddLesson = () => {
         try {
             const res2 = await dispatch(addCourse(teacher));
             if ('payload' in res2 && res2.payload && (res2.payload as Course).id) {
-                const x = (res2.payload as Course).id;
+                // const x = (res2.payload as Course).id;
                 setTeacherFolderId((res2.payload as Course).id);
                 setFinishAddLesson(true);
             } else {
@@ -303,8 +305,21 @@ const AddLesson = () => {
     return (
         <div className={styles.container}>
             <div className={styles.form}>
-                <select className={styles.dropdown} onChange={handleCourseSelection}>
+                {/* <select className={styles.dropdown} onChange={handleCourseSelection}>
                     <option value="" disabled selected>Select a course</option>
+                    {courses.map((course) => (
+                        <option key={course.id} value={course.id}>
+                            {course.name}
+                        </option>
+                    ))}
+                    <option value="new">New Course</option>
+                </select> */}
+                <select
+                    className={styles.dropdown}
+                    value={selectedCourseId === 0 ? "" : selectedCourseId}
+                    onChange={handleCourseSelection}
+                >
+                    <option value="" disabled>Select a course</option>
                     {courses.map((course) => (
                         <option key={course.id} value={course.id}>
                             {course.name}

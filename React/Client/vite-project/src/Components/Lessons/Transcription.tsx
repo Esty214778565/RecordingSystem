@@ -51,7 +51,6 @@
 
 
 import React, { useState } from 'react';
-import { Lesson } from '../../Models/Lesson';
 
 interface TranscriptionComponentProps {
     // File prop to be passed into the component

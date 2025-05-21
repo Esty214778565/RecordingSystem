@@ -21,6 +21,6 @@ namespace Records.Core.DTOs
          public bool IsDeleted { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-      
+        public List<Question> Questions { get; set; }
     }
 }

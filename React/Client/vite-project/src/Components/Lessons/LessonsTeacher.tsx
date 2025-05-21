@@ -106,6 +106,8 @@ import { fetchListOfTeachers } from '../../Reducers/CoursesSlice';
 import AudioPlayer from '../AudioPlayer';
 import { deleteLesson, updateLesson } from '../../Reducers/LessonsSlice';
 import { Box, Button, List, ListItem, TextField, Typography } from '@mui/material';
+import { Lesson } from '../../Models/Lesson';
+import QuestionList from './QuestionList';
 
 const LessonsTeacher = () => {
     console.log("enter to LessonTeacher");
@@ -121,11 +123,12 @@ const LessonsTeacher = () => {
 
     const handleDelete = async (recordId: number) => {
         await dispatch(deleteLesson(recordId));
-        debugger;
         //check if needed
+
+        if (teacher?.records.length === 1) {
+            window.location.pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        }
         await dispatch(fetchListOfTeachers(Number(teacherId))); // Refetch teacher's data
-
-
     };
 
     useEffect(() => {
@@ -143,23 +146,30 @@ const LessonsTeacher = () => {
      * Handles the update of a lesson record in the database
      * @param recordId The ID of the lesson record to be updated
      */
-    const handleUpdate = async (recordId: number) => {
+    const handleUpdate = async (record: Lesson) => {
 
         if (updatedFileName.trim()) {
-            await dispatch(updateLesson({
-                id: recordId, fileName: updatedFileName,
-                description: '',
-                s3Key: '',
-                fileType: '',
-                size: 0,
-                folderId: 0
-            }));
+            //check if map on questions
+            const updatedRecord = { ...record, fileName: updatedFileName, questions: record.questions || [] };
+
+            const res = await dispatch(updateLesson(updatedRecord));
+            debugger;
+            console.log("res in handleUpdate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:", res);
+
             setEditingRecord(null);
             setUpdatedFileName('');
             //check if needed
             await dispatch(fetchListOfTeachers(Number(teacherId))); // Refetch teacher's data
         }
+
     };
+    const handleEdit = async (record: Lesson) => {
+        const res = await dispatch(updateLesson(record));
+        const res2 = await dispatch(fetchListOfTeachers(Number(teacherId))); // Refetch teacher's data
+        console.log("res in handleEdit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:", res);
+        console.log("res2 in handleEdit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:", res2);
+
+    }
 
     return (
         <Box sx={{ padding: '16px' }}>
@@ -176,6 +186,31 @@ const LessonsTeacher = () => {
                             borderBottom: '1px solid #ccc',
                         }}
                     >
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline',
+                                    display: 'inline-block',
+                                    marginRight: '16px',
+                                }}
+                                onClick={() => {
+                                    setAudioPlayer({ fileType: 'audio/mpeg', link: record.s3Key });
+                                }}
+                            >
+                                {record.fileName}
+                            </Typography>
+                            <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{ display: 'inline-block', marginLeft: '8px' }}
+                            >
+                                {record.updateDate
+                                    ? `Updated: ${new Date(record.updateDate).toLocaleDateString()}`
+                                    : ''}
+                            </Typography>
+                        </Box>
                         {editingRecord && editingRecord.id === record.id ? (
                             <>
                                 <TextField
@@ -183,13 +218,13 @@ const LessonsTeacher = () => {
                                     size="small"
                                     value={updatedFileName}
                                     onChange={(e) => setUpdatedFileName(e.target.value)}
-                                    sx={{ flexGrow: 1, marginRight: '16px', width: '200px' }}
+                                    sx={{ marginRight: '16px', width: '200px' }}
                                 />
                                 <Button
                                     variant="contained"
                                     color="primary"
                                     size="small"
-                                    onClick={() => record.id !== undefined && handleUpdate(record.id)}
+                                    onClick={() => record.id !== undefined && handleUpdate(record)}
                                     sx={{ marginRight: '8px' }}
                                 >
                                     Save
@@ -205,47 +240,34 @@ const LessonsTeacher = () => {
                             </>
                         ) : (
                             <>
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        flexGrow: 1,
-                                        cursor: 'pointer',
-                                        textDecoration: 'underline',
-                                    }}
-                                    onClick={() => {
-
-                                        setAudioPlayer({ fileType: 'audio/mpeg', link: record.s3Key });
-                                    }}
-                                >
-                                    {record.fileName}
-                                </Typography>
-                                {
-                                    teacher?.teacherId === Number(sessionStorage.getItem("userId")) && (
-                                        <>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                size="small"
-                                                onClick={() => record.id !== undefined && setEditingRecord({ id: record.id, fileName: record.fileName })}
-                                                sx={{ marginRight: '8px' }}
-                                            >
-                                                Edit
-                                            </Button>
-                                            <Button
-                                                variant="outlined"
-                                                color="secondary"
-                                                size="small"
-                                                onClick={() => record.id !== undefined && handleDelete(record.id)}
-                                            >
-                                                Delete
-                                            </Button>
-                                        </>
-                                    )}
+                                {teacher?.teacherId === Number(sessionStorage.getItem("userId")) && (
+                                    <>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            size="small"
+                                            onClick={() => record.id !== undefined && setEditingRecord({ id: record.id, fileName: record.fileName })}
+                                            sx={{ marginRight: '8px' }}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="outlined"
+                                            color="secondary"
+                                            size="small"
+                                            onClick={() => record.id !== undefined && handleDelete(record.id)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </>
+                                )}
                             </>
                         )}
                         {audioPlayer?.link && <AudioPlayer audioUrl={record.s3Key} />}
-                    </ListItem>
-                ))}
+
+                        <QuestionList record={record} setRecord={handleEdit} />
+
+                    </ListItem>))}
             </List>
         </Box>
     );

@@ -45,7 +45,11 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await dispatch(loginUser(userLogin));
+       const res:any= await dispatch(loginUser(userLogin));
+        if (res.error) {
+            alert('Login failed');
+            return;
+        }
         navigate('/courses');
         // handleClose();
     };

@@ -78,6 +78,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Store/Store";
 import { addLesson } from "../../Reducers/LessonsSlice";
 import styles from "./LessonUploader.module.css"; // Adjust the path as necessary
+import { fetchListOfTeachers } from "../../Reducers/CoursesSlice";
 
 const LessonUploader: React.FC<{ teacherFolderId: number }> = ({ teacherFolderId }) => {
     const dispatch = useDispatch<AppDispatch>();
@@ -87,18 +88,22 @@ const LessonUploader: React.FC<{ teacherFolderId: number }> = ({ teacherFolderId
 
     const handleUploadSuccess = async (presignedUrl: string, fileType: string, fileSize: number) => {
         const lessonData: Lesson = {
+            
             fileName: lessonName,
             description: lessonDescription,
             s3Key: presignedUrl,
             fileType: fileType,
             size: fileSize,
             folderId: Number(teacherFolderId),
+            questions: [], 
         };
+    
         try {
             setLoading(true);
             const result = await dispatch(addLesson(lessonData));
             console.log("Lesson successfully saved:", result);
             alert("Lesson uploaded successfully!");
+            dispatch(fetchListOfTeachers(Number(teacherFolderId)));
         } catch (error) {
             console.error("Error saving lesson:", error);
             alert("An error occurred while saving the lesson. Please try again.");

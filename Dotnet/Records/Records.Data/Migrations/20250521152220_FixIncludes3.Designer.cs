@@ -12,8 +12,8 @@ using Records.Data;
 namespace Records.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250422194429_try-fix-env")]
-    partial class tryfixenv
+    [Migration("20250521152220_FixIncludes3")]
+    partial class FixIncludes3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,28 @@ namespace Records.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("Records.Core.Entities.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
 
             modelBuilder.Entity("Records.Core.Entities.FolderEntity", b =>
                 {
@@ -61,6 +83,28 @@ namespace Records.Data.Migrations
                     b.ToTable("Folders");
                 });
 
+            modelBuilder.Entity("Records.Core.Entities.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RecordEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordEntityId");
+
+                    b.ToTable("Questions");
+                });
+
             modelBuilder.Entity("Records.Core.Entities.RecordEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -87,9 +131,6 @@ namespace Records.Data.Migrations
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FolderId1")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
@@ -106,8 +147,6 @@ namespace Records.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FolderId");
-
-                    b.HasIndex("FolderId1");
 
                     b.ToTable("Records");
                 });
@@ -147,6 +186,17 @@ namespace Records.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Records.Core.Entities.Answer", b =>
+                {
+                    b.HasOne("Records.Core.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("Records.Core.Entities.FolderEntity", b =>
                 {
                     b.HasOne("Records.Core.Entities.FolderEntity", "ParentFolder")
@@ -164,17 +214,22 @@ namespace Records.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Records.Core.Entities.RecordEntity", b =>
+            modelBuilder.Entity("Records.Core.Entities.Question", b =>
                 {
-                    b.HasOne("Records.Core.Entities.FolderEntity", null)
-                        .WithMany("Records")
-                        .HasForeignKey("FolderId")
+                    b.HasOne("Records.Core.Entities.RecordEntity", "Record")
+                        .WithMany("Questions")
+                        .HasForeignKey("RecordEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Record");
+                });
+
+            modelBuilder.Entity("Records.Core.Entities.RecordEntity", b =>
+                {
                     b.HasOne("Records.Core.Entities.FolderEntity", "Folder")
-                        .WithMany()
-                        .HasForeignKey("FolderId1")
+                        .WithMany("Records")
+                        .HasForeignKey("FolderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -184,6 +239,16 @@ namespace Records.Data.Migrations
             modelBuilder.Entity("Records.Core.Entities.FolderEntity", b =>
                 {
                     b.Navigation("Records");
+                });
+
+            modelBuilder.Entity("Records.Core.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("Records.Core.Entities.RecordEntity", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Records.Core.Entities.UserEntity", b =>

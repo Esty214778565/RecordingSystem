@@ -1,4 +1,4 @@
-<div class="register-modal">
+<!-- <div class="register-modal">
     <div class="register-modal-content">
         <h2>
             Register
@@ -34,6 +34,85 @@
                 </button>
                 <button mat-raised-button color="warn" (click)="closeModal()">
                     Close
+                </button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="form-container">
+    <div class="background-decoration">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </div>
+
+    <div class="form-card">
+        <button mat-icon-button class="close-button" (click)="closeModal()" aria-label="Close form">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <div class="form-header">
+            <div class="form-icon">
+                <mat-icon>{{ isAdd ? 'person_add' : 'edit' }}</mat-icon>
+            </div>
+            <h2 class="form-title">{{ isAdd ? 'Add New User' : 'Edit User' }}</h2>
+            <p class="form-subtitle">{{ isAdd ? 'Create a new user account' : 'Update user information' }}</p>
+        </div>
+
+        <form [formGroup]="UserForm" (submit)="onSubmit()" class="user-form">
+            <div class="form-fields">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Name</mat-label>
+                    <mat-icon matPrefix class="field-icon">person</mat-icon>
+                    <input matInput formControlName="name" placeholder="Enter full name" aria-label="User Name">
+                    <mat-error *ngIf="UserForm.get('name')?.invalid && UserForm.get('name')?.touched">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix class="field-icon">email</mat-icon>
+                    <input matInput formControlName="email" placeholder="Enter email address" aria-label="User Email"
+                        type="email">
+                    <mat-error *ngIf="UserForm.get('email')?.invalid && UserForm.get('email')?.touched">
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Password</mat-label>
+                    <mat-icon matPrefix class="field-icon">lock</mat-icon>
+                    <input matInput formControlName="password" placeholder="Enter password" aria-label="User Password"
+                        [type]="hidePassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button"
+                        aria-label="Toggle password visibility">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="UserForm.get('password')?.invalid && UserForm.get('password')?.touched">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Role</mat-label>
+                    <mat-icon matPrefix class="field-icon">badge</mat-icon>
+                    <mat-select formControlName="role" aria-label="User Role">
+                        <mat-option value="user">user</mat-option>
+                        <mat-option value="teacher">teacher</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="UserForm.get('role')?.invalid && UserForm.get('role')?.touched">
+                        Role is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-actions">
+                <button mat-stroked-button type="button" class="cancel-button" (click)="closeModal()">
+                    Cancel
+                </button>
+                <button mat-flat-button type="submit" class="submit-button" [disabled]="UserForm.invalid">
+                    {{ isAdd ? 'Create User' : 'Update User' }}
                 </button>
             </div>
         </form>

@@ -5,6 +5,7 @@ using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Records.Api;
@@ -130,7 +131,16 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-
+//builder.Services.AddDbContext<DataContext>(
+//    options => options.UseMySql(connectionString,
+//    new MySqlServerVersion(new Version(8, 0, 41)),
+//    mysqlOptions =>
+//    {
+//        mysqlOptions.EnableRetryOnFailure(
+//            maxRetryCount: 10,
+//            maxRetryDelay: TimeSpan.FromSeconds(30),
+//            errorNumbersToAdd: null);
+//    }));
 
 builder.Services.AddCors(options =>
 {

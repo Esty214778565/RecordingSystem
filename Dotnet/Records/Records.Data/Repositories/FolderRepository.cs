@@ -23,18 +23,22 @@ namespace Records.Data.Repositories
 
         public async Task<IEnumerable<FolderEntity>> GetListAsync()
         {
-            return await _context.Folders.Include(f=>f.Records).Include(f2=>f2.ParentFolder).ToListAsync();
+            return await _context.Folders.Include(f => f.Records).ThenInclude(r => r.Questions)
+                .ThenInclude(q => q.Answers).Include(f2 => f2.ParentFolder).ToListAsync();
         }
         public async Task<FolderEntity> GetByIdAsync(int id)
         {
             return await _context.Folders
                                  .Include(f => f.Records)
+                                 .ThenInclude(r => r.Questions)
+                                 .ThenInclude(q => q.Answers)
                                  .FirstOrDefaultAsync(f => f.Id == id);
         }
         public async Task<FolderEntity> AddAsync(FolderEntity folder)
         {
 
-            if (folder.UserId == 0) {
+            if (folder.UserId == 0)
+            {
                 folder.UserId = null;
             }
             if (folder.ParentFolderId == 0)
@@ -67,14 +71,14 @@ namespace Records.Data.Repositories
                 return null;
             existingFolder.Name = folder.Name;
             existingFolder.Records = folder.Records;
-            
-            existingFolder.UpdateDate=DateTime.Now;
-            existingFolder.User=folder.User;
+
+            existingFolder.UpdateDate = DateTime.Now;
+            existingFolder.User = folder.User;
             existingFolder.UserId = folder.UserId;
             existingFolder.ParentFolderId = folder.ParentFolderId;
-            existingFolder.ParentFolder=folder.ParentFolder;
+            existingFolder.ParentFolder = folder.ParentFolder;
             existingFolder.IsDeleted = folder.IsDeleted;
-            
+
             await _context.SaveChangesAsync();
             return existingFolder;
         }
@@ -84,7 +88,7 @@ namespace Records.Data.Repositories
             return await _context.Folders
                                  .Where(f => f.ParentFolderId == null)
                                  .ToListAsync();
-            
+
         }
 
         public async Task<IEnumerable<FolderEntity>> GetListByParentIdAsync(int id)
@@ -92,6 +96,8 @@ namespace Records.Data.Repositories
             return await _context.Folders
                                  .Where(f => f.ParentFolderId == id && f.ParentFolderId != null)
                                  .Include(f => f.Records)
+                                 .ThenInclude(r => r.Questions)
+                .ThenInclude(q => q.Answers)
                                  .ToListAsync();
         }
     }

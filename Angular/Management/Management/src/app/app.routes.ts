@@ -4,6 +4,8 @@ import { AllUsersComponent } from '../Users/all-users/all-users.component';
 import { sign } from 'crypto';
 import { SignInComponent } from '../Authentication/Components/sign-in/sign-in.component';
 import { UserFormComponent } from '../Users/user-form/user-form.component';
+import { AdminLayoutComponent } from '../layout/layout.component';
+import { AdminDashboardComponent } from '../dashboard/dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -15,5 +17,14 @@ export const routes: Routes = [
             { path: 'edit/:id', component: UserFormComponent }
         ]
     }
+    // {
+    //     path: 'admin',
+    //     component: AdminLayoutComponent,
+    //     children: [
+    //       { path: 'dashboard', component: AdminDashboardComponent },
+    //       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    //     ]
+    //   },
+    //   { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full' }
 
 ];

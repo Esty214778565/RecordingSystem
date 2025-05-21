@@ -11,6 +11,7 @@ namespace Records.Api.Models
         public string FileType { get; set; }
         public double Size { get; set; }
         public int FolderId { get; set; }
+        public List<Question> Questions { get; set; }
 
     }
 }

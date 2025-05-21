@@ -64,5 +64,34 @@ export class AllUsersComponent implements OnInit {
     this.router.navigate(['users/add']);
   }
 
+private colorPairs = [
+  ['#f472b6', '#ec4899'], // Pink
+  ['#60a5fa', '#3b82f6'], // Blue
+  ['#34d399', '#10b981'], // Green
+  ['#a78bfa', '#8b5cf6'], // Purple
+  ['#fbbf24', '#f59e0b'], // Amber
+  ['#f87171', '#ef4444'], // Red
+  ['#6ee7b7', '#10b981'], // Emerald
+  ['#93c5fd', '#3b82f6'], // Light Blue
+  ['#c4b5fd', '#8b5cf6'], // Lavender
+  ['#fdba74', '#f97316']  // Orange
+];
 
+// Get a solid color based on user ID
+getUserColor(userId: number): string {
+  // Use modulo to cycle through colors if there are more users than colors
+  const colorIndex = userId % this.colorPairs.length;
+  // Return the end color from the pair
+  return this.colorPairs[colorIndex][1];
+}
+
+// Get a gradient based on user ID
+getUserGradient(userId: number): string {
+  // Use modulo to cycle through colors if there are more users than colors
+  const colorIndex = userId % this.colorPairs.length;
+  const startColor = this.colorPairs[colorIndex][0];
+  const endColor = this.colorPairs[colorIndex][1];
+  
+  return `linear-gradient(135deg, ${startColor} 0%, ${endColor} 100%)`;
+}
 }

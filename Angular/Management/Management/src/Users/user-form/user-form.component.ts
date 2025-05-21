@@ -9,10 +9,14 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatListOption } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
     selector: 'app-user-form',
-    imports: [MatButtonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule],
+    imports: [MatButtonModule,MatSelectModule, ReactiveFormsModule, FormsModule,MatIcon, MatFormFieldModule, MatInputModule, CommonModule],
     templateUrl: './user-form.component.html',
     styleUrl: './user-form.component.css'
 })
@@ -22,7 +26,8 @@ export class UserFormComponent {
   User: User = new User(0, '', '', '', "user");
   UserForm!: FormGroup;
   private UserSubject = new BehaviorSubject<any>({ name: '', email: '', password: '', role: '' });
-
+  //check
+hidePassword = true
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private UserService: UserService,
@@ -66,15 +71,15 @@ export class UserFormComponent {
         }
       });
     }
-  ngOnInit(): void {
-      this.UserSubject.subscribe(User => {
-        this.UserForm.patchValue(User);
-      });
+  // ngOnInit(): void {
+  //     this.UserSubject.subscribe(User => {
+  //       this.UserForm.patchValue(User);
+  //     });
 
-      this.UserForm.valueChanges.subscribe(value => {
-        this.UserSubject.next(value);
-      });
-    }
+  //     this.UserForm.valueChanges.subscribe(value => {
+  //       this.UserSubject.next(value);
+  //     });
+  //   }
 
   onSubmit(): void {
       this.User.name = this.UserForm.value.name;
@@ -97,7 +102,34 @@ export class UserFormComponent {
     }
     this.closeModal()
   }
-  closeModal() {
-    this.router.navigate(['users']);
-  }
+  // closeModal() {
+  //   this.router.navigate(['users']);
+  // }
+
+
+  //
+  
+ngOnInit(): void {
+  this.UserSubject.subscribe(User => {
+    this.UserForm.patchValue(User);
+  });
+
+  this.UserForm.valueChanges.subscribe(value => {
+    this.UserSubject.next(value);
+  });
+  
+  // Prevent body scrolling when modal is open
+  document.body.classList.add('modal-open');
+}
+
+ngOnDestroy(): void {
+  // Re-enable body scrolling when component is destroyed
+  document.body.classList.remove('modal-open');
+}
+
+closeModal() {
+  // Re-enable body scrolling when modal is closed
+  document.body.classList.remove('modal-open');
+  this.router.navigate(['users']);
+}
 }

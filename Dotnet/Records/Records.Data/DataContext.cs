@@ -22,12 +22,16 @@ namespace Records.Data
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RecordEntity> Records { get; set; }
         public DbSet<FolderEntity> Folders { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
             // Retrieve the connection string from the environment variable
-            var connectionString = Environment.GetEnvironmentVariable("DBRECORDS");
+            var connectionString = Environment.GetEnvironmentVariable("DBRECORDS") +
+                          ";Pooling=true;MaximumPoolSize=3;ConnectionIdleTimeout=30;";
 
             // Check if the connection string is null or empty
             if (string.IsNullOrEmpty(connectionString))
@@ -36,7 +40,9 @@ namespace Records.Data
             }
 
             // Use the connection string from the environment variable
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            optionsBuilder.UseMySql(connectionString,
+
+                ServerVersion.AutoDetect(connectionString));
 
             optionsBuilder.LogTo(Message => Debug.WriteLine(Message));
         }
@@ -78,12 +84,16 @@ namespace Records.Data
             modelBuilder.Entity<RecordEntity>()
                 .HasKey(r => r.Id);
 
+            //modelBuilder.Entity<RecordEntity>()
+            //    .HasOne<FolderEntity>() // Assuming each record belongs to one folder
+            //    .WithMany(f => f.Records)
+            //    .HasForeignKey(r => r.FolderId)
+            //    .OnDelete(DeleteBehavior.Cascade); // If a folder is deleted, delete its records
             modelBuilder.Entity<RecordEntity>()
-                .HasOne<FolderEntity>() // Assuming each record belongs to one folder
-                .WithMany(f => f.Records)
-                .HasForeignKey(r => r.FolderId)
-                .OnDelete(DeleteBehavior.Cascade); // If a folder is deleted, delete its records
-
+    .HasOne(r => r.Folder)
+    .WithMany(f => f.Records)
+    .HasForeignKey(r => r.FolderId)
+    .OnDelete(DeleteBehavior.Cascade);
             // Configure UserEntity
             modelBuilder.Entity<UserEntity>()
                 .HasKey(u => u.Id);
@@ -93,6 +103,11 @@ namespace Records.Data
                 .WithOne(f => f.User)
                 .HasForeignKey(f => f.UserId)
                 .OnDelete(DeleteBehavior.SetNull); // Allow null UserId
+            modelBuilder.Entity<Question>()
+    .HasOne(q => q.Record)
+    .WithMany(r => r.Questions)
+    .HasForeignKey(q => q.RecordEntityId)
+    .OnDelete(DeleteBehavior.Cascade);
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

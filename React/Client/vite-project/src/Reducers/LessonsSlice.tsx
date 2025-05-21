@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Lesson } from '../Models/Lesson';
 
-const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
+const apiUrl = "https://localhost:7043/api/record";
+// const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
 
 // Fetch lessons
 export const fetchLessons = createAsyncThunk('lessons/fetchLessons', async (_, thunkAPI) => {
@@ -22,24 +23,34 @@ export const fetchLessons = createAsyncThunk('lessons/fetchLessons', async (_, t
 // Add a lesson
 export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData: Lesson, thunkAPI) => {
     const token = sessionStorage.getItem("token");
-    const obj =
-    {
+    const obj = {
         FileName: lessonData.fileName,
         Description: lessonData.description,
         S3Key: lessonData.s3Key,
         FileType: lessonData.fileType,
         Size: lessonData.size,
-        FolderId: lessonData.folderId
+        FolderId: lessonData.folderId,
+        Questions: lessonData.questions?.map((question) => ({
+            Id: question.id,
+            Text: question.text,
+            Answers: question.answers,
+        }))
     }
     try {
-        debugger;
+
         const res = await axios.post(apiUrl, obj, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        debugger;
-        return res.data as Lesson;
+
+        // Map the response to ensure the updateDate field fits the Lesson model
+        const addedLesson: Lesson = {
+            ...lessonData,
+            ...res.data,
+            updateDate: res.data.updateDate ? new Date(res.data.updateDate) : lessonData.updateDate
+        };
+        return addedLesson;
     } catch (error: any) {
         console.error("Error adding lesson:", error.response?.data || error.message);
         return thunkAPI.rejectWithValue("Failed to add lesson");
@@ -69,19 +80,33 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
 
 
 
-
 // Update a lesson
 export const updateLesson = createAsyncThunk('lessons/updateLesson', async (lessonData: Lesson, thunkAPI) => {
     const token = sessionStorage.getItem("token");
-
+    debugger
+    console.log("lessonData in update lesson slice:", lessonData);
     try {
         const res = await axios.put(`${apiUrl}/${lessonData.id}`, lessonData, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        });
-        return res.data as Lesson;
-    } catch (error) {
+        })
+
+        console.log("Response data in update lesson slice:", res.data);
+
+        // Map the response to ensure the updateDate field fits the Lesson model
+        const updatedLesson: Lesson = {
+            ...lessonData,
+            ...res.data,
+            questions: res.data.questions ?? lessonData.questions,
+            //  updateDate: res.data.updateDate ? new Date(res.data.updateDate) : lessonData.updateDate // prefer server value if present
+
+            updateDate: res.data.updateDate ?? lessonData.updateDate // prefer server value if present
+
+        };
+        return updatedLesson;
+    } catch (error: any) {
+        console.error("Error updating lesson:", error.response?.data || error.message);
         return thunkAPI.rejectWithValue("Failed to update lesson");
     }
 });

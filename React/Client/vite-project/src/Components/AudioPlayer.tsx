@@ -26,6 +26,7 @@ interface AudioPlayerProps {
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl }) => {
+
   return (
     <Box sx={{ textAlign: 'center', padding: '20px' }}>
       <Typography variant="h5" gutterBottom>

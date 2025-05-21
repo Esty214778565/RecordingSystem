@@ -1,0 +1,256 @@
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define the color palettes
+$recording-system-primary: mat.define-palette((
+  50: #f5f3ff,
+  100: #ede9fe,
+  200: #ddd6fe,
+  300: #c4b5fd,
+  400: #a78bfa,
+  500: #8b5cf6, // Primary color
+  600: #7c3aed,
+  700: #6d28d9,
+  800: #5b21b6,
+  900: #4c1d95,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+$recording-system-accent: mat.define-palette((
+  50: #ecfeff,
+  100: #cffafe,
+  200: #a5f3fc,
+  300: #67e8f9,
+  400: #22d3ee,
+  500: #06b6d4, // Accent color (Cyan)
+  600: #0891b2,
+  700: #0e7490,
+  800: #155e75,
+  900: #164e63,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+$recording-system-warn: mat.define-palette((
+  50: #fef2f2,
+  100: #fee2e2,
+  200: #fecaca,
+  300: #fca5a5,
+  400: #f87171,
+  500: #ef4444, // Warn color (Red)
+  600: #dc2626,
+  700: #b91c1c,
+  800: #991b1b,
+  900: #7f1d1d,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+// Secondary accent (Amber) for special highlights
+$recording-system-secondary: mat.define-palette((
+  50: #fffbeb,
+  100: #fef3c7,
+  200: #fde68a,
+  300: #fcd34d,
+  400: #fbbf24,
+  500: #f59e0b, // Secondary accent color (Amber)
+  600: #d97706,
+  700: #b45309,
+  800: #92400e,
+  900: #78350f,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: rgba(0, 0, 0, 0.87),
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+// Create the theme object
+$recording-system-theme: mat.define-light-theme((
+  color: (
+    primary: $recording-system-primary,
+    accent: $recording-system-accent,
+    warn: $recording-system-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Include theme styles for core and each component used
+@include mat.all-component-themes($recording-system-theme);
+
+// Additional custom styles
+.secondary-accent {
+  color: mat.get-color-from-palette($recording-system-secondary, 500) !important;
+}
+
+.secondary-accent-bg {
+  background-color: mat.get-color-from-palette($recording-system-secondary, 500) !important;
+  color: mat.get-color-from-palette($recording-system-secondary, '500-contrast') !important;
+}
+
+// Custom background colors
+.bg-slate-50 {
+  background-color: #f8fafc;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.text-zinc-900 {
+  color: #18181b;
+}
+
+.text-zinc-500 {
+  color: #71717a;
+}
+
+.border-zinc-200 {
+  border-color: #e4e4e7;
+}
+
+// Custom card styling
+.modern-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+// Dashboard metric cards
+.metric-card {
+  @extend .modern-card;
+  padding: 1.5rem;
+  
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  
+  .metric-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .metric-change {
+    font-size: 0.875rem;
+    font-weight: 500;
+    
+    &.positive {
+      color: #10b981;
+    }
+    
+    &.negative {
+      color: #ef4444;
+    }
+  }
+}
+
+// Modern table styling
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  
+  th {
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e4e4e7;
+    color: #71717a;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #e4e4e7;
+    color: #18181b;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  tr:hover {
+    background-color: #f8fafc;
+  }
+}
+
+// Status badges
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  
+  &.active {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+  
+  &.inactive {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+  
+  &.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+}
