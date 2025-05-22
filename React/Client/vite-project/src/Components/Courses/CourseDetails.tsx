@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../Store/Store';
 import { Outlet, useParams } from 'react-router-dom';
@@ -144,8 +144,10 @@ const CourseDetail = () => {
                                             <Box>
                                                 <Typography variant="body1" fontWeight="bold">
                                                     {teacher.name}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
+                                                    </Typography>
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        {`Lessons: ${teacher.records?.length ?? 0}`}
+                                                    </Typography>   <Typography variant="body2" color="textSecondary">
                                                     Updated on: {new Date(teacher.updateDate).toLocaleDateString()}
                                                 </Typography>
                                             </Box>

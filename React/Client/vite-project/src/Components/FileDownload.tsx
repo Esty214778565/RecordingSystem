@@ -1,5 +1,4 @@
 import React from 'react';
-import VideoPlayer from './VideoPlayer';
 import DownLoadS3 from './DownLoadS3';
 
 interface FileDownloadProps {
@@ -28,7 +27,7 @@ const FileDownload: React.FC<FileDownloadProps> = ({ file }) => {
             <button onClick={handleDownload}>
                 Download {file.name}
             </button>
-           <DownLoadS3/>
+            <DownLoadS3 />
         </div>
     );
 };
