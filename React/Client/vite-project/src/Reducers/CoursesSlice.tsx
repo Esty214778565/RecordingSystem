@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Course } from '../Models/Course';
 
-// const apiUrl="https://localhost:7043/api";
-const apiUrl = "https://localhost:7043/api";
-//const apiUrl = "https://recordingsystem-server.onrender.com/api";
+
+//const apiUrl = "https://localhost:7043/api";
+const apiUrl = "https://recordingsystem-server.onrender.com/api";
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async (_, thunkAPI) => {
     const token = sessionStorage.getItem("token");

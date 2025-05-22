@@ -16,7 +16,7 @@ const FileDownloader = () => {
 
         try {
             // Step 1: Get Presigned URL from the server
-            const response = await axios.get('https://localhost:7043/api/upload/presigned-url-down', {
+            const response = await axios.get('https://recordingsystem-server.onrender.com/api/upload/presigned-url-down', {
                 params: { fileName }
             });
         
