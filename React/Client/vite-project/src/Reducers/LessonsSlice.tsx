@@ -165,6 +165,8 @@ const lessonsSlice = createSlice({
                 state.error = null;
             })
             .addCase(updateLesson.fulfilled, (state, action) => {
+                debugger;
+        
                 state.loading = false;
                 const index = state.lessons.findIndex(lesson => lesson.id === action.payload.id);
                 if (index !== -1) {
