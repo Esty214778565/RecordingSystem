@@ -6,6 +6,7 @@ import LessonTeacher from './Components/Lessons/LessonsTeacher'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import AddLesson from './Components/Lessons/AddLesson'
+import AudioPlayer from './Components/AudioPlayer'
 
 
 export const Router = createBrowserRouter([
@@ -24,19 +25,19 @@ export const Router = createBrowserRouter([
       //     errorElement: <h1>Not Found</h1>
       // }
       {
-        path: '/login',
+        path: 'login',
         element: <Login />
       },
       {
-        path: '/register',
+        path: 'register',
         element: <Register />,
       },
       {
-        path: '/add-lesson',
+        path: 'add-lesson',
         element: <AddLesson />,
       },
       {
-        path: '/courses',
+        path: 'courses',
         element: <AllCourses />,
         children: [
           {
@@ -45,12 +46,18 @@ export const Router = createBrowserRouter([
           }]
       },
       {
-        path: '/courses/:courseId',
+        path: 'courses/:courseId',
         element: <CourseDetail />,
         children: [
           {
             path: ':teacherId',
             element: <LessonTeacher />,
+            children: [
+              {
+                path: ':url',
+                element: <AudioPlayer />,
+              },
+            ],
           },
         ]
       }

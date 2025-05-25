@@ -1,0 +1,314 @@
+/* All Courses Component - Modern Aristocratic Styling */
+
+/* Background animations */
+.bg-animation-courses {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(245, 158, 11, 0.03) 50%, transparent 70%);
+  animation: shimmer-courses 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-courses {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Hero section animations */
+.hero-section-courses {
+  animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title shimmer effect */
+.title-shimmer {
+  background: linear-gradient(90deg, #0f172a 25%, #8b5cf6 50%, #f59e0b 75%);
+  background-size: 200% 100%;
+  animation: shimmer-text 4s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer-text {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Chip glow effect */
+.chip-glow-courses {
+  animation: glow-courses 3s ease-in-out infinite;
+}
+
+@keyframes glow-courses {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+  }
+}
+
+/* Search field glow */
+.search-field-glow:hover {
+  animation: search-glow 0.6s ease-in-out;
+}
+
+@keyframes search-glow {
+  0%,
+  100% {
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.1);
+  }
+  50% {
+    box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
+  }
+}
+
+/* Loading animations */
+.loading-container {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.loading-pulse {
+  animation: pulse-loading 2s ease-in-out infinite;
+}
+
+@keyframes pulse-loading {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 25px 80px rgba(15, 23, 42, 0.4);
+  }
+}
+
+.loading-spinner {
+  animation: spin-glow 1.5s linear infinite;
+}
+
+@keyframes spin-glow {
+  0% {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.6));
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+  }
+}
+
+/* Course card animations */
+.course-card-0 {
+  animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.course-card-1 {
+  animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.course-card-2 {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Course action button animation */
+.course-action-button:hover {
+  animation: bounce-button 0.6s ease-in-out;
+}
+
+@keyframes bounce-button {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  40%,
+  43% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  90% {
+    transform: scale(1.05);
+  }
+}
+
+/* Hover effects for course cards */
+.MuiCard-root:hover .MuiCardMedia-root {
+  animation: image-zoom 0.4s ease-in-out forwards;
+}
+
+@keyframes image-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/* Floating animation for course cards */
+.MuiCard-root:nth-child(odd) {
+  animation: float-odd 6s ease-in-out infinite;
+}
+
+.MuiCard-root:nth-child(even) {
+  animation: float-even 6s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+@keyframes float-odd {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-even {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section-courses {
+    padding-top: 4rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .title-shimmer {
+    font-size: 2.5rem !important;
+  }
+
+  .course-card-0,
+  .course-card-1,
+  .course-card-2 {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .MuiCard-root:hover {
+    transform: translateY(-8px) scale(1.01) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bg-animation-courses {
+    display: none;
+  }
+
+  .title-shimmer {
+    font-size: 2rem !important;
+  }
+
+  .MuiCard-root:nth-child(odd),
+  .MuiCard-root:nth-child(even) {
+    animation: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .MuiCard-root {
+    border: 2px solid #0f172a !important;
+  }
+
+  .search-field-glow .MuiOutlinedInput-root {
+    border: 2px solid #0f172a !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .bg-animation-courses {
+    display: none !important;
+  }
+
+  * {
+    color: #0f172a !important;
+    background: white !important;
+  }
+}

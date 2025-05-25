@@ -1,0 +1,362 @@
+/* Course Detail Component - Modern Aristocratic Styling */
+
+/* Background animations */
+.bg-animation-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(245, 158, 11, 0.03) 50%, transparent 70%);
+  animation: shimmer-detail 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-detail {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Course header animations */
+.course-header-section {
+  animation: slideInDown 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Course title shimmer effect */
+.course-title-shimmer {
+  background: linear-gradient(90deg, #0f172a 25%, #8b5cf6 50%, #f59e0b 75%);
+  background-size: 200% 100%;
+  animation: shimmer-title 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer-title {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Course badge glow */
+.course-badge-glow {
+  animation: glow-badge 4s ease-in-out infinite;
+}
+
+@keyframes glow-badge {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+  }
+}
+
+/* Audio player section animations */
+.audio-player-section {
+  animation: slideInLeft 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Audio icon pulse */
+.audio-icon-pulse {
+  animation: pulse-audio 3s ease-in-out infinite;
+}
+
+@keyframes pulse-audio {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* Loading animations */
+.loading-container-detail {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.loading-pulse-detail {
+  animation: pulse-loading-detail 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-loading-detail {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 25px 80px rgba(15, 23, 42, 0.5);
+  }
+}
+
+/* Teacher card animations - FIXED: Ensure text is always visible */
+.teacher-card-0 {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.5s;
+  /* Removed opacity: 0 to prevent text from being invisible */
+}
+
+.teacher-card-1 {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.7s;
+  /* Removed opacity: 0 to prevent text from being invisible */
+}
+
+.teacher-card-2 {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.9s;
+  /* Removed opacity: 0 to prevent text from being invisible */
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0.3; /* Changed from 0 to 0.3 so text is always somewhat visible */
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Ensure teacher text is always visible */
+.MuiAccordion-root .MuiTypography-root {
+  color: #0f172a !important;
+}
+
+.MuiAccordion-root .MuiAccordionSummary-root .MuiTypography-root {
+  color: #0f172a !important;
+}
+
+.MuiAccordion-root .MuiAccordionDetails-root .MuiTypography-root {
+  color: #0f172a !important;
+}
+
+/* Teacher avatar hover effect */
+.teacher-avatar-hover:hover {
+  animation: bounce-avatar 0.6s ease-in-out;
+}
+
+@keyframes bounce-avatar {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  40%,
+  43% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  90% {
+    transform: scale(1.02);
+  }
+}
+
+/* Expand icon hover effect */
+.expand-icon-hover:hover {
+  animation: rotate-expand 0.5s ease-in-out;
+}
+
+@keyframes rotate-expand {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+/* Contact link hover effect */
+.contact-link-hover:hover {
+  animation: glow-contact 0.6s ease-in-out;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.5) !important;
+}
+
+@keyframes glow-contact {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(245, 158, 11, 0.6);
+  }
+}
+
+/* Floating animation for teacher cards */
+.MuiAccordion-root:nth-child(odd) {
+  animation: float-teacher-odd 8s ease-in-out infinite;
+}
+
+.MuiAccordion-root:nth-child(even) {
+  animation: float-teacher-even 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes float-teacher-odd {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-teacher-even {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Accordion hover effects */
+.MuiAccordion-root:hover {
+  animation: lift-card 0.4s ease-in-out forwards;
+}
+
+@keyframes lift-card {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .course-header-section {
+    animation-delay: 0s;
+  }
+
+  .audio-player-section {
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.2s;
+  }
+
+  .teacher-card-0,
+  .teacher-card-1,
+  .teacher-card-2 {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s;
+  }
+
+  .course-title-shimmer {
+    font-size: 2rem !important;
+  }
+
+  .MuiAccordion-root:nth-child(odd),
+  .MuiAccordion-root:nth-child(even) {
+    animation: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0.3; /* Changed from 0 to 0.3 */
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .bg-animation-detail {
+    display: none;
+  }
+
+  .course-title-shimmer {
+    font-size: 1.8rem !important;
+  }
+
+  .audio-icon-pulse {
+    animation: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .MuiAccordion-root {
+    border: 2px solid #0f172a !important;
+  }
+
+  .contact-link-hover {
+    border: 2px solid #0f172a !important;
+  }
+}
+
+/* Print styles - FIXED: Only apply to print media */
+@media print {
+  .bg-animation-detail {
+    display: none !important;
+  }
+
+  /* Only apply print styles when actually printing */
+  body * {
+    color: #0f172a !important;
+    background: white !important;
+  }
+}

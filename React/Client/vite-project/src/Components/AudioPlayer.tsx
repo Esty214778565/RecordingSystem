@@ -20,13 +20,20 @@
 
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-interface AudioPlayerProps {
-  audioUrl: string;
-}
+// interface AudioPlayerProps {
+//   audioUrl: string;
+// }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl }) => {
+const AudioPlayer: React.FC = () => {
 
+
+  const params = useParams<{ url?: string }>();
+  const audioUrl = params.url
+    ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${params.url}`
+    : '';
+  console.log('AudioPlayer component rendered with audioUrl:', audioUrl);
   return (
     <Box sx={{ textAlign: 'center', padding: '20px' }}>
       <Typography variant="h5" gutterBottom>
