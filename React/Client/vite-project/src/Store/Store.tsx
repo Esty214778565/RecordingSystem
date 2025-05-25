@@ -8,18 +8,18 @@ import lessonsReducer from '../Reducers/LessonsSlice'; // Import lessonsReducer
 // Create the Redux store
 const store = configureStore({
 
-    // reducer: combineReducers({
-    //     auth: AuthSlice,
-    //     courses: coursesReducer,
-    //     users: usersReducer,
-    //     lessons: lessonsReducer,
-    // })
-    reducer: {
+    reducer: combineReducers({
         auth: AuthSlice,
-        courses: coursesReducer, 
+        courses: coursesReducer,
         users: usersReducer,
         lessons: lessonsReducer,
-    }
+    })
+    // reducer: {
+    //     auth: AuthSlice,
+    //     courses: coursesReducer, 
+    //     users: usersReducer,
+    //     lessons: lessonsReducer,
+    // }
 
 });
 
