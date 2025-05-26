@@ -99,7 +99,8 @@ const AllCourses = () => {
     navigate(`/courses/${courseId}`)
   }
 
-  const DEFAULT_IMAGE_URL = "./../../../public/Images/img1.jpg"
+  const DEFAULT_IMAGE_URL = "/Images/img1.jpg"
+  // "./../../../public/Images/img1.jpg"
 
   const coursesWithImages = filteredCourses.map((course) => ({
     ...course,
@@ -108,7 +109,7 @@ const AllCourses = () => {
 
   const getRandomImageUrl = (): string => {
     const randomNumber = Math.floor(Math.random() * 16) + 1
-    return `./../../../public/Images/img${randomNumber}.jpg`
+    return `/Images/img${randomNumber}.jpg`
   }
 
   // Mock data for enhanced course display

@@ -1,12 +1,17 @@
+import { useParams } from "react-router-dom";
 
-const VideoPlayer = ({ videoUrl }: { videoUrl: string }) => {
+const VideoPlayer = () => {
 
+  const params = useParams<{ url?: string }>();
+  const videoUrl = params.url
+    ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${params.url}`
+    : '';
     // let src = "https://us-east-1.console.aws.amazon.com/s3/object/my-first-records-bucket.testpnoren?region=us-east-1&bucketType=general&prefix=";
-    let src = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/7.wmv"
+    //let src = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/7.wmv"
     //src += videoUrl;
 
     console.log("enter VideoPlayer");
-    console.log("src:" + src);
+    //console.log("src:" + src);
     //src = "7.wmv";
 
     return (

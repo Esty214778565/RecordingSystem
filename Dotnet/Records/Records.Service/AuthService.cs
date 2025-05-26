@@ -27,26 +27,27 @@ namespace Records.Service
             _mapper = mapper;
             _configuration = configuration;
         }
-        private (string Token, int Id, string Role, string Name) GenerateToken(int userId, string role,string name)
+        private (string Token, int Id, string Role, string Name) GenerateToken(int userId, string role, string name)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, role)
-            };
+               new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+               new Claim(ClaimTypes.Role, role)
+           };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            // Adjust the expiration time to make the token valid for a longer period  
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"])),
+                expires: DateTime.Now.AddHours(Convert.ToDouble(_configuration["Jwt:ExtendedExpiresInHours"])),
                 signingCredentials: creds);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return (Token: tokenString, Id: userId, Role: role,Name:name);
+            return (Token: tokenString, Id: userId, Role: role, Name: name);
         }
 
         public async Task<(string Token, int Id, string Role, string Name)> RegisterAsync(UserDto registration)

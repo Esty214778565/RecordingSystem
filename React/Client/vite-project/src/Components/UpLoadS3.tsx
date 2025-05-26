@@ -229,7 +229,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
             className="file-drop-zone"
             onClick={() => document.getElementById("file-input")?.click()}
           >
-            <input id="file-input" type="file" accept=".mp3" onChange={handleFileChange} style={{ display: "none" }} />
+            <input
+              id="file-input"
+              type="file"
+              accept=".mp3,.mp4,.wmv,video/mp4,video/x-ms-wmv,audio/mpeg"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
 
             <Box
               sx={{
@@ -258,13 +264,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
                 fontFamily: "'Playfair Display', serif",
               }}
             >
-              Drop your audio file here
+              Drop your audio or video file here
             </Typography>
             <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600, mb: 2 }}>
               or click to browse files
             </Typography>
             <Typography variant="caption" sx={{ color: "#64748b" }}>
-              Supports MP3 files up to 100MB
+              Supports MP3, MP4, WMV files up to 100MB
             </Typography>
           </Box>
 
