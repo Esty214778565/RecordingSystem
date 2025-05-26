@@ -1,0 +1,242 @@
+/* Register Component Animations */
+
+@keyframes register-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes register-icon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 25px 60px rgba(139, 92, 246, 0.6);
+  }
+}
+
+@keyframes register-badge-glow {
+  0%,
+  100% {
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.25);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.4);
+  }
+}
+
+@keyframes register-title-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes register-input-focus {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes register-role-card-hover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes register-button-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes register-loading-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes register-card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes register-form-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Component Classes */
+.register-main-card {
+  animation: register-card-entrance 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for the modal */
+.register-main-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.register-main-card::-webkit-scrollbar-track {
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 4px;
+}
+
+.register-main-card::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  border-radius: 4px;
+}
+
+.register-main-card::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #7c3aed, #0891b2);
+}
+
+.register-gradient-bar {
+  animation: register-gradient-flow 3s ease-in-out infinite;
+}
+
+.register-header {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+.register-icon-pulse {
+  animation: register-icon-pulse 3s ease-in-out infinite;
+}
+
+.register-badge-glow {
+  animation: register-badge-glow 2s ease-in-out infinite;
+}
+
+.register-title-shimmer {
+  background-size: 200% auto;
+  animation: register-title-shimmer 3s linear infinite;
+}
+
+.register-form {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+.register-input-glow:focus-within {
+  animation: register-input-focus 0.3s ease-out;
+}
+
+.register-role-card:hover {
+  animation: register-role-card-hover 0.3s ease-out;
+}
+
+.register-submit-button:hover::before {
+  animation: register-button-shimmer 0.6s ease-out;
+}
+
+.register-loading-spinner {
+  animation: register-loading-spinner 1s linear infinite;
+}
+
+/* Staggered animations for form fields */
+.register-form > div:nth-child(1) {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+}
+
+.register-form > div:nth-child(2) {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+}
+
+.register-form > div:nth-child(3) {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s both;
+}
+
+.register-form > div:nth-child(4) {
+  animation: register-form-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .register-main-card {
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .register-icon-pulse {
+    width: 80px;
+    height: 80px;
+  }
+
+  .register-title-shimmer {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-main-card {
+    margin: 0.25rem;
+    max-height: 98vh;
+  }
+
+  .register-title-shimmer {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .register-main-card {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .register-main-card,
+  .register-gradient-bar,
+  .register-header,
+  .register-icon-pulse,
+  .register-badge-glow,
+  .register-title-shimmer,
+  .register-form,
+  .register-input-glow,
+  .register-role-card,
+  .register-submit-button,
+  .register-loading-spinner {
+    animation: none;
+  }
+}

@@ -1,0 +1,407 @@
+/* Transcription Component - Modern Aristocratic Styling */
+
+/* Main card animation */
+.transcription-main-card {
+  animation: slideInScale 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header animations */
+.transcription-header {
+  animation: fadeInDown 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Icon pulse animation */
+.transcription-icon-pulse {
+  animation: pulse-transcription 3s ease-in-out infinite;
+}
+
+@keyframes pulse-transcription {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* Badge glow effect */
+.transcription-badge-glow {
+  animation: glow-transcription-badge 4s ease-in-out infinite;
+}
+
+@keyframes glow-transcription-badge {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4);
+  }
+}
+
+/* Title shimmer effect */
+.transcription-title-shimmer {
+  background: linear-gradient(90deg, #0f172a 25%, #8b5cf6 50%, #06b6d4 75%);
+  background-size: 200% 100%;
+  animation: shimmer-transcription-title 4s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer-transcription-title {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Audio file info animation */
+.audio-file-info {
+  animation: slideInLeft 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Audio file icon pulse */
+.audio-file-icon-pulse {
+  animation: pulse-audio-file 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-audio-file {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* Button glow effect */
+.transcription-button-glow:hover {
+  animation: glow-transcription-button 0.6s ease-in-out;
+}
+
+@keyframes glow-transcription-button {
+  0%,
+  100% {
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 24px 60px rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* Spinner animation */
+.transcription-spinner {
+  animation: spin-glow 1.5s linear infinite;
+}
+
+@keyframes spin-glow {
+  0% {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.6));
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+}
+
+/* Progress section animation */
+.transcription-progress-section {
+  animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress bar glow */
+.transcription-progress-bar-glow {
+  animation: glow-progress-transcription 2s ease-in-out infinite;
+}
+
+@keyframes glow-progress-transcription {
+  0%,
+  100% {
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* Error section animation */
+.transcription-error-section {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Result section animation */
+.transcription-result-section {
+  animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Success header animation */
+.transcription-success-header {
+  animation: slideInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Result card animation */
+.transcription-result-card {
+  animation: slideInScale 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Text container animation */
+.transcription-text-container {
+  animation: typewriter 2s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes typewriter {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 300px;
+    opacity: 1;
+  }
+}
+
+/* Floating animation for the main card */
+.transcription-main-card {
+  animation: float-transcription 6s ease-in-out infinite;
+}
+
+@keyframes float-transcription {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Hover effects for interactive elements */
+.transcription-result-card:hover {
+  animation: lift-result-card 0.3s ease-in-out forwards;
+}
+
+@keyframes lift-result-card {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+/* Stats counter animation */
+.MuiTypography-h6 {
+  animation: count-up-transcription 2s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes count-up-transcription {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .transcription-main-card {
+    animation: slideInScale 1s ease-out forwards;
+  }
+
+  .transcription-header {
+    animation-delay: 0.2s;
+  }
+
+  .audio-file-info {
+    animation-delay: 0.4s;
+  }
+
+  .transcription-title-shimmer {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .transcription-title-shimmer {
+    font-size: 1.2rem !important;
+  }
+
+  .transcription-icon-pulse {
+    animation: none;
+  }
+
+  .audio-file-icon-pulse {
+    animation: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .transcription-main-card {
+    border: 2px solid #0f172a !important;
+  }
+
+  .transcription-result-card {
+    border: 2px solid #0f172a !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body * {
+    color: #0f172a !important;
+    background: white !important;
+  }
+}
+
+/* Loading state animations */
+.MuiButton-root:disabled {
+  animation: pulse-disabled-transcription 2s ease-in-out infinite;
+}
+
+@keyframes pulse-disabled-transcription {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Focus states */
+.MuiButton-root:focus {
+  animation: focus-glow-transcription 0.3s ease-in-out forwards;
+}
+
+@keyframes focus-glow-transcription {
+  from {
+    box-shadow: 0 0 0 rgba(139, 92, 246, 0);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+}

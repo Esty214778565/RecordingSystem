@@ -267,7 +267,7 @@ export default function HomePage() {
                   backgroundClip: "text",
                 }}
               >
-                RecordWise
+                Learnix
               </Typography>
               <Typography
                 variant="caption"
@@ -419,7 +419,7 @@ export default function HomePage() {
                   fontWeight: 500,
                 }}
               >
-                RecordWise empowers educators to create, curate, and share premium educational content with unparalleled
+                Learnix empowers educators to create, curate, and share premium educational content with unparalleled
                 sophistication and cutting-edge technology.
               </Typography>
 
@@ -1187,7 +1187,7 @@ export default function HomePage() {
                 role: "Mathematics Professor",
                 avatar: "SJ",
                 testimonial:
-                  "RecordWise has revolutionized my teaching methodology. The AI-powered analytics help me understand exactly where my students need more support, and the recording quality is absolutely pristine.",
+                  "Learnix has revolutionized my teaching methodology. The AI-powered analytics help me understand exactly where my students need more support, and the recording quality is absolutely pristine.",
                 rating: 5,
                 avatarColor: theme.palette.custom.secondary,
                 school: "Stanford University",
@@ -1371,7 +1371,7 @@ export default function HomePage() {
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9, mb: 4, fontSize: "1.3rem", fontWeight: 500 }}>
-                Join thousands of educators and students already using RecordWise to revolutionize their learning
+                Join thousands of educators and students already using Learnix to revolutionize their learning
                 experience.
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
@@ -1458,7 +1458,7 @@ export default function HomePage() {
                       backgroundClip: "text",
                     }}
                   >
-                    RecordWise
+                    Learnix
                   </Typography>
                   <Typography
                     variant="caption"
@@ -1648,7 +1648,7 @@ export default function HomePage() {
           </Grid>
           <Box sx={{ mt: 8, pt: 6, borderTop: "1px solid rgba(255,255,255,0.1)", textAlign: "center" }}>
             <Typography variant="body1" sx={{ opacity: 0.7, fontSize: "1.1rem" }}>
-              © {new Date().getFullYear()} RecordWise. All rights reserved. Crafted with ❤️ for educators worldwide.
+              © {new Date().getFullYear()} Learnix. All rights reserved. Crafted with ❤️ for educators worldwide.
             </Typography>
           </Box>
         </Container>

@@ -1,46 +1,367 @@
-/* .lessons-teacher {
-    padding: 2rem;
-    text-align: center;
+/* Lessons Teacher Component - Modern Aristocratic Styling */
+
+/* Background animations */
+.bg-animation-lessons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(245, 158, 11, 0.03) 50%, transparent 70%);
+  animation: shimmer-lessons 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-lessons {
+  0% {
+    background-position: -200px 0;
   }
-  
-  .teacher-details {
-    margin-top: 1rem;
+  100% {
+    background-position: calc(200px + 100%) 0;
   }
-  
-  .record {
-    margin: 1rem 0;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+/* Header section animations */
+.lessons-header-section {
+  animation: slideInDown 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
   }
-  
-  .audio-link {
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .audio-link:hover {
-    color: darkblue;
+}
+
+/* Title shimmer effect */
+.lessons-title-shimmer {
+  background: linear-gradient(90deg, #0f172a 25%, #8b5cf6 50%, #f59e0b 75%);
+  background-size: 200% 100%;
+  animation: shimmer-title-lessons 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer-title-lessons {
+  0% {
+    background-position: -200% 0;
   }
-  
-  button {
-    margin: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+  100% {
+    background-position: 200% 0;
   }
-  
-  button:hover {
-    background-color: #45a049;
+}
+
+/* Badge glow effect */
+.lessons-badge-glow {
+  animation: glow-lessons-badge 4s ease-in-out infinite;
+}
+
+@keyframes glow-lessons-badge {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
   }
-  
-  input[type="text"] {
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-  } */
+  50% {
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+  }
+}
+
+/* Loading animations */
+.loading-container-lessons {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.loading-pulse-lessons {
+  animation: pulse-loading-lessons 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-loading-lessons {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 25px 80px rgba(15, 23, 42, 0.5);
+  }
+}
+
+/* Lesson card animations */
+.lesson-card-0 {
+  animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.lesson-card-1 {
+  animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.5s;
+}
+
+.lesson-card-2 {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Play button animations */
+.lesson-play-button {
+  animation: pulse-play 3s ease-in-out infinite;
+}
+
+@keyframes pulse-play {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.5);
+  }
+}
+
+.lesson-play-button:hover {
+  animation: bounce-play 0.6s ease-in-out;
+}
+
+@keyframes bounce-play {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  40%,
+  43% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  90% {
+    transform: scale(1.02);
+  }
+}
+
+/* Lesson title hover effect */
+.lesson-title-hover:hover {
+  animation: glow-title 0.6s ease-in-out;
+}
+
+@keyframes glow-title {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+  }
+}
+
+/* Button hover effects */
+.save-button-glow:hover {
+  animation: glow-save 0.6s ease-in-out;
+}
+
+@keyframes glow-save {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(16, 185, 129, 0.6);
+  }
+}
+
+.edit-button-glow:hover {
+  animation: glow-edit 0.6s ease-in-out;
+}
+
+@keyframes glow-edit {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(245, 158, 11, 0.6);
+  }
+}
+
+.delete-button-glow:hover {
+  animation: glow-delete 0.6s ease-in-out;
+}
+
+@keyframes glow-delete {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(239, 68, 68, 0.6);
+  }
+}
+
+/* Floating animation for lesson cards */
+.MuiCard-root:nth-child(odd) {
+  animation: float-lesson-odd 8s ease-in-out infinite;
+}
+
+.MuiCard-root:nth-child(even) {
+  animation: float-lesson-even 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes float-lesson-odd {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-lesson-even {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Card hover effects */
+.MuiCard-root:hover {
+  animation: lift-lesson-card 0.4s ease-in-out forwards;
+}
+
+@keyframes lift-lesson-card {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lessons-header-section {
+    animation-delay: 0s;
+  }
+
+  .lesson-card-0,
+  .lesson-card-1,
+  .lesson-card-2 {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+
+  .lessons-title-shimmer {
+    font-size: 2rem !important;
+  }
+
+  .MuiCard-root:nth-child(odd),
+  .MuiCard-root:nth-child(even) {
+    animation: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .bg-animation-lessons {
+    display: none;
+  }
+
+  .lessons-title-shimmer {
+    font-size: 1.8rem !important;
+  }
+
+  .lesson-play-button {
+    animation: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .MuiCard-root {
+    border: 2px solid #0f172a !important;
+  }
+
+  .MuiButton-root {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .bg-animation-lessons {
+    display: none !important;
+  }
+
+  body * {
+    color: #0f172a !important;
+    background: white !important;
+  }
+}
