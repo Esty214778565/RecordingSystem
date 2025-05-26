@@ -19,7 +19,7 @@ const FileDownloader = () => {
             const response = await axios.get('https://recordingsystem-server.onrender.com/api/upload/presigned-url-down', {
                 params: { fileName }
             });
-        
+
             const presignedUrl = response.data.url;
             console.log("Presigned URL:", presignedUrl);
             setUrl(presignedUrl);
@@ -55,7 +55,7 @@ const FileDownloader = () => {
             <button onClick={handleDownload}>הורד קובץ</button>
             {downloadProgress > 0 && <div>התקדמות: {downloadProgress}%</div>}
 
-            {video && <VideoPlayer videoUrl={url} />}
+            {video && <VideoPlayer />}
         </div>
     );
 };
