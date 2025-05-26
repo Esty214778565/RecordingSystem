@@ -20,7 +20,7 @@ import type { UserDispatch } from "../Store/Store"
 import { loginUser } from "../Reducers/AuthSlice"
 import { useNavigate } from "react-router-dom"
 import { LogIn, Mail, Lock, Shield, Crown, Sparkles, Star, Zap } from "lucide-react"
-import "./login.css"
+import './Login.css'
 
 const Login = () => {
     const dispatch = useDispatch<UserDispatch>()
