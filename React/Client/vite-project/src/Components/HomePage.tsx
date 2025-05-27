@@ -52,7 +52,7 @@ import {
   Heart,
 } from "lucide-react"
 import "./styles.css"
-import { useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 
 // Modern Aristocratic color scheme - more vibrant and lively
 declare module "@mui/material/styles" {
@@ -644,7 +644,7 @@ export default function HomePage() {
           </Grid>
         </Container>
       </Box>
-
+<Outlet/>
       {/* Statistics Section */}
       <Box
         className="stats-section"

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { UserReportChartComponent } from '../Authentication/Components/user-report-chart/user-report-chart.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
