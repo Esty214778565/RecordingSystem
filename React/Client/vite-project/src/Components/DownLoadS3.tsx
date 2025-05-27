@@ -9,6 +9,8 @@ const FileDownloader = () => {
     const [url, setUrl] = useState('');
     const handleFileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFileName(e.target.value);
+        console.log(url);
+
     };
 
     const handleDownload = async () => {
@@ -24,6 +26,8 @@ const FileDownloader = () => {
             console.log("Presigned URL:", presignedUrl);
             setUrl(presignedUrl);
             setVideo(true);
+
+
             // Step 2: Download the file using axios
             const downloadResponse = await axios.get(presignedUrl, {
                 responseType: 'blob', // Important for downloading files
