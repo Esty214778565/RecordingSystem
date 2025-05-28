@@ -1,12 +1,21 @@
 // import { Outlet } from 'react-router-dom';
-import HomePage from './Components/HomePage';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import theme from './Components/theme';
+import { CssBaseline } from '@mui/material';
+import Header from './Components/Header';
+import { Outlet } from 'react-router-dom';
 
 
 const AppLayout = () => {
     return (
         <>
-            <HomePage />
-            {/* <Outlet /> */}
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Header />
+
+                <Outlet />
+
+            </ThemeProvider>
         </>
     );
 };

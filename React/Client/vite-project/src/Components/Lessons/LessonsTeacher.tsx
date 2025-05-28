@@ -157,11 +157,9 @@ const LessonsTeacher = () => {
         overflow: "hidden",
       }}
     >
-      {/* Animated background elements */}
       <Box className="bg-animation-lessons" />
 
       <Container maxWidth="xl" sx={{ pt: 6, pb: 8 }}>
-        {/* Header Section */}
         <Box
           sx={{
             background: "rgba(255, 255, 255, 0.9)",
@@ -176,7 +174,7 @@ const LessonsTeacher = () => {
           }}
           className="lessons-header-section"
         >
-          {/* Header gradient overlay */}
+
           <Box
             sx={{
               position: "absolute",
@@ -189,6 +187,7 @@ const LessonsTeacher = () => {
           />
 
           <Box sx={{ position: "relative", zIndex: 1 }}>
+
             <Chip
               icon={<BookOpen style={{ color: "#f59e0b" }} />}
               label="🎧 Teacher's Audio Library"
@@ -322,8 +321,30 @@ const LessonsTeacher = () => {
             </Typography>
           </Box>
         </Box>
+        {/* <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+              <Button
+                color={showLessons ? "primary" : "inherit"}
+                variant="outlined"
+                onClick={() => setShowLessons((prev) => !prev)}
+                sx={{
+                  borderRadius: "12px",
+                  fontWeight: 700,
+                  borderWidth: 2,
+                  color: "#0f172a",
+                  borderColor: "#06b6d4",
+                  background: "linear-gradient(135deg, #f8fafc 0%, #06b6d405 100%)",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #06b6d4 0%, #f59e0b08 100%)",
+                    borderColor: "#f59e0b",
+                    color: "#f59e0b",
+                  },
+                }}
+              >
+                {showLessons ? "Hide Lessons" : "Show Lessons"}
+              </Button>
+            </Box> */}
+        {/* //////////////////////////////// */}
 
-        {/* Lessons Grid */}
         <Stack spacing={4}>
           {teacher?.records?.map((record, index) => {
             const stats = getRandomStats()
@@ -359,7 +380,6 @@ const LessonsTeacher = () => {
               >
                 <CardContent sx={{ p: 4 }}>
                   <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-                    {/* Audio Icon */}
                     <Box
                       sx={{
                         width: 80,
@@ -383,7 +403,7 @@ const LessonsTeacher = () => {
                       <Play style={{ fontSize: "36px", color: "white", marginLeft: "4px" }} />
                     </Box>
 
-                    {/* Lesson Content */}
+
                     <Box sx={{ flex: 1 }}>
                       {editingRecord && editingRecord.id === record.id ? (
                         <Box sx={{ mb: 3 }}>
@@ -430,7 +450,6 @@ const LessonsTeacher = () => {
                         </Typography>
                       )}
 
-                      {/* Lesson Stats */}
                       <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3, flexWrap: "wrap" }}>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                           <Clock style={{ fontSize: "16px", color: "#64748b" }} />
@@ -462,7 +481,6 @@ const LessonsTeacher = () => {
                         />
                       </Box>
 
-                      {/* Action Buttons */}
                       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
                         {editingRecord && editingRecord.id === record.id ? (
                           <>
@@ -567,7 +585,6 @@ const LessonsTeacher = () => {
                         )}
                       </Box>
 
-                      {/* Question List */}
                       <Divider sx={{ mb: 3, background: "linear-gradient(90deg, #f59e0b, #06b6d4)" }} />
                       <QuestionList record={record} setRecord={handleEdit} />
                     </Box>
@@ -577,6 +594,7 @@ const LessonsTeacher = () => {
             )
           })}
         </Stack>
+        
       </Container>
 
       <Outlet />

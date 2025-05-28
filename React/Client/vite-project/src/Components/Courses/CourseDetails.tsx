@@ -1,10 +1,10 @@
 
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch } from "../../Store/Store"
-import { Outlet, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import {
     Typography,
     Container,
@@ -19,12 +19,12 @@ import {
     Divider,
     Chip,
 } from "@mui/material"
-import { BookOpen, Users, Calendar, Mail, Play, Star, ChevronDown, GraduationCap, TrendingUp } from "lucide-react"
+import { BookOpen, Users, Calendar, Mail, Star, ChevronDown, GraduationCap, TrendingUp } from "lucide-react"
 import type { RootState } from "../../Store/Store"
 import { fetchCourses, fetchListOfTeachers } from "../../Reducers/CoursesSlice"
-import { useNavigate } from "react-router-dom"
-import AudioPlayer from "../AudioPlayer"
 import './CourseDetails.css'
+import DisplayCourse from "./DisplayCourse"
+import { Course } from "../../Models/Course"
 
 
 const CourseDetail = () => {
@@ -34,7 +34,8 @@ const CourseDetail = () => {
     const course = useSelector((state: RootState) =>
         state.courses.courses.find((course) => course.id === Number(courseId)),
     )
-    const navigate = useNavigate()
+
+    const [teachersend, setTeachersend] = useState<Course>(teachers[0]);
 
     useEffect(() => {
         if (!course) {
@@ -347,7 +348,7 @@ const CourseDetail = () => {
                 {/* Main Layout: Audio Player and Teachers List */}
                 <Grid container spacing={4}>
                     {/* Left Side: Audio Player */}
-                    <Grid item xs={12} md={8}>
+                    {/* <Grid item xs={12} md={8}>
                         <Paper
                             elevation={0}
                             sx={{
@@ -362,7 +363,6 @@ const CourseDetail = () => {
                             }}
                             className="audio-player-section"
                         >
-                            {/* Audio player gradient overlay */}
                             <Box
                                 sx={{
                                     position: "absolute",
@@ -410,7 +410,7 @@ const CourseDetail = () => {
 
                             <AudioPlayer />
                         </Paper>
-                    </Grid>
+                    </Grid> */}
 
                     {/* Right Side: Teachers List */}
                     <Grid item xs={12} md={4}>
@@ -448,7 +448,8 @@ const CourseDetail = () => {
                                 {teachers.map((teacher, index) => (
                                     <Accordion
                                         key={teacher.id}
-                                        onClick={() => navigate(`/courses/${courseId}/${teacher.id}`)}
+                                        onClick={() => setTeachersend(teacher)}
+                                        // onClick={() => navigate(`/courses/${courseId}/${teacher.id}`)}
                                         sx={{
                                             borderRadius: "20px !important",
                                             overflow: "hidden",
@@ -610,10 +611,15 @@ const CourseDetail = () => {
                             </Stack>
                         </Box>
                     </Grid>
-                </Grid>
+                    <Grid item xs={12} md={8}>
+                        {/* /////// */}
+                        <DisplayCourse teacher={teachersend} />
+                        {/* <Outlet /> */}
+                    </Grid></Grid>
+
             </Container>
 
-            <Outlet />
+
         </Box>
     )
 }

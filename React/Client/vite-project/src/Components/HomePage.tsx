@@ -7,8 +7,6 @@ import {
   ThemeProvider,
   createTheme,
   CssBaseline,
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Box,
@@ -215,7 +213,7 @@ export default function HomePage() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar
+      {/* <AppBar
         position="fixed"
         sx={{
           backgroundColor: "rgba(255,255,255,0.95)",
@@ -339,7 +337,7 @@ export default function HomePage() {
             </Button>
           </Box>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
       {/* Hero Section */}
       <Box
@@ -644,7 +642,7 @@ export default function HomePage() {
           </Grid>
         </Container>
       </Box>
-<Outlet/>
+      <Outlet />
       {/* Statistics Section */}
       <Box
         className="stats-section"

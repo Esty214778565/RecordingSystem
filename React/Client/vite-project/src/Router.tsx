@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 import AppLayout from './AppLayout'
 import AllCourses from './Components/Courses/AllCourses'
-import CourseDetail from './Components/Courses/CourseDetails'
 import LessonTeacher from './Components/Lessons/LessonsTeacher'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import AddLesson from './Components/Lessons/AddLesson'
 import AudioPlayer from './Components/AudioPlayer'
+import HomePage from './Components/HomePage'
+import CourseDetail from './Components/Courses/CourseDetails'
 
 
 
@@ -15,16 +16,14 @@ export const Router = createBrowserRouter([
     path: '/',
     element: <AppLayout />,
     children: [
-      // {
-      //     path: '/login',
-      //     element: <Login />,
-      //     errorElement: <h1>Not Found</h1>
-      // },
-      // {
-      //     path: '/register',
-      //     element: <Register />,
-      //     errorElement: <h1>Not Found</h1>
-      // }
+      {
+        path: '', // <-- this matches "/"
+        element: <HomePage />
+      },
+      {
+        path: 'homePage',
+        element: <HomePage />
+      },
       {
         path: 'login',
         element: <Login />
@@ -49,19 +48,18 @@ export const Router = createBrowserRouter([
       {
         path: 'courses/:courseId',
         element: <CourseDetail />,
+
+      },
+      {
+        path: 'courses/:courseId/:teacherId',
+        element: <LessonTeacher />,
         children: [
           {
-            path: ':teacherId',
-            element: <LessonTeacher />,
-            children: [
-              {
-                path: ':url',
-                element: <AudioPlayer />,
-              },
-            ],
+            path: ':url',
+            element: <AudioPlayer />,
           },
-        ]
-      }
+        ],
+      },
     ]
   }
 ])
