@@ -1,9 +1,9 @@
 // import { Outlet } from 'react-router-dom';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import theme from './Components/theme';
 import { CssBaseline } from '@mui/material';
 import Header from './Components/Header';
 import { Outlet } from 'react-router-dom';
+import theme from './Components/Theme';
 
 
 const AppLayout = () => {
@@ -12,9 +12,7 @@ const AppLayout = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header />
-
                 <Outlet />
-
             </ThemeProvider>
         </>
     );
