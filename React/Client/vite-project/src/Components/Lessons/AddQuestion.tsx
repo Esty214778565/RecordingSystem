@@ -56,7 +56,7 @@ const AddQuestion: React.FC<{ record: Lesson; setRecord: any }> = ({ record, set
     await new Promise((resolve) => setTimeout(resolve, 800))
 
     const newQuestion: any = {
-      id: Date.now(), // Generate unique ID
+      id: 0, // Generate unique ID
       text: questionText,
       answers: [],
     }

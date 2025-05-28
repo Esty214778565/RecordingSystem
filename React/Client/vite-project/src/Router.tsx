@@ -5,9 +5,10 @@ import LessonTeacher from './Components/Lessons/LessonsTeacher'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import AddLesson from './Components/Lessons/AddLesson'
-import AudioPlayer from './Components/AudioPlayer'
 import HomePage from './Components/HomePage'
 import CourseDetail from './Components/Courses/CourseDetails'
+import DisplayLesson from './Components/Lessons/DisplayLesson'
+import QuestionList from './Components/Lessons/QuestionList'
 
 
 
@@ -48,18 +49,27 @@ export const Router = createBrowserRouter([
       {
         path: 'courses/:courseId',
         element: <CourseDetail />,
-
       },
       {
         path: 'courses/:courseId/:teacherId',
         element: <LessonTeacher />,
-        children: [
-          {
-            path: ':url',
-            element: <AudioPlayer />,
-          },
-        ],
+
       },
+      {
+        path: 'courses/:courseId/:teacherId/lesson',
+        element: <DisplayLesson />,
+      }
+      ,
+        {
+        path: 'courses/:courseId/:teacherId/lesson/questions',
+        element: <QuestionList />,
+      }
+      // ,
+      // {
+      //   path: 'courses/:courseId/:teacherId/:url',
+      //   element: <AudioPlayer />,
+
+      // }
     ]
   }
 ])

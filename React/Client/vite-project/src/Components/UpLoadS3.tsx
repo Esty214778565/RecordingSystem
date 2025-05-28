@@ -47,6 +47,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       await axios.put(presignedUrl, file, {
         headers: {
           "Content-Type": file.type,
+          "Content-Disposition": "inline",
         },
         onUploadProgress: (progressEvent) => {
           const percent = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1))
@@ -203,7 +204,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
                 lineHeight: 1.6,
               }}
             >
-              Share your knowledge through high-quality audio recordings. Upload MP3 files to create engaging
+              Share your knowledge through high-quality audio recordings. Upload files to create engaging
               educational content.
             </Typography>
           </Box>
@@ -232,7 +233,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
             <input
               id="file-input"
               type="file"
-              accept=".mp3,.mp4,.wmv,video/mp4,video/x-ms-wmv,audio/mpeg"
+              // accept=".mp3,.mp4,.wmv,video/mp4,video/x-ms-wmv,audio/mpeg"
+              accept=".mp3,.mp4,video/mp4,audio/mpeg"
               onChange={handleFileChange}
               style={{ display: "none" }}
             />

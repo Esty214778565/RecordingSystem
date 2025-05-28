@@ -43,7 +43,7 @@ namespace Records.Service
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(Convert.ToDouble(_configuration["Jwt:ExtendedExpiresInHours"])),
+                expires: DateTime.Now.AddHours(Convert.ToDouble(_configuration["Jwt:ExtendedExpiresInHours"])+1),
                 signingCredentials: creds);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);

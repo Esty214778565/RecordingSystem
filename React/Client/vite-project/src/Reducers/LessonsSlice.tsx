@@ -48,12 +48,12 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
         const addedLesson: Lesson = {
             ...lessonData,
             ...res.data,
-            updateDate: res.data.updateDate ? new Date(res.data.updateDate) : lessonData.updateDate
+            updateDate: res.data.updateDate ?? lessonData.updateDate // keep as string
         };
         return addedLesson;
     } catch (error: any) {
         console.error("Error adding lesson:", error.response?.data || error.message);
-        return thunkAPI.rejectWithValue("Failed to add lesson");
+        return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to add lesson");
     }
 });
 
@@ -101,7 +101,9 @@ export const updateLesson = createAsyncThunk('lessons/updateLesson', async (less
             questions: res.data.questions ?? lessonData.questions,
             //  updateDate: res.data.updateDate ? new Date(res.data.updateDate) : lessonData.updateDate // prefer server value if present
 
-            updateDate: res.data.updateDate ?? lessonData.updateDate // prefer server value if present
+            updateDate: res.data.updateDate
+                ? new Date(res.data.updateDate).toISOString()
+                : lessonData.updateDate // prefer server value if present
 
         };
         return updatedLesson;
@@ -126,13 +128,16 @@ export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (less
     }
 });
 
+interface LessonsState {
+    lessons: Lesson[];
+    loading: boolean;
+    error: string | null;
+}
+const initialState: LessonsState = { lessons: [], loading: false, error: null };
+
 const lessonsSlice = createSlice({
     name: 'lessons',
-    initialState: {
-        lessons: [] as Lesson[],
-        loading: false,
-        error: null as string | null,
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -166,7 +171,7 @@ const lessonsSlice = createSlice({
             })
             .addCase(updateLesson.fulfilled, (state, action) => {
                 debugger;
-        
+
                 state.loading = false;
                 const index = state.lessons.findIndex(lesson => lesson.id === action.payload.id);
                 if (index !== -1) {

@@ -2,14 +2,13 @@
 "use client"
 
 import { useDispatch, useSelector } from "react-redux"
-import { Outlet, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import type { AppDispatch, RootState } from "../../Store/Store"
 import { useEffect, useState } from "react"
 import { fetchListOfTeachers } from "../../Reducers/CoursesSlice"
 import { deleteLesson, updateLesson } from "../../Reducers/LessonsSlice"
 import { Box, Button, TextField, Typography, Card, CardContent, Chip, Stack, Container, Divider } from "@mui/material"
 import {
-  Play,
   Edit3,
   Trash2,
   Save,
@@ -23,12 +22,10 @@ import {
   Star,
 } from "lucide-react"
 import type { Lesson } from "../../Models/Lesson"
-import QuestionList from "./QuestionList"
+
 import './LessonTeacher.css'
 
 const LessonsTeacher = () => {
-  console.log("enter to LessonTeacher")
-
   const [editingRecord, setEditingRecord] = useState<{ id: number; fileName: string } | null>(null)
   const [updatedFileName, setUpdatedFileName] = useState<string>("")
 
@@ -41,15 +38,19 @@ const LessonsTeacher = () => {
     state.courses.teachers.find((teacher) => teacher.id === Number(teacherId)),
   )
   const navigate = useNavigate()
-
   const handleDelete = async (recordId: number) => {
     await dispatch(deleteLesson(recordId))
 
     if (teacher?.records.length === 1) {
-      window.location.pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"))
+      //window.location.pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"))
+      navigate(`/courses/${courseId}`) // Redirect to the teacher's page if no records left
     }
-    await dispatch(fetchListOfTeachers(Number(teacherId)))
+    debugger;
+    
+     await dispatch(fetchListOfTeachers(Number(teacherId)))
   }
+
+
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -71,20 +72,13 @@ const LessonsTeacher = () => {
     }
   }
 
-  const handleEdit = async (record: Lesson) => {
-    const res = await dispatch(updateLesson(record))
-    const res2 = await dispatch(fetchListOfTeachers(Number(teacherId)))
-    console.log("res in handleEdit:", res)
-    console.log("res2 in handleEdit:", res2)
-  }
 
-  const handleLessonClick = (record: any) => {
-    const urlPrefix = "https://s3.amazonaws.com/my-first-records-bucket.testpnoren/"
-    const relativeUrl = record.s3Key.startsWith(urlPrefix) ? record.s3Key.substring(urlPrefix.length) : record.s3Key
-    console.log("relativeUrl:", relativeUrl)
-    navigate(`/courses/${courseId}/${teacherId}/${relativeUrl}`)
-  }
 
+
+  const handleLessonClick = (record: Lesson, stats: any) => {
+    console.log("record in try:", record)
+    navigate('lesson', { state: { record, stats } })
+  }
   const getRandomStats = () => ({
     duration: Math.floor(Math.random() * 45) + 15,
     views: Math.floor(Math.random() * 500) + 50,
@@ -321,30 +315,6 @@ const LessonsTeacher = () => {
             </Typography>
           </Box>
         </Box>
-        {/* <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-              <Button
-                color={showLessons ? "primary" : "inherit"}
-                variant="outlined"
-                onClick={() => setShowLessons((prev) => !prev)}
-                sx={{
-                  borderRadius: "12px",
-                  fontWeight: 700,
-                  borderWidth: 2,
-                  color: "#0f172a",
-                  borderColor: "#06b6d4",
-                  background: "linear-gradient(135deg, #f8fafc 0%, #06b6d405 100%)",
-                  "&:hover": {
-                    background: "linear-gradient(135deg, #06b6d4 0%, #f59e0b08 100%)",
-                    borderColor: "#f59e0b",
-                    color: "#f59e0b",
-                  },
-                }}
-              >
-                {showLessons ? "Hide Lessons" : "Show Lessons"}
-              </Button>
-            </Box> */}
-        {/* //////////////////////////////// */}
-
         <Stack spacing={4}>
           {teacher?.records?.map((record, index) => {
             const stats = getRandomStats()
@@ -380,7 +350,7 @@ const LessonsTeacher = () => {
               >
                 <CardContent sx={{ p: 4 }}>
                   <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-                    <Box
+                    {/* <Box
                       sx={{
                         width: 80,
                         height: 80,
@@ -398,10 +368,11 @@ const LessonsTeacher = () => {
                         },
                       }}
                       className="lesson-play-button"
-                      onClick={() => handleLessonClick(record)}
+                       onClick={() => handlePlayClick(record)}
+                     
                     >
                       <Play style={{ fontSize: "36px", color: "white", marginLeft: "4px" }} />
-                    </Box>
+                    </Box> */}
 
 
                     <Box sx={{ flex: 1 }}>
@@ -443,7 +414,7 @@ const LessonsTeacher = () => {
                               color: "#f59e0b",
                             },
                           }}
-                          onClick={() => handleLessonClick(record)}
+                          onClick={() => handleLessonClick(record, stats)}
                           className="lesson-title-hover"
                         >
                           {record.fileName}
@@ -584,9 +555,8 @@ const LessonsTeacher = () => {
                           )
                         )}
                       </Box>
-
                       <Divider sx={{ mb: 3, background: "linear-gradient(90deg, #f59e0b, #06b6d4)" }} />
-                      <QuestionList record={record} setRecord={handleEdit} />
+                      {/* <QuestionList record={record} setRecord={handleEdit} /> */}
                     </Box>
                   </Box>
                 </CardContent>
@@ -594,10 +564,10 @@ const LessonsTeacher = () => {
             )
           })}
         </Stack>
-        
+
       </Container>
 
-      <Outlet />
+      {/* <Outlet /> */}
     </Box>
   )
 }

@@ -66,8 +66,27 @@ import AddAnswer from "./AddAnswer"
 import AddQuestion from "./AddQuestion"
 import { Brain, MessageCircle, Users, Clock, CheckCircle2, HelpCircle } from "lucide-react"
 import './QuestionList.css'
+import { useLocation, useParams } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { fetchListOfTeachers } from "../../Reducers/CoursesSlice"
+import { updateLesson } from "../../Reducers/LessonsSlice"
+import { AppDispatch } from "../../Store/Store"
 
-const QuestionList = ({ record, setRecord }: { record: Lesson; setRecord: any }) => {
+const QuestionList = () => {
+    const location = useLocation();
+    const record: Lesson = location.state?.record;
+    // const setRecord:any = location.state?.setRecord;
+
+    const dispatch = useDispatch<AppDispatch>();
+   // const { courseId } = useParams<{ courseId: string }>()
+    const { teacherId } = useParams<{ teacherId: string }>()
+
+    const handleEdit = async (record: Lesson) => {
+        const res = await dispatch(updateLesson(record))
+        const res2 = await dispatch(fetchListOfTeachers(Number(teacherId)))
+        console.log("res in handleEdit:", res)
+        console.log("res2 in handleEdit:", res2)
+    }
     return (
         <div className="question-list-container">
             {/* Header Section */}
@@ -157,7 +176,7 @@ const QuestionList = ({ record, setRecord }: { record: Lesson; setRecord: any })
                                 </div>
 
                                 <div className="question-actions">
-                                    <AddAnswer question={q} record={record} setRecord={setRecord} />
+                                    <AddAnswer question={q} record={record} setRecord={handleEdit} />
                                 </div>
                             </div>
                         ))}
@@ -187,7 +206,7 @@ const QuestionList = ({ record, setRecord }: { record: Lesson; setRecord: any })
                 )}
 
                 <div className="add-question-section">
-                    <AddQuestion record={record} setRecord={setRecord} />
+                    <AddQuestion record={record} setRecord={handleEdit} />
                 </div>
             </div>
         </div>

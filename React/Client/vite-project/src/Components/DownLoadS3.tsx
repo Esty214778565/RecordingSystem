@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import VideoPlayer from './VideoPlayer';
 
 const FileDownloader = () => {
     const [fileName, setFileName] = useState('');
@@ -10,7 +9,6 @@ const FileDownloader = () => {
     const handleFileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFileName(e.target.value);
         console.log(url);
-
     };
 
     const handleDownload = async () => {
@@ -27,6 +25,8 @@ const FileDownloader = () => {
             setUrl(presignedUrl);
             setVideo(true);
 
+//stam
+console.log(video);
 
             // Step 2: Download the file using axios
             const downloadResponse = await axios.get(presignedUrl, {
@@ -59,7 +59,7 @@ const FileDownloader = () => {
             <button onClick={handleDownload}>הורד קובץ</button>
             {downloadProgress > 0 && <div>התקדמות: {downloadProgress}%</div>}
 
-            {video && <VideoPlayer />}
+            {/* {video && <VideoPlayer />} */}
         </div>
     );
 };

@@ -1,5 +1,3 @@
-
-
 "use client"
 
 import type React from "react"
@@ -69,8 +67,8 @@ const TranscriptionComponent: React.FC<TranscriptionComponentProps> = ({ audioFi
 
     try {
       // Send the file to the server for transcription
-      const response = await fetch("https://recordingsystem-server.onrender.com/api/openai/transcribe", {
-        // const response = await fetch('https://localhost:7043/api/openai/transcribe', {
+      //  const response = await fetch("https://recordingsystem-server.onrender.com/api/openai/transcribe", {
+      const response = await fetch('https://localhost:7043/api/openai/transcribe', {
         method: "POST",
         body: formData,
       })
@@ -82,6 +80,13 @@ const TranscriptionComponent: React.FC<TranscriptionComponentProps> = ({ audioFi
 
       // Parse the JSON response from the server
       const data = await response.json()
+
+      // Example: When processing API response
+      // const lesson = {
+      //   ...data,
+      //   updateDate: data.updateDate ? new Date(data.updateDate).toISOString() : null,
+      //   // ...other fields
+      // }
 
       // Display the transcription result
       setTranscription(data.transcription)
