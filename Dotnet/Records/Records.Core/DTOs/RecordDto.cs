@@ -14,6 +14,8 @@ namespace Records.Core.DTOs
         public string Description { get; set; }
         public string FileType { get; set; }
         public string S3Key { get; set; }
+        public string? TranscriptionS3Key { get; set; }
+        public string? TranscriptionTextS3Key { get; set; }
         public double Size { get; set; }
         public int FolderId { get; set; }
       //  public int Folder { get; set; }
