@@ -71,7 +71,8 @@ const QuestionList = () => {
             fileName: lesson.fileName,
             description: lesson.description,
             s3Key: lesson.s3Key,
-
+            transcriptionS3Key: lesson.transcriptionS3Key,
+            transcriptionTextS3Key: lesson.transcriptionTextS3Key,
             fileType: lesson.fileType,
             size: lesson.size,
             folderId: lesson.folderId, // Ensure folderId is included

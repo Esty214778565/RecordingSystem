@@ -10,7 +10,7 @@ import FileUploader from "../UpLoadS3"
 import type { Lesson } from "../../Models/Lesson"
 import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../../Store/Store"
-import { addLesson } from "../../Reducers/LessonsSlice"
+import { addLesson, transcribe } from "../../Reducers/LessonsSlice"
 import { fetchListOfTeachers } from "../../Reducers/CoursesSlice"
 import {
   Box,
@@ -55,6 +55,12 @@ const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderI
       setUploadProgress(100)
       alert("Lesson uploaded successfully!")
       dispatch(fetchListOfTeachers(Number(teacherFolderId)))
+      // Safely extract id from payload if it exists
+      const lessonId = (result.payload as { id?: number })?.id
+      if (lessonId) {
+        handletranscribe(presignedUrl, lessonId)
+      }
+
     } catch (error) {
       console.error("Error saving lesson:", error)
       alert("An error occurred while saving the lesson. Please try again.")
@@ -63,7 +69,17 @@ const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderI
       setUploadProgress(0)
     }
   }
+  const handletranscribe = async (s3Key: string, lessonId: number) => {
+    const res: any = await dispatch(transcribe({ s3Url: s3Key, recordId: lessonId }))
+    console.log("Transcription result:", res);
 
+    console.log(res.payload.TranscriptionVttKey);
+    console.log(res.payload.TranscriptionTextKey);
+
+    if (res.error) {
+      console.error("Error during transcription:", res.error.message);
+    }
+  }
   return (
     <Box
       sx={{

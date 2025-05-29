@@ -27,6 +27,8 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
         FileName: lessonData.fileName,
         Description: lessonData.description,
         S3Key: lessonData.s3Key,
+        transcriptionS3Key: lessonData.transcriptionS3Key,
+        transcriptionTextS3Key: lessonData.transcriptionTextS3Key,
         FileType: lessonData.fileType,
         Size: lessonData.size,
         FolderId: lessonData.folderId,
@@ -83,10 +85,10 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
 // Update a lesson
 export const updateLesson = createAsyncThunk('lessons/updateLesson', async (lessonData: Lesson, thunkAPI) => {
     const token = sessionStorage.getItem("token");
-   
+
     console.log("lessonData in update lesson slice:", lessonData);
 
-     try {
+    try {
         const res = await axios.put(`${apiUrl}/${lessonData.id}`, lessonData, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -118,7 +120,7 @@ export const updateLesson = createAsyncThunk('lessons/updateLesson', async (less
 
 export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (lessonId: number, thunkAPI) => {
     const token = sessionStorage.getItem("token");
-  
+
     try {
         await axios.delete(`${apiUrl}/${lessonId}`, {
             headers: {
@@ -130,6 +132,50 @@ export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (less
         return thunkAPI.rejectWithValue("Failed to delete lesson");
     }
 });
+
+// Thunk to call TranscribeFromS3
+export const transcribe = createAsyncThunk(
+    'Transcription/transcribeFromS3',
+    async ({ s3Url, recordId }: { s3Url: string; recordId: number }, thunkAPI) => {
+        const token = sessionStorage.getItem("token");
+        try {
+
+
+            const res = await axios.post(
+                // `https://localhost:7043/api/Transcription/transcribe/${recordId}`,
+                `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
+
+                { s3Url },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+
+            // const res = await axios.post(
+            //     //  `https://recordingsystem-server.onrender.com/api/Transcription/transcribe`,
+            //     `https://localhost:7043/api/Transcription/transcribe/${recordId}`, { s3Url: s3Url },
+            //     {
+            //         // params: { s3Url, recordId },
+            //         headers: {
+            //             'Authorization': `Bearer ${token}`
+            //         }
+            //     }
+            // );
+            //check if need to update the lesson after transcription
+            await fetchLessons();
+            return res.data;
+
+        } catch (error: any) {
+            debugger;
+            console.error("Error in transcribeFromS3:", error.response?.data || error.message);
+            return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to transcribe from S3");
+        }
+    }
+);
 
 interface LessonsState {
     lessons: Lesson[];

@@ -395,7 +395,7 @@ const TranscriptionComponent: React.FC<TranscriptionComponentProps> = ({ audioFi
                   backgroundColor: "rgba(139, 92, 246, 0.1)",
                   "& .MuiLinearProgress-bar": {
                     background: "linear-gradient(90deg, #8b5cf6, #06b6d4)",
-                    borderRadius: 4,
+                    borderRadius: 4
                   },
                 }}
                 className="transcription-progress-bar-glow"

@@ -62,6 +62,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
       setUploadComplete(true)
       setIsUploading(false)
       alert("The file was uploaded successfully!")
+
     } catch (error) {
       console.error("Upload Error", error)
       setIsUploading(false)
@@ -272,7 +273,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
               or click to browse files
             </Typography>
             <Typography variant="caption" sx={{ color: "#64748b" }}>
-              Supports MP3, MP4, WMV files up to 100MB
+              Supports MP3, MP4 files up to 100MB
             </Typography>
           </Box>
 

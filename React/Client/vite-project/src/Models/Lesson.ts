@@ -3,6 +3,8 @@ export type Lesson = {
     fileName: string;
     description: string;
     s3Key: string;
+    transcriptionS3Key?: string
+    transcriptionTextS3Key?: string
     fileType: string;
     size: number;
     updateDate?: Date;
