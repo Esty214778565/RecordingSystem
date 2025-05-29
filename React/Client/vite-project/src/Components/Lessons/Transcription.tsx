@@ -66,9 +66,9 @@ const TranscriptionComponent: React.FC<TranscriptionComponentProps> = ({ audioFi
     }, 500)
 
     try {
-      // Send the file to the server for transcription
-        const response = await fetch("https://recordingsystem-server.onrender.com/api/openai/transcribe", {
-    //  const response = await fetch('https://localhost:7043/api/openai/transcribe', {
+
+      const response = await fetch("https://recordingsystem-server.onrender.com/api/openai/transcribe", {
+        //  const response = await fetch('https://localhost:7043/api/openai/transcribe', {
         method: "POST",
         body: formData,
       })

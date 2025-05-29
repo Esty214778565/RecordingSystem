@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using Microsoft.EntityFrameworkCore;
 using Records.Core.Entities;
 using Records.Core.IRepositories;
 using System;
@@ -38,11 +40,11 @@ namespace Records.Data.Repositories
                 if (folder != null)
                 {
                     folder.UpdateDate = DateTime.Now;
-                    if (folder.ParentFolderId >0)
+                    if (folder.ParentFolderId > 0)
                     {
                         var parentFolder = await _context.Folders.FindAsync(folder.ParentFolderId);
-                    if(parentFolder != null)
-                        folder.ParentFolder.UpdateDate = DateTime.Now; // Ensure ParentFolder is not null before updating  
+                        if (parentFolder != null)
+                            folder.ParentFolder.UpdateDate = DateTime.Now; // Ensure ParentFolder is not null before updating  
                     }
                 }
             }
@@ -53,26 +55,44 @@ namespace Records.Data.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            // var r = _context.Records.ToList().Find(r => r.Id == id);
-            // if(r == null)
-            // {
-            //     return false;
-            // }
-            // var folder = r.Folder;
+          
 
-            // _context.Records.Remove(r);
-
-            //var res=await  _context.SaveChangesAsync();
-            // if (folder.Records.Count == 0)
-            // {
-            //     var parentFolder=folder.ParentFolder;
-            //     _context.Folders.Remove(folder);
-            //     var res2 = await _context.SaveChangesAsync();
-
-            // }
-            // return res>0;
             var record = _context.Records.ToList().Find(r => r.Id == id);
             if (record == null) return false; // Record not found
+            var s3Client = new AmazonS3Client();
+
+            var uriFile = new Uri(record.S3Key);
+            string fileKey = Path.GetFileName(uriFile.AbsolutePath);
+            bool hasTranscription = !string.IsNullOrEmpty(record.TranscriptionS3Key);
+            bool hasText = !string.IsNullOrEmpty(record.TranscriptionTextS3Key);
+
+            var objectsToDelete = new List<KeyVersion>
+{
+    new KeyVersion { Key = fileKey }
+};
+
+            if (hasTranscription)
+            {
+                var uriFileTranscription = new Uri(record.TranscriptionS3Key);
+                string fileTranscriptionKey = Path.GetFileName(uriFileTranscription.AbsolutePath);
+                objectsToDelete.Add(new KeyVersion { Key = fileTranscriptionKey });
+            }
+
+            if (hasText)
+            {
+                var uriFileText = new Uri(record.TranscriptionTextS3Key);
+                string fileTextKey = Path.GetFileName(uriFileText.AbsolutePath);
+                objectsToDelete.Add(new KeyVersion { Key = fileTextKey });
+            }
+
+            var deleteRequest = new DeleteObjectsRequest
+            {
+                BucketName = "my-first-records-bucket.testpnoren",
+                Objects = objectsToDelete
+            };
+
+            var response = await s3Client.DeleteObjectsAsync(deleteRequest);
+
 
             // Get the folderId from the record
             int folderId = record.FolderId;
@@ -114,64 +134,7 @@ namespace Records.Data.Repositories
             return res > 0;
         }
 
-        //public async Task<RecordEntity> UpdateAsync(int id, RecordEntity record)
-        //{
-        //    var existingRecord = await _context.Records
-        //        .Include(r => r.Questions).ThenInclude(f=>f.Answers)
-        //        // Include related questions  
-        //        .FirstOrDefaultAsync(r => r.Id == id);
-        //    if (existingRecord == null)
-        //        return null!; // Use null-forgiving operator to suppress CS8603 warning  
-
-        //    if (!string.IsNullOrEmpty(record.S3Key))
-        //        existingRecord.S3Key = record.S3Key;
-        //    if (!string.IsNullOrEmpty(record.FileName))
-        //        existingRecord.FileName = record.FileName;
-        //    if (!string.IsNullOrEmpty(record.Description))
-        //        existingRecord.Description = record.Description;
-        //    if (record.Size != 0)
-        //        existingRecord.Size = record.Size;
-        //    if (!string.IsNullOrEmpty(record.FileType))
-        //        existingRecord.FileType = record.FileType;
-        //    if (record.IsDeleted != existingRecord.IsDeleted)
-        //        existingRecord.IsDeleted = record.IsDeleted;
-
-        //    existingRecord.UpdateDate = DateTime.Now;
-
-        //    if (record.Folder != null)
-        //    {
-        //        existingRecord.Folder = record.Folder;
-        //    }
-
-        //    if (record.FolderId != 0)
-        //    {
-        //        existingRecord.FolderId = record.FolderId;
-        //        var folder = await _context.Folders.FindAsync(record.FolderId);
-        //        if (folder != null)
-        //        {
-        //            folder.UpdateDate = DateTime.Now;
-        //            if (folder.ParentFolderId > 0)
-        //            {
-        //                var parentFolder = await _context.Folders.FindAsync(folder.ParentFolderId);
-        //                if (parentFolder != null)
-        //                    folder.ParentFolder.UpdateDate = DateTime.Now; // Ensure ParentFolder is not null before updating  
-        //            }
-        //        }
-        //    }
-
-        //    // Update questions if provided  
-        //    if (record.Questions != null && record.Questions.Any())
-        //    {
-        //        existingRecord.Questions.Clear();
-        //        foreach (var question in record.Questions)
-        //        {
-        //            existingRecord.Questions.Add(question);
-        //        }
-        //    }
-
-        //    await _context.SaveChangesAsync();
-        //    return existingRecord;
-        //}
+  
 
         public async Task<RecordEntity> UpdateAsync(int id, RecordEntity record)
         {
@@ -185,6 +148,10 @@ namespace Records.Data.Repositories
 
             if (!string.IsNullOrEmpty(record.S3Key))
                 existingRecord.S3Key = record.S3Key;
+            if (!string.IsNullOrEmpty(record.TranscriptionS3Key))
+                existingRecord.TranscriptionS3Key = record.TranscriptionS3Key;
+            if (!string.IsNullOrEmpty(record.TranscriptionTextS3Key))
+                existingRecord.TranscriptionTextS3Key = record.TranscriptionTextS3Key;
             if (!string.IsNullOrEmpty(record.FileName))
                 existingRecord.FileName = record.FileName;
             if (!string.IsNullOrEmpty(record.Description))

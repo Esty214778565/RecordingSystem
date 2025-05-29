@@ -66,9 +66,31 @@ const QuestionList = () => {
     //   };
     // }
     const handleEdit = async (lesson: Lesson) => {
+        const ls: Lesson = {
+            id: lesson.id,
+            fileName: lesson.fileName,
+            description: lesson.description,
+            s3Key: lesson.s3Key,
+
+            fileType: lesson.fileType,
+            size: lesson.size,
+            folderId: lesson.folderId, // Ensure folderId is included
+            questions: lesson.questions?.map(q => ({
+                id: q.id,
+                text: q.text,
+                recordEntityId: q.recordEntityId,
+                answers: q.answers?.map(a => ({
+                    id: a.id,
+                    text: a.text,
+                    questionId: a.questionId
+                }))
+            }))
+
+        }
+
         const updatedLesson = { ...lesson, folder };
         debugger;
-        const res = await dispatch(updateLesson(updatedLesson));
+        const res = await dispatch(updateLesson(ls));
         const res2 = await dispatch(fetchListOfTeachers(Number(courseId)))
 
         console.log("updatedLesson in handleEdit:", updatedLesson);

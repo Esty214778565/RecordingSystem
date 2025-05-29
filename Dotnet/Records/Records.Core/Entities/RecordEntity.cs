@@ -19,6 +19,8 @@ namespace Records.Core.Entities
         public string FileName { get; set; }
         public string Description { get; set; }
         public string S3Key { get; set; }
+        public string TranscriptionS3Key { get; set; }
+        public string TranscriptionTextS3Key { get; set; }
         public string FileType { get; set; }
         public double Size { get; set; }
         public bool IsDeleted { get; set; }//not must  

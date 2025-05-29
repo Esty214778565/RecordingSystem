@@ -118,6 +118,7 @@ export const updateLesson = createAsyncThunk('lessons/updateLesson', async (less
 
 export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (lessonId: number, thunkAPI) => {
     const token = sessionStorage.getItem("token");
+  
     try {
         await axios.delete(`${apiUrl}/${lessonId}`, {
             headers: {
