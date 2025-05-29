@@ -15,7 +15,7 @@ namespace Records.Core.Entities
         //public int UserId { get; set; }  
         //public UserEntity User { get; set; }//for foreign key  
         public int FolderId { get; set; }
-        public FolderEntity Folder { get; set; }//folder in folder list of records  
+        public FolderEntity? Folder { get; set; }//folder in folder list of records  
         public string FileName { get; set; }
         public string Description { get; set; }
         public string S3Key { get; set; }

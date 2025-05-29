@@ -76,9 +76,6 @@ const QuestionList = () => {
         console.log("res2 in handleEdit:", res2);
     }
 
-
-
-
     if (!lesson) {
         return (
             <div className="question-list-container">
