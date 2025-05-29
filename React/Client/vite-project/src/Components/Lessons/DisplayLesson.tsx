@@ -5,10 +5,19 @@ import { Lesson } from "../../Models/Lesson";
 
 
 import VideoPlayer from "../VideoPlayer";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchLessons } from "../../Reducers/LessonsSlice";
+import { AppDispatch } from "../../Store/Store";
+
+
 
 const DisplayLesson = () => {
     const location = useLocation();
     const record = location.state?.record;
+   console.log("record from state in display lesson:", record);
+   
+    
     const stats = location.state?.stats;
     const navigate = useNavigate();
 
@@ -18,11 +27,18 @@ const DisplayLesson = () => {
         console.log("relativeUrl:", relativeUrl)
         return relativeUrl;
     }
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchLessons());
+    }, [dispatch]);
+
+
+   
 
 
     return (
         <>
-
 
 
             <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
@@ -96,8 +112,11 @@ const DisplayLesson = () => {
                                 transition: "background 0.3s, transform 0.2s"
                             }}
                             onClick={() => {
-
-                                navigate('questions', { state: { record } });
+                                
+                                //dispatch(updateLesson(fixedLesson));
+                                console.log("before go questions",record);
+                                const folder=record.folder;
+                                navigate(`${record.id}/questions`, { state: { folder } });
                             }}
                         >
                             Go to Question

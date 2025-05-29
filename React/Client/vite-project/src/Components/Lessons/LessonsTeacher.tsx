@@ -1,6 +1,4 @@
-
 "use client"
-
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import type { AppDispatch, RootState } from "../../Store/Store"
@@ -40,14 +38,12 @@ const LessonsTeacher = () => {
   const navigate = useNavigate()
   const handleDelete = async (recordId: number) => {
     await dispatch(deleteLesson(recordId))
-
+    debugger;
     if (teacher?.records.length === 1) {
-      //window.location.pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"))
       navigate(`/courses/${courseId}`) // Redirect to the teacher's page if no records left
     }
-    debugger;
-    
-     await dispatch(fetchListOfTeachers(Number(teacherId)))
+
+    await dispatch(fetchListOfTeachers(Number(courseId)))
   }
 
 
@@ -55,7 +51,8 @@ const LessonsTeacher = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       if (!teacher) {
-        await dispatch(fetchListOfTeachers(Number(teacherId)))
+        //check if good or teacherId is correct
+        await dispatch(fetchListOfTeachers(Number(courseId)))
       }
     }
     fetchTeachers()
@@ -68,7 +65,8 @@ const LessonsTeacher = () => {
       console.log("res in handleUpdate:", res)
       setEditingRecord(null)
       setUpdatedFileName("")
-      await dispatch(fetchListOfTeachers(Number(teacherId)))
+      // Fetch updated lessons after update
+      await dispatch(fetchListOfTeachers(Number(courseId)))
     }
   }
 
@@ -573,3 +571,5 @@ const LessonsTeacher = () => {
 }
 
 export default LessonsTeacher
+
+

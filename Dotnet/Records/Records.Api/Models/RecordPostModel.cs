@@ -11,7 +11,20 @@ namespace Records.Api.Models
         public string FileType { get; set; }
         public double Size { get; set; }
         public int FolderId { get; set; }
-        public List<Question> Questions { get; set; }
+        public List<QuestionPostModel> Questions { get; set; }
+
+
+        public class QuestionPostModel
+        {
+            public string Text { get; set; }
+
+            public List<AnswerPostModel> Answers { get; set; } = new();
+        }
+
+        public class AnswerPostModel
+        {
+            public string Text { get; set; }
+        }
 
     }
 }

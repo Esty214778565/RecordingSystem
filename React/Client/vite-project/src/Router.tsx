@@ -60,8 +60,8 @@ export const Router = createBrowserRouter([
         element: <DisplayLesson />,
       }
       ,
-        {
-        path: 'courses/:courseId/:teacherId/lesson/questions',
+      {
+        path: 'courses/:courseId/:teacherId/lesson/:lessonId/questions',
         element: <QuestionList />,
       }
       // ,

@@ -29,6 +29,6 @@ export type Answer = {
     id: number;
     text: string;
     questionId?: number;
-    question?: Question|null;
+    question?: Question | null;
 }
 

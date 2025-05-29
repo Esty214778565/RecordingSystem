@@ -23,7 +23,7 @@ export const fechcoursesKategories = createAsyncThunk('courses/fetchCoursesKateg
 
     const token = sessionStorage.getItem("token");
     try {
-      
+
         const res = await axios.get(`${apiUrl}/folder/kategories`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -96,7 +96,7 @@ export const updateCourse = createAsyncThunk('course/updateCourse', async (cours
     try {
         const res = await axios.put(`${apiUrl}/folder/${courseData.id}`, courseData, {
             headers: {
-            'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             }
         });
         // Map the response to ensure updateDate is a Date object (not string)
@@ -128,30 +128,29 @@ export const deleteCourse = createAsyncThunk('course/deleteCourse', async (cours
 export const fetchListOfTeachers = createAsyncThunk(
     'courses/fetchListOfTeachers',
     async (parentId: number, thunkAPI) => {
-       
-        
+
         const token = sessionStorage.getItem("token");
         try {
-        console.log("in teachers list fech");
+            console.log("in teachers list fech");
 
-        const res = await axios.get(`${apiUrl}/folder/children/${parentId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
+            const res = await axios.get(`${apiUrl}/folder/children/${parentId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log("Response data teachers of course:", parentId, ": ", res.data); // Log the response data
 
-        // if (Array.isArray(res.data) && res.data.length === 0) {
-        //     console.warn("No teachers found for the given parent ID:", parentId);
-        //     return thunkAPI.rejectWithValue("No teachers found");
-        // }
+            // if (Array.isArray(res.data) && res.data.length === 0) {
+            //     console.warn("No teachers found for the given parent ID:", parentId);
+            //     return thunkAPI.rejectWithValue("No teachers found");
+            // }
 
-        const lessonsArray = res.data;
-        const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({
-            ...course, // כל השדות האחרים
-            teacherId: course.userId, // החלפת userId ב-teacherId
-        }));
-        return mappedLessonsArray as Course[];
+            const lessonsArray = res.data;
+            const mappedLessonsArray: Course[] = lessonsArray.map((course: any) => ({
+                ...course, // כל השדות האחרים
+                teacherId: course.userId, // החלפת userId ב-teacherId
+            }));
+            return mappedLessonsArray as Course[];
         } catch (error) {
             return thunkAPI.rejectWithValue("Failed to fetch courses by parent ID");
         }

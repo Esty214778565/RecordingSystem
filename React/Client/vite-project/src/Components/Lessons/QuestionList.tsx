@@ -67,29 +67,97 @@ import AddQuestion from "./AddQuestion"
 import { Brain, MessageCircle, Users, Clock, CheckCircle2, HelpCircle } from "lucide-react"
 import './QuestionList.css'
 import { useLocation, useParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchListOfTeachers } from "../../Reducers/CoursesSlice"
-import { updateLesson } from "../../Reducers/LessonsSlice"
+import { fetchLessons, updateLesson } from "../../Reducers/LessonsSlice"
 import { AppDispatch } from "../../Store/Store"
-
+import type { RootState } from "../../Store/Store"
+import { useEffect } from "react"
 const QuestionList = () => {
     const location = useLocation();
-    const record: Lesson = location.state?.record;
-    // const setRecord:any = location.state?.setRecord;
+    const folder = location.state?.folder;
 
     const dispatch = useDispatch<AppDispatch>();
-   // const { courseId } = useParams<{ courseId: string }>()
-    const { teacherId } = useParams<{ teacherId: string }>()
+    const { courseId } = useParams<{ courseId: string }>()
 
-    const handleEdit = async (record: Lesson) => {
-        const res = await dispatch(updateLesson(record))
-        const res2 = await dispatch(fetchListOfTeachers(Number(teacherId)))
+    const { lessonId } = useParams<{ lessonId: string }>();
+    const lessons = useSelector((state: RootState) => state.lessons.lessons);
+    const lesson = useSelector((state: RootState) => state.lessons.lessons.find(l => l.id === Number(lessonId)));
+
+    console.log("lesson in QuestionList:", lesson);
+    useEffect(() => {
+        if (lessons.length === 0) {
+            dispatch(fetchLessons());
+        }
+    }, [dispatch, lessons.length]);
+    //     function createCleanLesson(lesson: Lesson) {
+    //         const updatedQuestions:Question = (lesson.questions || []).map(q => ({
+    //   ...q,
+    //   record: {
+    //     ...q.record,
+    //     folder: folder
+    //   }
+    // }));
+    //   return {
+    //     id: lesson.id,
+    //     fileName: lesson.fileName,
+    //     description: lesson.description,
+    //     fileType: lesson.fileType,
+    //     folderId: lesson.folderId, // שימי לב - לא להעביר folder מלא
+    //     s3Key: lesson.s3Key,
+    //     size: lesson.size,
+    //     questions: updatedQuestions || [], 
+    //     folder:folder// Ensure questions is always an array
+    //     // questions: lesson.questions.map((q: any) => ({
+    //     //   id: q.id,
+    //     //   text: q.text,
+    //     //   recordEntityId: q.recordEntityId,
+    //     //   record: {
+    //     //     id: q.record.id,
+    //     //     fileName: q.record.fileName,
+    //     //     description: q.record.description,
+    //     //     folderId: q.record.folderId,
+    //     //     folder: {
+    //     //       id: q.record.folder?.id,
+    //     //       name: q.record.folder?.name,
+    //     //       parentFolderId: q.record.folder?.parentFolderId
+    //     //     }
+    //     //   }
+    //     // }))
+    //   };
+    // }
+    const handleEdit = async (lesson: Lesson) => {
+        const updatedLesson = { ...lesson, folder }
+
+        debugger;
+        const res = await dispatch(updateLesson(updatedLesson));
+        const res2 = await dispatch(fetchListOfTeachers(Number(courseId)))
+
+        console.log("lesson in handleEdit:", lesson);
+        console.log("res in handleEdit:", res);
+        console.log("res2 in handleEdit:", res2);
+
+
         console.log("res in handleEdit:", res)
         console.log("res2 in handleEdit:", res2)
     }
+    //gpt
+
+
+
+    if (!lesson) {
+        return (
+            <div className="question-list-container">
+                <div className="empty-state">
+                    <h3>Lesson not found</h3>
+                    <p>The requested lesson could not be found.</p>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="question-list-container">
-            {/* Header Section */}
+
             <div className="question-list-header">
                 <div className="header-content">
                     <div className="header-icon">
@@ -117,19 +185,19 @@ const QuestionList = () => {
                 <div className="gradient-bar"></div>
             </div>
 
-            {/* Questions Section */}
+
             <div className="questions-section">
                 <div className="section-header">
                     <div className="section-title">
                         <HelpCircle className="section-icon" />
                         <h3>Discussion Questions</h3>
                     </div>
-                    <div className="questions-count">{record.questions?.length || 0} Questions</div>
+                    <div className="questions-count">{lesson.questions?.length || 0} Questions</div>
                 </div>
 
-                {record.questions && record.questions.length > 0 ? (
+                {lesson.questions && lesson.questions.length > 0 ? (
                     <div className="questions-grid">
-                        {record.questions.map((q, idx) => (
+                        {lesson.questions.map((q, idx) => (
                             <div key={idx} className="question-card" style={{ animationDelay: `${idx * 0.1}s` }}>
                                 <div className="question-header">
                                     <div className="question-number">Q{idx + 1}</div>
@@ -176,7 +244,7 @@ const QuestionList = () => {
                                 </div>
 
                                 <div className="question-actions">
-                                    <AddAnswer question={q} record={record} setRecord={handleEdit} />
+                                    <AddAnswer question={q} record={lesson} setRecord={handleEdit} />
                                 </div>
                             </div>
                         ))}
@@ -206,7 +274,7 @@ const QuestionList = () => {
                 )}
 
                 <div className="add-question-section">
-                    <AddQuestion record={record} setRecord={handleEdit} />
+                    <AddQuestion record={lesson} setRecord={handleEdit} />
                 </div>
             </div>
         </div>

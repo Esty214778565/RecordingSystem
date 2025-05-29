@@ -32,6 +32,8 @@ const AddAnswer: React.FC<{ question: any; record: Lesson; setRecord: any }> = (
         const updatedQuestions = record.questions.map((q) =>
             q === question ? { ...q, answers: [...(q.answers || []), newAnswer] } : q,
         )
+        debugger;
+        console.log("Updated Questions in answer:", updatedQuestions);
 
         setRecord({ ...record, questions: updatedQuestions })
         setAnswerText("")

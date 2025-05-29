@@ -83,9 +83,10 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
 // Update a lesson
 export const updateLesson = createAsyncThunk('lessons/updateLesson', async (lessonData: Lesson, thunkAPI) => {
     const token = sessionStorage.getItem("token");
-    debugger
+   
     console.log("lessonData in update lesson slice:", lessonData);
-    try {
+
+     try {
         const res = await axios.put(`${apiUrl}/${lessonData.id}`, lessonData, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -109,6 +110,7 @@ export const updateLesson = createAsyncThunk('lessons/updateLesson', async (less
         return updatedLesson;
     } catch (error: any) {
         console.error("Error updating lesson:", error.response?.data || error.message);
+        console.log("Validation errors:", error.response?.data?.errors);
         return thunkAPI.rejectWithValue("Failed to update lesson");
     }
 });
@@ -146,8 +148,9 @@ const lessonsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchLessons.fulfilled, (state, action) => {
-                state.loading = false;
                 state.lessons = action.payload;
+                state.loading = false;
+                state.error = null;
             })
             .addCase(fetchLessons.rejected, (state, action) => {
                 state.loading = false;
@@ -171,7 +174,6 @@ const lessonsSlice = createSlice({
             })
             .addCase(updateLesson.fulfilled, (state, action) => {
                 debugger;
-
                 state.loading = false;
                 const index = state.lessons.findIndex(lesson => lesson.id === action.payload.id);
                 if (index !== -1) {
