@@ -95,7 +95,7 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
     const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
 
     const vttFileName = ((fullUrl: string): string => {
-        debugger
+        debugger;
         const parts = fullUrl.split('/');
         return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
 
@@ -108,7 +108,9 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
                 <track
                     kind="subtitles"
                     srcLang="he"
-                    src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
+                    src="https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/89c1ea0c-696b-49bb-9023-8aa20d390f6e.vtt"
+                    // src={`https://localhost:7043/api/Transcription/vtt/${vttFileName}`}
+                    //src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
                     label="עברית"
                     default
                 />

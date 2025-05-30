@@ -96,8 +96,8 @@ namespace Records.Service
             //transcriptionVttKey = encodedFileName;
 
 
-            var transcriptionVttKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.vtt";
-            var transcriptionTextKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.txt";
+            var transcriptionVttKey = $"transcriptions/{Guid.NewGuid()}.vtt";
+            var transcriptionTextKey = $"transcriptions/{Guid.NewGuid()}.txt";
 
             await _s3Client.PutObjectAsync(new PutObjectRequest
             {

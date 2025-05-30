@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { User, UserLogin } from '../Models/User';
 import axios from 'axios';
-// const apiUrl="https://localhost:7043/api";
-const apiUrl = "https://recordingsystem-server.onrender.com/api";
+const apiUrl="https://localhost:7043/api";
+//const apiUrl = "https://recordingsystem-server.onrender.com/api";
 
 export const loginUser = createAsyncThunk('auth/login', async (userData: UserLogin, thunkAPI) => {
 
