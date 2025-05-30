@@ -41,3 +41,33 @@ const AppLayout = () => {
 };
 
 export default AppLayout;
+
+
+// import ThemeProvider from '@mui/material/styles/ThemeProvider';
+// import { CssBaseline, Box } from '@mui/material';
+// import Header from './Components/Header';
+// import { Outlet } from 'react-router-dom';
+// import theme from './Components/Theme';
+
+// const AppLayout = () => {
+//     return (
+//         <ThemeProvider theme={theme}>
+//             <CssBaseline />
+//             <Header />
+//             <Box
+//                 component="main"
+//                 sx={{
+//                     pt: { xs: 8, sm: 10 }, // padding to push below header
+//                     width: '100vw',
+//                     minHeight: '100vh',
+//                     overflowX: 'hidden',
+//                 }}
+//             >
+//                 <Outlet />
+//             </Box>
+//         </ThemeProvider>
+//     );
+// };
+
+// export default AppLayout;
+
