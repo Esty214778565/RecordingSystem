@@ -132,7 +132,7 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
 
     return (
         <div>
-            <video width="600" controls>
+            <video crossOrigin="anonymous" width="600" controls>
                 <source src={videoUrl} type="video/mp4" />
 
                 <track
