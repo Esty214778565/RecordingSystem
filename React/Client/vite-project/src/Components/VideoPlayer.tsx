@@ -51,9 +51,10 @@ const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url }) => {
         : '';
 
     console.log("enter VideoPlayer");
-
+    
     console.log("videoUrl:", videoUrl);
 
+    const aaa ="https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/35ee9393-f834-4dfe-a4c5-76b867d760ba.vtt"
     return (
         <div>
             <video width="600" controls>
@@ -65,7 +66,9 @@ const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url }) => {
 <track
   kind="subtitles"
   srcLang="he"
-  src="https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/35ee9393-f834-4dfe-a4c5-76b867d760ba.vtt"
+  src={`https://learnix-api.onrender.com/api/Transcription/proxy-vtt?url=${encodeURIComponent(aaa)}`}
+
+  
   label="עברית"
   default
 />
