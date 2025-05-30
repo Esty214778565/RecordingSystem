@@ -4,9 +4,8 @@
 import type React from "react"
 import { useState } from "react"
 import axios from "axios"
-import { Box, Typography, LinearProgress, Card, CardContent, Chip, Stack, Divider, Button } from "@mui/material"
-import { Upload, FileAudio, CheckCircle, Zap, Music, Mic, Play, Sparkles, CloudUpload, FileText } from "lucide-react"
-import TranscriptionComponent from "./Lessons/Transcription"
+import { Box, Typography, LinearProgress, Card, CardContent, Chip, Divider, Button } from "@mui/material"
+import { Upload, FileAudio, CheckCircle, Zap, Music, Mic, Play, Sparkles, CloudUpload } from "lucide-react"
 import './UpLoadS3.css'
 
 interface FileUploaderProps {
@@ -16,7 +15,6 @@ interface FileUploaderProps {
 const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
   const [file, setFile] = useState<File | null>(null)
   const [progress, setProgress] = useState(0)
-  const [transcribe, setTranscribe] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadComplete, setUploadComplete] = useState(false)
 
@@ -69,9 +67,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
     }
   }
 
-  const handletranscribe = () => {
-    setTranscribe(true)
-  }
+
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes"
@@ -387,68 +383,36 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
               )}
 
               {/* Action Buttons */}
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <Button
-                  variant="contained"
-                  onClick={handleUpload}
-                  disabled={isUploading || uploadComplete}
-                  sx={{
-                    background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
+              <Button
+                variant="contained"
+                onClick={handleUpload}
+                disabled={isUploading || uploadComplete}
+                sx={{
+                  background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
+                  color: "white",
+                  fontWeight: 700,
+                  borderRadius: "12px",
+                  px: 4,
+                  py: 1.5,
+                  boxShadow: "0 8px 24px rgba(245, 158, 11, 0.3)",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #d97706, #0891b2)",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 12px 32px rgba(245, 158, 11, 0.4)",
+                  },
+                  "&:disabled": {
+                    background: "#64748b",
                     color: "white",
-                    fontWeight: 700,
-                    borderRadius: "12px",
-                    px: 4,
-                    py: 1.5,
-                    boxShadow: "0 8px 24px rgba(245, 158, 11, 0.3)",
-                    "&:hover": {
-                      background: "linear-gradient(135deg, #d97706, #0891b2)",
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 12px 32px rgba(245, 158, 11, 0.4)",
-                    },
-                    "&:disabled": {
-                      background: "#64748b",
-                      color: "white",
-                    },
-                  }}
-                  className="upload-button-glow"
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Upload style={{ fontSize: "18px" }} />
-                    {isUploading ? "Uploading..." : "Save File"}
-                  </Box>
-                </Button>
+                  },
+                }}
+                className="upload-button-glow"
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Upload style={{ fontSize: "18px" }} />
+                  {isUploading ? "Uploading..." : "Save File"}
+                </Box>
+              </Button>
 
-                <Button
-                  variant="outlined"
-                  onClick={handletranscribe}
-                  disabled={!uploadComplete}
-                  sx={{
-                    borderColor: "#8b5cf6",
-                    color: "#8b5cf6",
-                    fontWeight: 700,
-                    borderRadius: "12px",
-                    px: 4,
-                    py: 1.5,
-                    borderWidth: 2,
-                    "&:hover": {
-                      backgroundColor: "#8b5cf6",
-                      color: "white",
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 12px 32px rgba(139, 92, 246, 0.4)",
-                    },
-                    "&:disabled": {
-                      borderColor: "#64748b",
-                      color: "#64748b",
-                    },
-                  }}
-                  className="transcribe-button-glow"
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <FileText style={{ fontSize: "18px" }} />
-                    Transcribe
-                  </Box>
-                </Button>
-              </Stack>
             </Box>
           )}
 
@@ -534,13 +498,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
           </Box>
         </CardContent>
       </Card>
-
-      {/* Transcription Component */}
-      {transcribe && file && (
-        <Box sx={{ mt: 4 }} className="transcription-section">
-          <TranscriptionComponent audioFile={file} />
-        </Box>
-      )}
     </Box>
   )
 }

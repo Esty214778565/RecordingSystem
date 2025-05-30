@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using Amazon;
+using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.EntityFrameworkCore;
 using Records.Core.Entities;
@@ -55,11 +56,11 @@ namespace Records.Data.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-          
+
 
             var record = _context.Records.ToList().Find(r => r.Id == id);
             if (record == null) return false; // Record not found
-            var s3Client = new AmazonS3Client();
+            var s3Client = new AmazonS3Client(Environment.GetEnvironmentVariable("AWS_ACCESS_KEY"), Environment.GetEnvironmentVariable("AWS_SECRET_KEY"), RegionEndpoint.USEast1);
 
             var uriFile = new Uri(record.S3Key);
             string fileKey = Path.GetFileName(uriFile.AbsolutePath);
@@ -134,7 +135,7 @@ namespace Records.Data.Repositories
             return res > 0;
         }
 
-  
+
 
         public async Task<RecordEntity> UpdateAsync(int id, RecordEntity record)
         {

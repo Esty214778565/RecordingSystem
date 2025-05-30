@@ -121,7 +121,7 @@ namespace Records.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class TranscriptionController : ControllerBase
     {
         private readonly ITranscriptionService _transcriptionService;
