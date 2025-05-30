@@ -40,9 +40,8 @@ const DisplayLesson = () => {
     return (
         <>
 
-
             <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-                <VideoPlayer url={handlePlayClick(record)} />
+                <VideoPlayer url={handlePlayClick(record)} vttUrl={record.transcriptionS3Key} />
 
 
                 <Box sx={{ flex: 1 }}>

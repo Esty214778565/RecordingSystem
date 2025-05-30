@@ -1,6 +1,6 @@
 
-const VideoPlayer: React.FC<{ url: string }> = ({ url }) => {
-
+const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl }) => {
+vttUrl = "http://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/69e19313-1e93-4cb1-a23e-a424e1e7a59a.vtt"
     //   const params = useParams<{ url?: string }>();
     const videoUrl = url
         ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`
@@ -18,10 +18,18 @@ const VideoPlayer: React.FC<{ url: string }> = ({ url }) => {
     return (
         <div>
             <video width="600" controls>
-                 {/* <source src={videoUrl.replace('.wmv', '.mp4')} type="video/mp4" /> */}
+                {/* <source src={videoUrl.replace('.wmv', '.mp4')} type="video/mp4" /> */}
                 <source src={videoUrl} type="video/mp4" />
                 <source src={videoUrl} type="video/x-ms-wmv" />
                 Your browser does not support the video tag.
+
+                <track
+                    kind="subtitles"
+                    srcLang="he"
+                    src={vttUrl}
+                    label="עברית"
+                    default
+                />
             </video>
         </div>
     );

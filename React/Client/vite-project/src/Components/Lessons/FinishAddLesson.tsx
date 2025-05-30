@@ -70,7 +70,9 @@ const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderI
     }
   }
   const handletranscribe = async (s3Key: string, lessonId: number) => {
+ 
     const res: any = await dispatch(transcribe({ s3Url: s3Key, recordId: lessonId }))
+    
     console.log("Transcription result:", res);
 
     console.log(res.payload.TranscriptionVttKey);

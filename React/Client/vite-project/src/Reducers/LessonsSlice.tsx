@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Lesson } from '../Models/Lesson';
 
-//const apiUrl = "https://localhost:7043/api/record";
-const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
+const apiUrl = "https://localhost:7043/api/record";
+//const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
 
 // Fetch lessons
 export const fetchLessons = createAsyncThunk('lessons/fetchLessons', async (_, thunkAPI) => {
@@ -135,16 +135,14 @@ export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (less
 
 // Thunk to call TranscribeFromS3
 export const transcribe = createAsyncThunk(
-    'Transcription/transcribeFromS3',
+    'Transcription/transcribe',
     async ({ s3Url, recordId }: { s3Url: string; recordId: number }, thunkAPI) => {
         const token = sessionStorage.getItem("token");
         try {
-
-
             const res = await axios.post(
-                // `https://localhost:7043/api/Transcription/transcribe/${recordId}`,
-                `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
 
+                `https://localhost:7043/api/Transcription/transcribe/${recordId}`,
+                // `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
                 { s3Url },
                 {
                     headers: {
@@ -166,7 +164,9 @@ export const transcribe = createAsyncThunk(
             //     }
             // );
             //check if need to update the lesson after transcription
-            await fetchLessons();
+            const lessondRes = await fetchLessons();
+            console.log("Response data in transcribe slice:", res.data);
+            
             return res.data;
 
         } catch (error: any) {
