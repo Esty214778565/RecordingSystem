@@ -91,29 +91,58 @@
 // export default VideoPlayer;
 
 
-const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url }) => {
+// const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url }) => {
+//     const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
+
+//     // const vttFileName = ((fullUrl: string): string => {
+//     //     debugger;
+//     //     const parts = fullUrl.split('/');
+//     //     return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
+
+//     // })(vttUrl);
+
+//     return (
+//         <div>
+//             <video width="600" controls>
+//                 <source src={videoUrl} type="video/mp4" />
+//                 <track
+//                     kind="subtitles"
+//                     srcLang="he"
+//                     src="https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/89c1ea0c-696b-49bb-9023-8aa20d390f6e.vtt"
+//                     // src={`https://localhost:7043/api/Transcription/vtt/${vttFileName}`}
+//                     //src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
+//                     label="עברית"
+//                     default
+//                 />
+//                 הדפדפן שלך לא תומך בוידאו.
+//             </video>
+//         </div>
+//     );
+// };
+
+
+// export default VideoPlayer;
+
+
+
+const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl }) => {
     const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
-
-    // const vttFileName = ((fullUrl: string): string => {
-    //     debugger;
-    //     const parts = fullUrl.split('/');
-    //     return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
-
-    // })(vttUrl);
+    // Ensure vttUrl uses https
+    const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
 
     return (
         <div>
             <video width="600" controls>
                 <source src={videoUrl} type="video/mp4" />
-                <track
-                    kind="subtitles"
-                    srcLang="he"
-                    src="https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/89c1ea0c-696b-49bb-9023-8aa20d390f6e.vtt"
-                    // src={`https://localhost:7043/api/Transcription/vtt/${vttFileName}`}
-                    //src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
-                    label="עברית"
-                    default
-                />
+                {safeVttUrl && (
+                    <track
+                        kind="subtitles"
+                        srcLang="he"
+                        src={safeVttUrl}
+                        label="עברית"
+                        default
+                    />
+                )}
                 הדפדפן שלך לא תומך בוידאו.
             </video>
         </div>
