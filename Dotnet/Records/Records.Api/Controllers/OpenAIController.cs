@@ -173,35 +173,61 @@ namespace Records.Api.Controllers
             }
         }
 
-        [HttpGet("proxy-vtt")]
-        public async Task<IActionResult> ProxyVttFile([FromQuery] string url)
+        //[HttpGet("proxy-vtt")]
+        //public async Task<IActionResult> ProxyVttFile([FromQuery] string url)
+        //{
+        //    if (string.IsNullOrEmpty(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+        //        return BadRequest("Invalid URL");
+
+        //    using var client = new HttpClient();
+        //    try
+        //    {
+
+        //        var uriFile = new Uri(url);
+        //        string fileKey = Path.GetFileName(uriFile.AbsolutePath);
+        //        var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
+        //        url = $"https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/{encodedFileName}";
+
+
+
+        //        var response = await client.GetAsync(url);
+        //        if (!response.IsSuccessStatusCode)
+        //            return NotFound("File not found");
+
+        //        var content = await response.Content.ReadAsStreamAsync();
+        //        return File(content, "text/vtt; charset=utf-8");
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(500, "Failed to proxy file");
+        //    }
+        //}
+
+        [HttpGet("vtt/{filename}")]
+        public async Task<IActionResult> GetVttFile(string filename)
         {
-            if (string.IsNullOrEmpty(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                return BadRequest("Invalid URL");
+            if (string.IsNullOrWhiteSpace(filename))
+                return BadRequest("Missing file name");
+
+            var url = $"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/{filename}";
 
             using var client = new HttpClient();
             try
             {
-
-                var uriFile = new Uri(url);
-                string fileKey = Path.GetFileName(uriFile.AbsolutePath);
-                var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
-                url = $"https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/{encodedFileName}";
-
-
-
                 var response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                     return NotFound("File not found");
 
                 var content = await response.Content.ReadAsStreamAsync();
-                return File(content, "text/vtt; charset=utf-8");
+                return File(content, "text/vtt");
             }
             catch
             {
-                return StatusCode(500, "Failed to proxy file");
+                return StatusCode(500, "Failed to load file");
             }
         }
+
+
 
 
     }
