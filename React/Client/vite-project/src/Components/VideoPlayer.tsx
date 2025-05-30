@@ -42,7 +42,7 @@
 // // Bad: store as Date object
 // // updateDate: new Date()
 
-const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl }) => {
+const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url }) => {
     // Ensure vttUrl uses https
     // const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
 
@@ -51,7 +51,7 @@ const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl })
         : '';
 
     console.log("enter VideoPlayer");
-    
+
     console.log("videoUrl:", videoUrl);
 
     return (
