@@ -51,6 +51,7 @@ const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl })
         : '';
 
     console.log("enter VideoPlayer");
+    
     console.log("videoUrl:", videoUrl);
 
     return (
