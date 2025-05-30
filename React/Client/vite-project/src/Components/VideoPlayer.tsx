@@ -91,15 +91,15 @@
 // export default VideoPlayer;
 
 
-const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl }) => {
+const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url }) => {
     const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
 
-    const vttFileName = ((fullUrl: string): string => {
-        debugger;
-        const parts = fullUrl.split('/');
-        return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
+    // const vttFileName = ((fullUrl: string): string => {
+    //     debugger;
+    //     const parts = fullUrl.split('/');
+    //     return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
 
-    })(vttUrl);
+    // })(vttUrl);
 
     return (
         <div>
