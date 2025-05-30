@@ -89,18 +89,14 @@ namespace Records.Service
             // === Upload to S3 ===
             var s3BucketLink = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/";
 
+            //var transcriptionVttKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.vtt";
+            //var uriFile = new Uri(transcriptionVttKey);
+            //string fileKey = Path.GetFileName(uriFile.AbsolutePath);
+            //var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
+            //transcriptionVttKey = encodedFileName;
+
+
             var transcriptionVttKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.vtt";
-
-
-
-            var uriFile = new Uri(transcriptionVttKey);
-            string fileKey = Path.GetFileName(uriFile.AbsolutePath);
-            var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
-            transcriptionVttKey = encodedFileName;
-
-
-
-            
             var transcriptionTextKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.txt";
 
             await _s3Client.PutObjectAsync(new PutObjectRequest
