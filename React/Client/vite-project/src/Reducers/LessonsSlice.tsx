@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Lesson } from '../Models/Lesson';
 
-const apiUrl = "https://localhost:7043/api/record";
-// const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
+//const apiUrl = "https://localhost:7043/api/record";
+ const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
 
 // Fetch lessons
 export const fetchLessons = createAsyncThunk('lessons/fetchLessons', async (_, thunkAPI) => {
@@ -141,8 +141,8 @@ export const transcribe = createAsyncThunk(
         try {
             const res = await axios.post(
 
-               `https://localhost:7043/api/Transcription/transcribe/${recordId}`,
-              //  `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
+               //`https://localhost:7043/api/Transcription/transcribe/${recordId}`,
+                `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
                 { s3Url },
                 {
                     headers: {
