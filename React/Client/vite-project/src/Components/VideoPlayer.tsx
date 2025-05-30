@@ -116,4 +116,5 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
     </div>
   );
 };
+export default VideoPlayer;
 
