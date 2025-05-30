@@ -135,18 +135,11 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
             <video width="600" controls>
                 <source src={videoUrl} type="video/mp4" />
                 {safeVttUrl && (
-                    // <track
-                    //     kind="subtitles"
-                    //     srcLang="he"
-                    //     src={safeVttUrl}
-                    //     label="עברית"
-                    //     default
-                    // />
                     <track
                         kind="subtitles"
-                        srcLang="en"
-                       src={safeVttUrl}
-                        label="English"
+                        srcLang="he"
+                        src={safeVttUrl}
+                        label="עברית"
                         default
                     />
                 )}
