@@ -91,6 +91,8 @@ builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IRecordService,RecordService>();
 builder.Services.AddScoped<IFolderService,FolderService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITranscriptionService, TranscriptionService>();
 
 //_____add for amazon
 
@@ -99,7 +101,7 @@ builder.Services.AddScoped<IFolderService,FolderService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IRecordRepository,RecordRepository>();
 builder.Services.AddScoped<IFolderRepository,FolderRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITranscriptionRepository, TranscriptionRepository>();
 //___________-
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddHttpClient();

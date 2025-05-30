@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { User } from '../Models/User';
 
-//const apiUrl = "https://recordingsystem-server.onrender.com/api";
-const apiUrl = "https://localhost:7043/api";
+const apiUrl = "https://recordingsystem-server.onrender.com/api";
+//const apiUrl = "https://localhost:7043/api";
 
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async (_, thunkAPI) => {
@@ -11,7 +11,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async (_, thunkAP
     try {
         const res = await axios.get(`${apiUrl}/user`, {
             headers: {
-            'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             }
         });
         return res.data as User[];

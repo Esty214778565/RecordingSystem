@@ -28,6 +28,7 @@ namespace Records.Data.Repositories
 
         public async Task UpdateRecordAsync(RecordEntity record)
         {
+            
             _context.Records.Update(record);
             await _context.SaveChangesAsync();
         }

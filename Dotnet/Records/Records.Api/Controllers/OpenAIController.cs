@@ -114,11 +114,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Nodes;
 using Records.Core.Iservices;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Records.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class TranscriptionController : ControllerBase
     {
         private readonly ITranscriptionService _transcriptionService;
@@ -128,11 +131,29 @@ namespace Records.Api.Controllers
             _transcriptionService = transcriptionService;
         }
 
-        [HttpPost("transcribe")]
-        public async Task<IActionResult> TranscribeFromS3([FromQuery] string s3Url, [FromQuery] int recordId)
+        public class TranscribeRequest
         {
+            public string S3Url { get; set; }
+        }
+
+        [HttpPost("transcribe/{id}")]
+        public async Task<IActionResult> TranscribeFromS3(int id, [FromBody] TranscribeRequest request)
+        {
+            string s3Url = request.S3Url;
+            int recordId = id;
             try
             {
+                //s3Url = "https://s3.amazonaws.com/my-first-records-bucket.testpnoren/%D7%9C%D7%97%D7%92%20%D7%94%D7%A9%D7%91%D7%95%D7%A2%D7%95%D7%AA.mp4";
+                var uriFile = new Uri(s3Url);
+                string fileKey = Path.GetFileName(uriFile.AbsolutePath);
+                var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
+                s3Url = $"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/{encodedFileName}";
+
+                //var uriFile = new Uri(s3Url);
+                //string decodedFileKey = WebUtility.UrlDecode(Path.GetFileName(uriFile.AbsolutePath));
+                //string encodedFileName = Uri.EscapeDataString(decodedFileKey); // קידוד רק פעם אחת
+                //s3Url = $"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/{encodedFileName}";
+
                 var (vttKey, textKey, text) = await _transcriptionService.TranscribeFromS3Async(s3Url, recordId);
 
                 return Ok(new
