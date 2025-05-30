@@ -44,7 +44,7 @@
 
 const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl }) => {
     // Ensure vttUrl uses https
-    const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
+    // const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
 
     const videoUrl = url
         ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`
@@ -60,15 +60,25 @@ const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url, vttUrl })
                 <source src={videoUrl} type="video/x-ms-wmv" />
                 Your browser does not support the video tag.
 
-                {safeVttUrl && (
-                    <track
+
+<track
+  kind="subtitles"
+  srcLang="he"
+  src="https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/35ee9393-f834-4dfe-a4c5-76b867d760ba.vtt"
+  label="עברית"
+  default
+/>
+
+                {/* {safeVttUrl && ( */}
+                    {/* <track
                         kind="subtitles"
                         srcLang="he"
-                        src={safeVttUrl}
+                        src={`https://localhost:7043/api/Transcription/proxy-vtt?url=${encodeURIComponent(vttUrl)}`}
                         label="עברית"
                         default
-                    />
-                )}
+                    /> */}
+                {/* ) */}
+                {/* } */}
             </video>
         </div>
     );
