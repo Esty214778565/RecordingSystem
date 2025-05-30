@@ -101,6 +101,8 @@
   animation: shimmerText 3s ease-in-out infinite;
 }
 
+
+
 .header-badge {
   display: inline-flex;
   align-items: center;
@@ -453,3 +455,16 @@
     padding: 0.875rem 0.875rem 0.875rem 2.5rem;
   }
 }
+
+.form-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.form-wrapper.open {
+  max-height: 600px; /* גובה מספיק כדי להכיל את הטופס */
+  opacity: 1;
+}
+

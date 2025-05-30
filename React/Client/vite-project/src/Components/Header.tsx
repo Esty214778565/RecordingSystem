@@ -6,7 +6,7 @@ import {
     Box,
     Button,
 } from "@mui/material";
-import { Play } from "lucide-react";
+import { LogIn, Play } from "lucide-react";
 import { useTheme } from "@mui/material/styles";
 import EnableUpload from "./EnabeUpload";
 
@@ -115,6 +115,28 @@ export default function Header() {
                             onClick={() => navigate("/courses")}
                         >
                             Courses
+                        </Button>
+                        <Button
+                            variant="contained"
+                            sx={{
+                                mx: 2,
+                                background: `linear-gradient(135deg, ${theme.palette.custom.main}, ${theme.palette.custom.secondary})`,
+                                fontWeight: 700,
+                                "&:hover": {
+                                    background: `linear-gradient(135deg, ${theme.palette.custom.secondary}, ${theme.palette.custom.vibrant})`,
+                                },
+                            }}
+                            onClick={() => {
+                                sessionStorage.clear()
+                                navigate("/")
+                            }}
+                        >
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <LogIn style={{ fontSize: "20px" }} />
+                                <Typography variant="body1" sx={{ fontWeight: 800 }}>
+                                    Logout
+                                </Typography>
+                            </Box>
                         </Button>
                     </>
                 )}

@@ -1,4 +1,7 @@
 
+
+
+
 "use client"
 
 import type React from "react"
@@ -14,12 +17,13 @@ import {
     CardContent,
     Chip,
     Divider,
+    IconButton, // Import IconButton
 } from "@mui/material"
 import { useDispatch } from "react-redux"
 import type { UserDispatch } from "../Store/Store"
 import { loginUser } from "../Reducers/AuthSlice"
 import { useNavigate } from "react-router-dom"
-import { LogIn, Mail, Lock, Shield, Crown, Sparkles, Star, Zap } from "lucide-react"
+import { LogIn, Mail, Lock, Shield, Crown, Sparkles, Star, Zap, X } from "lucide-react" // Import X icon
 import './Login.css'
 
 const Login = () => {
@@ -30,6 +34,7 @@ const Login = () => {
         password: "",
     })
     const [isLoading, setIsLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(true); // State to control modal open/close
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -50,6 +55,7 @@ const Login = () => {
                 return
             }
             navigate("/courses")
+            setOpenModal(false); // Close modal on successful login
         } catch (error) {
             console.error("Login error:", error)
             alert("Login failed")
@@ -58,16 +64,26 @@ const Login = () => {
         }
     }
 
+    const handleClose = () => {
+        setOpenModal(false);
+        navigate("/"); // Redirect to home or another page when modal is closed
+        // Function to close the modal
+        // You might want to navigate away or perform other actions here, e.g., navigate('/');
+    };
+
     return (
         <Modal
-            open={true}
-            onClose={() => { }}
+            open={openModal} // Use the state variable here
+            onClose={handleClose} // Pass the close function here
+            disableScrollLock={false} // Set to false to enable scroll of the underlying page
+            disableEnforceFocus={true}
+            disableAutoFocus={true}
             sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 p: 2,
-                overflow: "auto",
+                overflow: "auto", // Ensure the modal container itself can scroll
             }}
         >
             <Box
@@ -75,10 +91,16 @@ const Login = () => {
                     width: "100%",
                     maxWidth: "600px",
                     maxHeight: "95vh",
-                    overflow: "auto",
+                    overflow: "visible", // Let the CardContent handle scrolling
                     position: "relative",
                     outline: "none",
                     my: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: { xs: "auto", md: "700px" }, // Make the modal higher on desktop
+                    minHeight: { xs: "auto", md: "700px" },
+                    justifyContent: "center",
+                    alignItems: "center",
                 }}
             >
                 {/* Main Login Card */}
@@ -92,24 +114,42 @@ const Login = () => {
                         boxShadow: "0 24px 80px rgba(15, 23, 42, 0.15)",
                         position: "relative",
                         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                        width: { xs: "95vw", sm: "500px" }, // Match register modal width
+                        maxWidth: "500px", // Match register modal maxWidth
+                        minHeight: { xs: "auto", sm: "600px" }, // Match register modal minHeight
                     }}
                     className="login-main-card"
                 >
-                    {/* Header gradient overlay */}
-                    <Box
+                    {/* Close Button */}
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleClose}
                         sx={{
                             position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: "6px",
-                            background: "linear-gradient(90deg, #8b5cf6, #06b6d4, #f59e0b, #8b5cf6)",
-                            backgroundSize: "200% 100%",
+                            right: 16,
+                            top: 16,
+                            color: (theme) => theme.palette.grey[500],
+                            zIndex: 1300,
+                            background: "rgba(255, 255, 255, 0.7)",
+                            backdropFilter: "blur(5px)",
+                            borderRadius: "50%",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                            "&:hover": {
+                                background: "rgba(255, 255, 255, 0.9)",
+                            },
                         }}
-                        className="login-gradient-bar"
-                    />
-
-                    <CardContent sx={{ p: { xs: 3, md: 5 } }}>
+                    >
+                        <X />
+                    </IconButton>
+                    <CardContent
+                        sx={{
+                            p: { xs: 3, md: 5 },
+                            maxHeight: "75vh",
+                            overflowY: "auto",
+                            scrollbarWidth: "none",
+                            "&::-webkit-scrollbar": { display: "none" },
+                        }}
+                    >
                         {/* Header Section */}
                         <Box sx={{ textAlign: "center", mb: 5 }} className="login-header">
                             <Box
@@ -502,8 +542,7 @@ const Login = () => {
                             </Box>
                         </Box>
                     </CardContent>
-                </Card>
-            </Box>
+                </Card>    </Box>
         </Modal>
     )
 }
