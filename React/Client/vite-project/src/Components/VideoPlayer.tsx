@@ -92,31 +92,30 @@
 
 
 const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl }) => {
-  const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
+    const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
 
-  const vttFileName = ((fullUrl: string): string => {
-debugger
+    const vttFileName = ((fullUrl: string): string => {
+        debugger
+        const parts = fullUrl.split('/');
+        return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
 
-      const parts = fullUrl.split('/');
-      return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
-      
-  })(vttUrl);
+    })(vttUrl);
 
-  return (
-    <div>
-      <video width="600" controls>
-        <source src={videoUrl} type="video/mp4" />
-        <track
-          kind="subtitles"
-          srcLang="he"
-          src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
-          label="עברית"
-          default
-        />
-        הדפדפן שלך לא תומך בוידאו.
-      </video>
-    </div>
-  );
+    return (
+        <div>
+            <video width="600" controls>
+                <source src={videoUrl} type="video/mp4" />
+                <track
+                    kind="subtitles"
+                    srcLang="he"
+                    src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
+                    label="עברית"
+                    default
+                />
+                הדפדפן שלך לא תומך בוידאו.
+            </video>
+        </div>
+    );
 };
 export default VideoPlayer;
 

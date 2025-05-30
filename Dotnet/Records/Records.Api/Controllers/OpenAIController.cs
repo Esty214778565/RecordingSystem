@@ -206,30 +206,32 @@ namespace Records.Api.Controllers
         [HttpGet("vtt/{filename}")]
         public async Task<IActionResult> GetVttFile(string filename)
         {
+
+
             if (string.IsNullOrWhiteSpace(filename))
                 return BadRequest("Missing file name");
 
-            var url = $"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/{filename}";
+            var url = "https://s3.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/"+filename;
+
+
 
             using var client = new HttpClient();
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
             try
             {
                 var response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
-                    return NotFound("File not found");
+            //    var response = await client.GetAsync(url);
+            //    if (!response.IsSuccessStatusCode)
+            //        return NotFound("File not found");
 
-                var content = await response.Content.ReadAsStreamAsync();
-                return File(content, "text/vtt");
+            var content = await response.Content.ReadAsStreamAsync();
+            return File(content, "text/vtt");
             }
             catch
             {
                 return StatusCode(500, "Failed to load file");
             }
         }
-
-
-
-
     }
 
 
