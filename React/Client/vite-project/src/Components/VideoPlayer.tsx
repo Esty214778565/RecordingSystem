@@ -42,51 +42,78 @@
 // // Bad: store as Date object
 // // updateDate: new Date()
 
-const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url }) => {
-    // Ensure vttUrl uses https
-    // const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
+// const VideoPlayer: React.FC<{ url: string, vttUrl: string }> = ({ url }) => {
+//     // Ensure vttUrl uses https
+//     // const safeVttUrl = vttUrl?.replace(/^http:\/\//, 'https://');
 
-    const videoUrl = url
-        ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`
-        : '';
+//     const videoUrl = url
+//         ? `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`
+//         : '';
 
-    console.log("enter VideoPlayer");
+//     console.log("enter VideoPlayer");
 
-    console.log("videoUrl:", videoUrl);
+//     console.log("videoUrl:", videoUrl);
 
-    const aaa = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/35ee9393-f834-4dfe-a4c5-76b867d760ba.vtt"
-    return (
-        <div>
-            <video width="600" controls>
-                <source src={videoUrl} type="video/mp4" />
-                <source src={videoUrl} type="video/x-ms-wmv" />
-                Your browser does not support the video tag.
-
-
-                <track
-                    kind="subtitles"
-                    srcLang="he"
-                    src={`https://recordingsystem-server.onrender.com/api/Transcription/proxy-vtt?url=${encodeURIComponent(aaa)}`}
+//     const aaa = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/transcriptions/35ee9393-f834-4dfe-a4c5-76b867d760ba.vtt"
+//     return (
+//         <div>
+//             <video width="600" controls>
+//                 <source src={videoUrl} type="video/mp4" />
+//                 <source src={videoUrl} type="video/x-ms-wmv" />
+//                 Your browser does not support the video tag.
 
 
-                    label="עברית"
-                    default
-                />
+//                 <track
+//                     kind="subtitles"
+//                     srcLang="he"
+//                     src={`https://recordingsystem-server.onrender.com/api/Transcription/proxy-vtt?url=${encodeURIComponent(aaa)}`}
 
-                {/* {safeVttUrl && ( */}
-                {/* <track
-                        kind="subtitles"
-                        srcLang="he"
-                        src={`https://localhost:7043/api/Transcription/proxy-vtt?url=${encodeURIComponent(vttUrl)}`}
-                        label="עברית"
-                        default
-                    /> */}
-                {/* ) */}
-                {/* } */}
-            </video>
-        </div>
-    );
+
+//                     label="עברית"
+//                     default
+//                 />
+
+//                 {/* {safeVttUrl && ( */}
+//                 {/* <track
+//                         kind="subtitles"
+//                         srcLang="he"
+//                         src={`https://localhost:7043/api/Transcription/proxy-vtt?url=${encodeURIComponent(vttUrl)}`}
+//                         label="עברית"
+//                         default
+//                     /> */}
+//                 {/* ) */}
+//                 {/* } */}
+//             </video>
+//         </div>
+//     );
+// };
+
+// export default VideoPlayer;
+
+
+const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl }) => {
+  const videoUrl = `https://s3.amazonaws.com/my-first-records-bucket.testpnoren/${url}`;
+  const vttFileName = ((fullUrl: string): string => {
+      const parts = fullUrl.split('/');
+      return parts[parts.length - 1]; // מחזיר את שם הקובץ בלבד
+  })(vttUrl);
+
+
+
+  return (
+    <div>
+      <video width="600" controls>
+        <source src={videoUrl} type="video/mp4" />
+        <track
+          kind="subtitles"
+          srcLang="he"
+          src={`https://recordingsystem-server.onrender.com/api/Transcription/vtt/${vttFileName}`}
+          label="עברית"
+          default
+        />
+        הדפדפן שלך לא תומך בוידאו.
+      </video>
+    </div>
+  );
 };
-
-export default VideoPlayer;
 
