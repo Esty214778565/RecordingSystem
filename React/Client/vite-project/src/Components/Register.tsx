@@ -15,12 +15,10 @@ import {
     Divider,
     IconButton,
 } from "@mui/material"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { LogIn, Mail, Lock, Shield, Crown, Sparkles, Star, Zap, X, User } from "lucide-react"
+import { Mail, Lock, Shield, Crown, Sparkles, Star, Zap, X, User } from "lucide-react"
 
 const Register = () => {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [registerData, setRegisterData] = useState({
         name: "",
