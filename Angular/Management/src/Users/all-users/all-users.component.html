@@ -1,45 +1,51 @@
-<!-- 
+<div class="users-container">
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
 
-<div class="users-container">
-  <div class="background-decoration">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-    <div class="circle circle-3"></div>
-  </div>
-  
   <div class="content-wrapper">
     <div class="header">
       <h1 class="title">User Management</h1>
       <p class="subtitle">View and manage all system users</p>
     </div>
-    
+
     <div class="users-grid">
       @for (User of users.value; track User.id) {
-        <div class="user-card">
-          <div class="user-card-header">
-            <div class="user-avatar">{{ User.name.charAt(0) }}</div>
-            <div class="user-info">
-              <h3 class="user-name">{{ User.name }}</h3>
-              <span class="user-id">ID: {{ User.id }}</span>
-            </div>
+      <div class="user-card">
+        <div class="user-card-header" [ngStyle]="{'border-top': '4px solid ' + getUserColor(User.id)}">
+          <div class="user-avatar" [ngStyle]="{'background': getUserGradient(User.id)}">
+            {{ User.name.charAt(0) }}
           </div>
-          <div class="user-card-content">
-            <p class="user-email">
-              <mat-icon class="email-icon">email</mat-icon>
-              {{ User.email }}
-            </p>
-          </div>
-          <div class="user-card-actions">
-            <button mat-raised-button color="primary" class="action-button update-button" (click)="editUser(User)">
-              Update
-            </button>
-            <button mat-raised-button color="warn" class="action-button delete-button" (click)="deleteUser(User)">
-              Delete
-            </button>
+          <div class="user-info">
+            <h3 class="user-name">{{ User.name }}</h3>
+            <span class="user-id">ID: {{ User.id }}</span>
           </div>
         </div>
+        <div class="user-card-content">
+          <p class="user-email">
+            <mat-icon class="email-icon">email</mat-icon>
+            {{ User.email }}
+          </p>
+        </div>
+        <div class="user-card-actions">
+          <button mat-stroked-button class="action-button update-button" (click)="editUser(User)">
+            <mat-icon>edit</mat-icon>
+            <span>Update</span>
+          </button>
+          @if(User.role!="admin"){
+
+          <button mat-stroked-button class="action-button delete-button" (click)="deleteUser(User)">
+            <mat-icon>delete_outline</mat-icon>
+            <span>Delete</span>
+          </button>
+          }
+
+        </div>
+      </div>
       }
-      
+
       <div class="add-user-card">
         <div class="add-user-content">
           <mat-icon class="add-icon">person_add</mat-icon>
@@ -48,7 +54,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="user-graph-container">
       <h2 class="section-title">User Graph</h2>
       <div class="graph-wrapper">
@@ -56,72 +62,7 @@
       </div>
     </div>
   </div>
-  
-  <div class="router-outlet-container">
-    <router-outlet></router-outlet>
-  </div>
-</div> -->
-<div class="users-container">
-  <div class="background-decoration">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-    <div class="circle circle-3"></div>
-  </div>
-  
-  <div class="content-wrapper">
-    <div class="header">
-      <h1 class="title">User Management</h1>
-      <p class="subtitle">View and manage all system users</p>
-    </div>
-    
-    <div class="users-grid">
-      @for (User of users.value; track User.id) {
-        <div class="user-card">
-          <div class="user-card-header" [ngStyle]="{'border-top': '4px solid ' + getUserColor(User.id)}">
-            <div class="user-avatar" [ngStyle]="{'background': getUserGradient(User.id)}">
-              {{ User.name.charAt(0) }}
-            </div>
-            <div class="user-info">
-              <h3 class="user-name">{{ User.name }}</h3>
-              <span class="user-id">ID: {{ User.id }}</span>
-            </div>
-          </div>
-          <div class="user-card-content">
-            <p class="user-email">
-              <mat-icon class="email-icon">email</mat-icon>
-              {{ User.email }}
-            </p>
-          </div>
-          <div class="user-card-actions">
-            <button mat-stroked-button class="action-button update-button" (click)="editUser(User)">
-              <mat-icon>edit</mat-icon>
-              <span>Update</span>
-            </button>
-            <button mat-stroked-button class="action-button delete-button" (click)="deleteUser(User)">
-              <mat-icon>delete_outline</mat-icon>
-              <span>Delete</span>
-            </button>
-          </div>
-        </div>
-      }
-      
-      <div class="add-user-card">
-        <div class="add-user-content">
-          <mat-icon class="add-icon">person_add</mat-icon>
-          <p>Add New User</p>
-          <button mat-raised-button color="primary" class="add-button" (click)="addUser()">Add User</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="user-graph-container">
-      <h2 class="section-title">User Graph</h2>
-      <div class="graph-wrapper">
-        <app-user-graph [users]="(users | async) ?? []"></app-user-graph>
-      </div>
-    </div>
-  </div>
-  
+
   <div class="router-outlet-container">
     <router-outlet></router-outlet>
   </div>

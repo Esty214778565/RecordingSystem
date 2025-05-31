@@ -305,17 +305,40 @@ export default function Header() {
                             </Button>
 
                             <Button
-                                variant="contained"
-                                className="register-submit-button"
+                                variant="text"
+                                className="register-nav-link"
                                 sx={{
-                                    px: 3,
+                                    px: 2,
                                     py: 1.2,
-                                    borderRadius: "12px",
-                                    background: `linear-gradient(135deg, ${theme.palette.custom.main}, ${theme.palette.custom.secondary})`,
+                                    minWidth: "unset",
+                                    borderRadius: 0,
                                     fontWeight: 700,
+                                    fontSize: "1rem",
+                                    color: theme.palette.custom.main,
+                                    background: "none",
+                                    boxShadow: "none",
+                                    textTransform: "none",
+                                    position: "relative",
+                                    border: "none",
                                     "&:hover": {
-                                        background: `linear-gradient(135deg, ${theme.palette.custom.secondary}, ${theme.palette.custom.vibrant})`,
-                                        transform: "translateY(-2px)",
+                                        background: "none",
+                                        color: theme.palette.custom.secondary,
+                                        border: "none",
+                                        "&::after": {
+                                            opacity: 1,
+                                        },
+                                    },
+                                    "&::after": {
+                                        content: '""',
+                                        display: "block",
+                                        width: "100%",
+                                        height: "2px",
+                                        background: theme.palette.custom.secondary,
+                                        position: "absolute",
+                                        left: 0,
+                                        bottom: 0,
+                                        opacity: 0,
+                                        transition: "opacity 0.2s",
                                     },
                                 }}
                                 onClick={() => navigate("/courses")}
@@ -356,18 +379,31 @@ export default function Header() {
 
 
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 className="register-submit-button"
+                                // sx={{
+                                //     px: 3,
+                                //     py: 1.2,
+                                //     borderRadius: "12px",
+
+                                //     background: `linear-gradient(135deg, ${theme.palette.custom.main}, ${theme.palette.custom.secondary})`,
+                                //     fontWeight: 700,
+                                //     "&:hover": {
+                                //         background: `linear-gradient(135deg, ${theme.palette.custom.secondary}, ${theme.palette.custom.vibrant})`,
+                                //         transform: "translateY(-2px)",
+                                //     },
+                                // }}
                                 sx={{
                                     px: 3,
                                     py: 1.2,
                                     borderRadius: "12px",
-
-                                    background: `linear-gradient(135deg, ${theme.palette.custom.main}, ${theme.palette.custom.secondary})`,
                                     fontWeight: 700,
+                                    borderColor: theme.palette.custom.accent,
+                                    color: theme.palette.custom.accent,
                                     "&:hover": {
-                                        background: `linear-gradient(135deg, ${theme.palette.custom.secondary}, ${theme.palette.custom.vibrant})`,
-                                        transform: "translateY(-2px)",
+                                        // background: theme.palette.custom.vibrant,
+                                        background: theme.palette.custom.accent,
+                                        color: "#fff",
                                     },
                                 }}
                                 onClick={() => {
@@ -375,9 +411,12 @@ export default function Header() {
                                     navigate("/");
                                 }}
                             >
-                                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <Box
+                                    sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+
                                     <LogIn style={{ fontSize: "20px" }} />
-                                    <Typography variant="body1" sx={{ fontWeight: 800 }}>
+                                    <Typography variant="body1"
+                                        sx={{ fontWeight: 800 }}>
                                         Logout
                                     </Typography>
                                 </Box>
@@ -416,6 +455,7 @@ export default function Header() {
                                     borderColor: theme.palette.custom.accent,
                                     color: theme.palette.custom.accent,
                                     "&:hover": {
+                                        // background: theme.palette.custom.vibrant,
                                         background: theme.palette.custom.accent,
                                         color: "#fff",
                                     },

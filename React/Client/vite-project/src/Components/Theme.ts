@@ -2,6 +2,7 @@ import createTheme from "@mui/material/styles/createTheme";
 
 const theme = createTheme({
   palette: {
+
     primary: {
       main: "#0f172a", // Rich Dark Navy
       light: "#1e293b",
@@ -9,9 +10,9 @@ const theme = createTheme({
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#f59e0b", // Vibrant Gold
-      light: "#fbbf24",
-      dark: "#d97706",
+      main: "#8b5cf6", // Vibrant Gold
+      light: "#c5abff",
+      dark: "#4a3380",
       contrastText: "#0f172a",
     },
     background: {
@@ -24,7 +25,7 @@ const theme = createTheme({
     },
     custom: {
       main: "#0f172a", // Rich Dark Navy
-      secondary: "#f59e0b", // Vibrant Gold
+      secondary: "#8b5cf6", // Vibrant Gold
       accent: "#8b5cf6", // Royal Purple
       light: "#f8fafc",
       vibrant: "#06b6d4", // Cyan
