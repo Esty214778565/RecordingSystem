@@ -359,7 +359,7 @@ export default function HomePage() {
               <Box sx={{ mb: 4 }}>
                 <Chip
                   icon={<Zap style={{ color: theme.palette.custom.secondary }} />}
-                  label="🚀 #1 Educational Recording Platform"
+                  label="🚀  Educational Recording Platform"
                   sx={{
                     background: `linear-gradient(135deg, ${theme.palette.custom.secondary}15, ${theme.palette.custom.vibrant}10)`,
                     color: theme.palette.custom.main,
@@ -1038,9 +1038,10 @@ export default function HomePage() {
                     height: "100%",
                     position: "relative",
                     textAlign: "center",
-                    pt: 8,
+                    pt: 12, // Increased padding to make space for the step number
                     background: `linear-gradient(135deg, ${step.color}08, ${step.color}05)`,
                     border: `2px solid ${step.color}20`,
+                    overflow: "visible", // Ensure overflow is visible
                     "&::before": {
                       content: '""',
                       position: "absolute",
@@ -1055,7 +1056,7 @@ export default function HomePage() {
                   <Box
                     sx={{
                       position: "absolute",
-                      top: -40,
+                      top: -48, // Move the step number higher so it's fully visible
                       left: "calc(50% - 40px)",
                       width: 80,
                       height: 80,
@@ -1070,6 +1071,7 @@ export default function HomePage() {
                       boxShadow: `0 16px 40px ${step.color}40`,
                       fontFamily: "'Playfair Display', serif",
                       border: "6px solid white",
+                      zIndex: 2, // Ensure the step number is above the card
                     }}
                     className="step-number-pulse"
                   >
@@ -1298,7 +1300,7 @@ export default function HomePage() {
                         }}
                       />
                     </Box>
-                    <Typography
+                    {/* <Typography
                       variant="body1"
                       sx={{
                         fontStyle: "italic",
@@ -1321,7 +1323,21 @@ export default function HomePage() {
                       }}
                     >
                       {testimonial.testimonial}
+                    </Typography> */}
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontStyle: "italic",
+                        color: theme.palette.text.secondary,
+                        lineHeight: 1.7,
+                        fontSize: "1.1rem",
+                        fontWeight: 500,
+                        pl: 0,
+                      }}
+                    >
+                      “{testimonial.testimonial}”
                     </Typography>
+
                   </CardContent>
                 </Card>
               </Grid>

@@ -188,6 +188,7 @@ const CourseDetail = () => {
                 background: "linear-gradient(135deg, #f8fafc 0%, #ffffff 30%, #f59e0b05 70%, #06b6d403 100%)",
                 position: "relative",
                 overflow: "hidden",
+                
             }}
         >
             {/* Animated background elements */}
@@ -206,6 +207,7 @@ const CourseDetail = () => {
                         boxShadow: "0 20px 60px rgba(15, 23, 42, 0.1)",
                         position: "relative",
                         overflow: "hidden",
+                         // Add horizontal margin for equal space on sides
                     }}
                     className="course-header-section"
                 >

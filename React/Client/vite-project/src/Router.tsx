@@ -9,6 +9,8 @@ import HomePage from './Components/HomePage'
 import CourseDetail from './Components/Courses/CourseDetails'
 import DisplayLesson from './Components/Lessons/DisplayLesson'
 import QuestionList from './Components/Lessons/QuestionList'
+import Blog from './Components/Blog'
+import About from './Components/About'
 
 
 
@@ -32,6 +34,14 @@ export const Router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'blog',
+        element: <Blog />,
+      },
+      {
+        path: 'about',
+        element: <About />,
       },
       {
         path: 'add-lesson',

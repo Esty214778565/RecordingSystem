@@ -142,155 +142,157 @@ const LessonsTeacher = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8fafc 0%, #ffffff 30%, #f59e0b05 70%, #06b6d403 100%)",
-        position: "relative",
-        overflow: "hidden",
+      maxWidth: { xs: "100%", sm: "98%", md: "95%", lg: "90%" }, // Increased width for all breakpoints
+      mx: "auto",
+      minHeight: "100vh",
+      background: "linear-gradient(135deg, #f8fafc 0%, #ffffff 30%, #f59e0b05 70%, #06b6d403 100%)",
+      position: "relative",
+      overflow: "hidden",
       }}
     >
       <Box className="bg-animation-lessons" />
 
       <Container maxWidth="xl" sx={{ pt: 6, pb: 8 }}>
-        <Box
-          sx={{
-            background: "rgba(255, 255, 255, 0.9)",
-            backdropFilter: "blur(20px)",
-            borderRadius: "32px",
-            p: { xs: 4, md: 6 },
-            mb: 6,
-            border: "2px solid rgba(245, 158, 11, 0.1)",
-            boxShadow: "0 20px 60px rgba(15, 23, 42, 0.1)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-          className="lessons-header-section"
-        >
+      <Box
+        sx={{
+        background: "rgba(255, 255, 255, 0.9)",
+        backdropFilter: "blur(20px)",
+        borderRadius: "32px",
+        p: { xs: 4, md: 6 },
+        mb: 6,
+        border: "2px solid rgba(245, 158, 11, 0.1)",
+        boxShadow: "0 20px 60px rgba(15, 23, 42, 0.1)",
+        position: "relative",
+        overflow: "hidden",
+        }}
+        className="lessons-header-section"
+      >
 
+        <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "6px",
+          background: "linear-gradient(90deg, #f59e0b, #06b6d4, #8b5cf6)",
+        }}
+        />
+
+        <Box sx={{ position: "relative", zIndex: 1 }}>
+
+        <Chip
+          icon={<BookOpen style={{ color: "#f59e0b" }} />}
+          label="🎧 Teacher's Audio Library"
+          sx={{
+          background: "linear-gradient(135deg, #f59e0b15, #06b6d410)",
+          color: "#0f172a",
+          fontWeight: 700,
+          fontSize: "0.9rem",
+          mb: 3,
+          border: "2px solid #f59e0b30",
+          boxShadow: "0 8px 24px rgba(245, 158, 11, 0.2)",
+          }}
+          className="lessons-badge-glow"
+        />
+
+        <Typography
+          variant="h2"
+          sx={{
+          fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" },
+          fontWeight: 900,
+          mb: 3,
+          fontFamily: "'Playfair Display', serif",
+          background: "linear-gradient(135deg, #0f172a, #8b5cf6, #f59e0b)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          lineHeight: 1.2,
+          }}
+          className="lessons-title-shimmer"
+        >
+          {teacher.name}'s{" "}
+          <Box
+          component="span"
+          sx={{
+            background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+          >
+          Lessons
+          </Box>
+        </Typography>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3, flexWrap: "wrap", mb: 4 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Box
             sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "6px",
-              background: "linear-gradient(90deg, #f59e0b, #06b6d4, #8b5cf6)",
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #06b6d415, #8b5cf610)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             }}
-          />
-
-          <Box sx={{ position: "relative", zIndex: 1 }}>
-
-            <Chip
-              icon={<BookOpen style={{ color: "#f59e0b" }} />}
-              label="🎧 Teacher's Audio Library"
-              sx={{
-                background: "linear-gradient(135deg, #f59e0b15, #06b6d410)",
-                color: "#0f172a",
-                fontWeight: 700,
-                fontSize: "0.9rem",
-                mb: 3,
-                border: "2px solid #f59e0b30",
-                boxShadow: "0 8px 24px rgba(245, 158, 11, 0.2)",
-              }}
-              className="lessons-badge-glow"
-            />
-
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: "2.5rem", md: "3.5rem", lg: "4rem" },
-                fontWeight: 900,
-                mb: 3,
-                fontFamily: "'Playfair Display', serif",
-                background: "linear-gradient(135deg, #0f172a, #8b5cf6, #f59e0b)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                lineHeight: 1.2,
-              }}
-              className="lessons-title-shimmer"
-            >
-              {teacher.name}'s{" "}
-              <Box
-                component="span"
-                sx={{
-                  background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Lessons
-              </Box>
+          >
+            <FileAudio style={{ fontSize: "20px", color: "#06b6d4" }} />
+          </Box>
+          <Box>
+            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+            Total Lessons
             </Typography>
+            <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}>
+            {teacher.records?.length || 0} Recordings
+            </Typography>
+          </Box>
+          </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center", gap: 3, flexWrap: "wrap", mb: 4 }}>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Box
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #06b6d415, #8b5cf610)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <FileAudio style={{ fontSize: "20px", color: "#06b6d4" }} />
-                </Box>
-                <Box>
-                  <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                    Total Lessons
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}>
-                    {teacher.records?.length || 0} Recordings
-                  </Typography>
-                </Box>
-              </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box
+            sx={{
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #f59e0b15, #ef444410)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            }}
+          >
+            <Calendar style={{ fontSize: "20px", color: "#f59e0b" }} />
+          </Box>
+          <Box>
+            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+            Last Updated
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}>
+            {new Date(teacher.updateDate).toLocaleDateString()}
+            </Typography>
+          </Box>
+          </Box>
 
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Box
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #f59e0b15, #ef444410)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Calendar style={{ fontSize: "20px", color: "#f59e0b" }} />
-                </Box>
-                <Box>
-                  <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                    Last Updated
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}>
-                    {new Date(teacher.updateDate).toLocaleDateString()}
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Box
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #10b98115, #06b6d410)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <User style={{ fontSize: "20px", color: "#10b981" }} />
-                </Box>
-                <Box>
-                  <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                    Instructor
-                  </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box
+            sx={{
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #10b98115, #06b6d410)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            }}
+          >
+            <User style={{ fontSize: "20px", color: "#10b981" }} />
+          </Box>
+          <Box>
+            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+            Instructor
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}></Typography>
                   <Typography variant="body1" sx={{ color: "#0f172a", fontWeight: 700 }}>
                     Expert Educator
                   </Typography>
@@ -317,248 +319,229 @@ const LessonsTeacher = () => {
           {teacher?.records?.map((record, index) => {
             const stats = getRandomStats()
             return (
-              <Card
-                key={index}
-                sx={{
-                  borderRadius: "24px",
-                  overflow: "hidden",
-                  background: "rgba(255, 255, 255, 0.9)",
-                  backdropFilter: "blur(20px)",
-                  border: "2px solid transparent",
-                  boxShadow: "0 12px 40px rgba(15, 23, 42, 0.08)",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                  position: "relative",
-                  "&:hover": {
-                    transform: "translateY(-8px)",
-                    boxShadow: "0 25px 80px rgba(15, 23, 42, 0.15)",
-                    border: "2px solid rgba(245, 158, 11, 0.3)",
-                  },
-                  "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: "4px",
-                    background: `linear-gradient(90deg, #f59e0b, #06b6d4, #8b5cf6)`,
-                    zIndex: 1,
-                  },
-                }}
-                className={`lesson-card-${index % 3}`}
-              >
-                <CardContent sx={{ p: 4 }}>
-                  <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-                    {/* <Box
-                      sx={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: "20px",
-                        background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "0 12px 32px rgba(139, 92, 246, 0.3)",
-                        cursor: "pointer",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
-                          transform: "scale(1.05)",
-                          boxShadow: "0 16px 40px rgba(139, 92, 246, 0.5)",
-                        },
-                      }}
-                      className="lesson-play-button"
-                       onClick={() => handlePlayClick(record)}
-                     
-                    >
-                      <Play style={{ fontSize: "36px", color: "white", marginLeft: "4px" }} />
-                    </Box> */}
-
-
-                    <Box sx={{ flex: 1 }}>
-                      {editingRecord && editingRecord.id === record.id ? (
-                        <Box sx={{ mb: 3 }}>
-                          <TextField
-                            variant="outlined"
-                            fullWidth
-                            value={updatedFileName}
-                            onChange={(e) => setUpdatedFileName(e.target.value)}
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Card
+                  key={index}
+                  sx={{
+                    width: { xs: "100%", sm: "98%", md: "92%", lg: "85%" }, // Increased width for all breakpoints
+                    mx: "auto", // Center horizontally
+                    borderRadius: "24px",
+                    overflow: "hidden",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    backdropFilter: "blur(20px)",
+                    border: "2px solid transparent",
+                    boxShadow: "0 12px 40px rgba(15, 23, 42, 0.08)",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    position: "relative",
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                      boxShadow: "0 25px 80px rgba(15, 23, 42, 0.15)",
+                      border: "2px solid rgba(245, 158, 11, 0.3)",
+                    },
+                    "&::before": {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      background: `linear-gradient(90deg, #f59e0b, #06b6d4, #8b5cf6)`,
+                      zIndex: 1,
+                    },
+                  }}
+                  className={`lesson-card-${index % 3}`}
+                >
+                  <CardContent sx={{ p: 4 }}>
+                    {/* ...rest of your card content... */}
+                    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
+                      {/* ... */}
+                      <Box sx={{ flex: 1 }}>
+                        {editingRecord && editingRecord.id === record.id ? (
+                          <Box sx={{ mb: 3 }}>
+                            <TextField
+                              variant="outlined"
+                              fullWidth
+                              value={updatedFileName}
+                              onChange={(e) => setUpdatedFileName(e.target.value)}
+                              sx={{
+                                "& .MuiOutlinedInput-root": {
+                                  borderRadius: "16px",
+                                  background: "rgba(255, 255, 255, 0.9)",
+                                  fontSize: "1.1rem",
+                                  fontWeight: 600,
+                                  border: "2px solid #f59e0b30",
+                                  "&:hover": {
+                                    border: "2px solid #f59e0b50",
+                                  },
+                                  "&.Mui-focused": {
+                                    border: "2px solid #f59e0b",
+                                  },
+                                },
+                              }}
+                            />
+                          </Box>
+                        ) : (
+                          <Typography
+                            variant="h5"
                             sx={{
-                              "& .MuiOutlinedInput-root": {
-                                borderRadius: "16px",
-                                background: "rgba(255, 255, 255, 0.9)",
-                                fontSize: "1.1rem",
-                                fontWeight: 600,
-                                border: "2px solid #f59e0b30",
-                                "&:hover": {
-                                  border: "2px solid #f59e0b50",
-                                },
-                                "&.Mui-focused": {
-                                  border: "2px solid #f59e0b",
-                                },
+                              fontWeight: 700,
+                              color: "#0f172a",
+                              fontFamily: "'Playfair Display', serif",
+                              mb: 2,
+                              cursor: "pointer",
+                              transition: "color 0.3s ease",
+                              "&:hover": {
+                                color: "#f59e0b",
                               },
+                            }}
+                            onClick={() => handleLessonClick(record, stats)}
+                            className="lesson-title-hover"
+                          >
+                            {record.fileName}
+                          </Typography>
+                        )}
+
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3, flexWrap: "wrap" }}>
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <Clock style={{ fontSize: "16px", color: "#64748b" }} />
+                            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+                              {stats.duration} min
+                            </Typography>
+                          </Box>
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <Headphones style={{ fontSize: "16px", color: "#64748b" }} />
+                            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+                              {stats.views} plays
+                            </Typography>
+                          </Box>
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <Star style={{ fontSize: "16px", color: "#f59e0b", fill: "#f59e0b" }} />
+                            <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
+                              {stats.rating}
+                            </Typography>
+                          </Box>
+                          <Chip
+                            label={record.updateDate ? new Date(record.updateDate).toLocaleDateString() : ""}
+                            size="small"
+                            sx={{
+                              background: "linear-gradient(135deg, #06b6d415, #8b5cf610)",
+                              color: "#06b6d4",
+                              fontWeight: 600,
+                              fontSize: "0.75rem",
                             }}
                           />
                         </Box>
-                      ) : (
-                        <Typography
-                          variant="h5"
-                          sx={{
-                            fontWeight: 700,
-                            color: "#0f172a",
-                            fontFamily: "'Playfair Display', serif",
-                            mb: 2,
-                            cursor: "pointer",
-                            transition: "color 0.3s ease",
-                            "&:hover": {
-                              color: "#f59e0b",
-                            },
-                          }}
-                          onClick={() => handleLessonClick(record, stats)}
-                          className="lesson-title-hover"
-                        >
-                          {record.fileName}
-                        </Typography>
-                      )}
 
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3, flexWrap: "wrap" }}>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                          <Clock style={{ fontSize: "16px", color: "#64748b" }} />
-                          <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                            {stats.duration} min
-                          </Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                          <Headphones style={{ fontSize: "16px", color: "#64748b" }} />
-                          <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                            {stats.views} plays
-                          </Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                          <Star style={{ fontSize: "16px", color: "#f59e0b", fill: "#f59e0b" }} />
-                          <Typography variant="body2" sx={{ color: "#64748b", fontWeight: 600 }}>
-                            {stats.rating}
-                          </Typography>
-                        </Box>
-                        <Chip
-                          label={record.updateDate ? new Date(record.updateDate).toLocaleDateString() : ""}
-                          size="small"
-                          sx={{
-                            background: "linear-gradient(135deg, #06b6d415, #8b5cf610)",
-                            color: "#06b6d4",
-                            fontWeight: 600,
-                            fontSize: "0.75rem",
-                          }}
-                        />
-                      </Box>
-
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-                        {editingRecord && editingRecord.id === record.id ? (
-                          <>
-                            <Button
-                              variant="contained"
-                              startIcon={<Save style={{ fontSize: "18px" }} />}
-                              onClick={() => record.id !== undefined && handleUpdate(record)}
-                              sx={{
-                                background: "linear-gradient(135deg, #10b981, #06b6d4)",
-                                color: "white",
-                                fontWeight: 700,
-                                borderRadius: "12px",
-                                px: 3,
-                                py: 1,
-                                boxShadow: "0 8px 24px rgba(16, 185, 129, 0.3)",
-                                "&:hover": {
-                                  background: "linear-gradient(135deg, #059669, #0891b2)",
-                                  transform: "translateY(-2px)",
-                                  boxShadow: "0 12px 32px rgba(16, 185, 129, 0.4)",
-                                },
-                              }}
-                              className="save-button-glow"
-                            >
-                              Save Changes
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              startIcon={<X style={{ fontSize: "18px" }} />}
-                              onClick={() => setEditingRecord(null)}
-                              sx={{
-                                borderColor: "#64748b",
-                                color: "#64748b",
-                                fontWeight: 700,
-                                borderRadius: "12px",
-                                px: 3,
-                                py: 1,
-                                borderWidth: 2,
-                                "&:hover": {
-                                  borderColor: "#ef4444",
-                                  color: "#ef4444",
-                                  backgroundColor: "rgba(239, 68, 68, 0.05)",
-                                  transform: "translateY(-2px)",
-                                },
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                          </>
-                        ) : (
-                          teacher?.teacherId === Number(sessionStorage.getItem("userId")) && (
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                          {editingRecord && editingRecord.id === record.id ? (
                             <>
                               <Button
                                 variant="contained"
-                                startIcon={<Edit3 style={{ fontSize: "18px" }} />}
-                                onClick={() =>
-                                  record.id !== undefined &&
-                                  setEditingRecord({ id: record.id, fileName: record.fileName })
-                                }
+                                startIcon={<Save style={{ fontSize: "18px" }} />}
+                                onClick={() => record.id !== undefined && handleUpdate(record)}
                                 sx={{
-                                  background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
+                                  background: "linear-gradient(135deg, #10b981, #06b6d4)",
                                   color: "white",
                                   fontWeight: 700,
                                   borderRadius: "12px",
                                   px: 3,
                                   py: 1,
-                                  boxShadow: "0 8px 24px rgba(245, 158, 11, 0.3)",
+                                  boxShadow: "0 8px 24px rgba(16, 185, 129, 0.3)",
                                   "&:hover": {
-                                    background: "linear-gradient(135deg, #d97706, #0891b2)",
+                                    background: "linear-gradient(135deg, #059669, #0891b2)",
                                     transform: "translateY(-2px)",
-                                    boxShadow: "0 12px 32px rgba(245, 158, 11, 0.4)",
+                                    boxShadow: "0 12px 32px rgba(16, 185, 129, 0.4)",
                                   },
                                 }}
-                                className="edit-button-glow"
+                                className="save-button-glow"
                               >
-                                Edit Lesson
+                                Save Changes
                               </Button>
                               <Button
                                 variant="outlined"
-                                startIcon={<Trash2 style={{ fontSize: "18px" }} />}
-                                onClick={() => record.id !== undefined && handleDelete(record.id)}
+                                startIcon={<X style={{ fontSize: "18px" }} />}
+                                onClick={() => setEditingRecord(null)}
                                 sx={{
-                                  borderColor: "#ef4444",
-                                  color: "#ef4444",
+                                  borderColor: "#64748b",
+                                  color: "#64748b",
                                   fontWeight: 700,
                                   borderRadius: "12px",
                                   px: 3,
                                   py: 1,
                                   borderWidth: 2,
                                   "&:hover": {
-                                    backgroundColor: "#ef4444",
-                                    color: "white",
+                                    borderColor: "#ef4444",
+                                    color: "#ef4444",
+                                    backgroundColor: "rgba(239, 68, 68, 0.05)",
                                     transform: "translateY(-2px)",
-                                    boxShadow: "0 12px 32px rgba(239, 68, 68, 0.4)",
                                   },
                                 }}
-                                className="delete-button-glow"
                               >
-                                Delete
+                                Cancel
                               </Button>
                             </>
-                          )
-                        )}
+                          ) : (
+                            teacher?.teacherId === Number(sessionStorage.getItem("userId")) && (
+                              <>
+                                <Button
+                                  variant="contained"
+                                  startIcon={<Edit3 style={{ fontSize: "18px" }} />}
+                                  onClick={() =>
+                                    record.id !== undefined &&
+                                    setEditingRecord({ id: record.id, fileName: record.fileName })
+                                  }
+                                  sx={{
+                                    background: "linear-gradient(135deg, #f59e0b, #06b6d4)",
+                                    color: "white",
+                                    fontWeight: 700,
+                                    borderRadius: "12px",
+                                    px: 3,
+                                    py: 1,
+                                    boxShadow: "0 8px 24px rgba(245, 158, 11, 0.3)",
+                                    "&:hover": {
+                                      background: "linear-gradient(135deg, #d97706, #0891b2)",
+                                      transform: "translateY(-2px)",
+                                      boxShadow: "0 12px 32px rgba(245, 158, 11, 0.4)",
+                                    },
+                                  }}
+                                  className="edit-button-glow"
+                                >
+                                  Edit Lesson
+                                </Button>
+                                <Button
+                                  variant="outlined"
+                                  startIcon={<Trash2 style={{ fontSize: "18px" }} />}
+                                  onClick={() => record.id !== undefined && handleDelete(record.id)}
+                                  sx={{
+                                    borderColor: "#ef4444",
+                                    color: "#ef4444",
+                                    fontWeight: 700,
+                                    borderRadius: "12px",
+                                    px: 3,
+                                    py: 1,
+                                    borderWidth: 2,
+                                    "&:hover": {
+                                      backgroundColor: "#ef4444",
+                                      color: "white",
+                                      transform: "translateY(-2px)",
+                                      boxShadow: "0 12px 32px rgba(239, 68, 68, 0.4)",
+                                    },
+                                  }}
+                                  className="delete-button-glow"
+                                >
+                                  Delete
+                                </Button>
+                              </>
+                            )
+                          )}
+                        </Box>
+                        <Divider sx={{ mb: 3, background: "linear-gradient(90deg, #f59e0b, #06b6d4)" }} />
+                        {/* <QuestionList record={record} setRecord={handleEdit} /> */}
                       </Box>
-                      <Divider sx={{ mb: 3, background: "linear-gradient(90deg, #f59e0b, #06b6d4)" }} />
-                      {/* <QuestionList record={record} setRecord={handleEdit} /> */}
                     </Box>
-                  </Box>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Box>
             )
           })}
         </Stack>
