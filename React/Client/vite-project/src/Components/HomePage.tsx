@@ -36,7 +36,6 @@ import {
   UserPlus,
   Upload,
   Share2,
-  PlayIcon,
   Mail,
   Phone,
   MapPin,
@@ -177,7 +176,7 @@ const theme = createTheme({
 export default function HomePage() {
   const navigate = useNavigate();
   const [animatedStats, setAnimatedStats] = useState({ teachers: 0, students: 0, courses: 0, lessons: 0 })
-  const DEFAULT_IMAGE_URL = '/Images/img1.jpg';
+  const DEFAULT_IMAGE_URL = '/Images/img8.jpg';
 
   // Platform statistics
   const stats = {
@@ -343,6 +342,7 @@ export default function HomePage() {
       <Box
         className="hero-section fade-in"
         sx={{
+          top: -100,
           pt: 16,
           pb: 12,
           background: `linear-gradient(135deg, ${theme.palette.custom.light} 0%, #ffffff 30%, ${theme.palette.custom.secondary}08 70%, ${theme.palette.custom.vibrant}05 100%)`,
@@ -515,12 +515,33 @@ export default function HomePage() {
                   }}
                   className="hero-image-container"
                 >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      zIndex: 2,
+                      pointerEvents: "none",
+                      borderRadius: "32px",
+                      boxShadow: "0 0 0 0 transparent",
+                      // Soft edge effect using mask-image (for modern browsers)
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 90% 90% at 50% 50%, black 80%, transparent 100%)",
+                      maskImage:
+                        "radial-gradient(ellipse 90% 90% at 50% 50%, black 80%, transparent 100%)",
+                    }}
+                  />
                   <CardMedia
                     component="img"
                     height="550"
                     image={DEFAULT_IMAGE_URL}
                     alt="Educational Platform"
-                    sx={{ width: "100%", objectFit: "cover" }}
+                    sx={{
+                      width: "100%",
+                      objectFit: "cover",
+                      borderRadius: "32px",
+                      // fallback for browsers without mask-image support
+                      filter: "blur(0.5px)",
+                    }}
                   />
                   <Box
                     sx={{
@@ -530,33 +551,18 @@ export default function HomePage() {
                       right: 0,
                       bottom: 0,
                       background: `linear-gradient(45deg, ${theme.palette.custom.main}20, ${theme.palette.custom.secondary}15, ${theme.palette.custom.vibrant}10)`,
+                      zIndex: 1,
+                      borderRadius: "32px",
+                      border: "none", // no border at all
+                      filter: "blur(1.5px)", // softer edge
+                      boxShadow: "0 0 80px 20px rgba(15,23,42,0.10)", // extra soft shadow for edge softness
+                      // mask-image for ultra soft fade edges (modern browsers)
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 120% 120% at 50% 50%, black 60%, transparent 100%)",
+                      maskImage:
+                        "radial-gradient(ellipse 120% 120% at 50% 50%, black 60%, transparent 100%)",
                     }}
                   />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      background: `linear-gradient(135deg, ${theme.palette.custom.secondary}, ${theme.palette.custom.vibrant})`,
-                      borderRadius: "50%",
-                      width: 100,
-                      height: 100,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      transition: "all 0.4s ease",
-                      boxShadow: "0 16px 40px rgba(245, 158, 11, 0.4)",
-                      "&:hover": {
-                        transform: "translate(-50%, -50%) scale(1.2)",
-                        boxShadow: "0 24px 60px rgba(245, 158, 11, 0.6)",
-                      },
-                    }}
-                    className="play-button-pulse"
-                  >
-                    <PlayIcon style={{ fontSize: "50px", color: "white", marginLeft: "4px" }} />
-                  </Box>
                 </Box>
 
                 {/* Enhanced floating elements */}
@@ -1670,3 +1676,5 @@ export default function HomePage() {
     </ThemeProvider>
   )
 }
+
+
