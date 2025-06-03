@@ -149,7 +149,9 @@ builder.Services.AddCors(options =>
         policy => policy
             .WithOrigins(
                 "https://learnix.onrender.com", // או ה-URL האמיתי שלך
-                "http://localhost:5173" // לשימוש מקומי
+                "https://learnixadmin.onrender.com",
+                "http://localhost:5173/" ,
+                "http://localhost:4200/"// לשימוש מקומי
             )
             .AllowAnyHeader()
             .AllowAnyMethod());
