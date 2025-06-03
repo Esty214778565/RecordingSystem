@@ -133,37 +133,35 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-//builder.Services.AddDbContext<DataContext>(
-//    options => options.UseMySql(connectionString,
-//    new MySqlServerVersion(new Version(8, 0, 41)),
-//    mysqlOptions =>
-//    {
-//        mysqlOptions.EnableRetryOnFailure(
-//            maxRetryCount: 10,
-//            maxRetryDelay: TimeSpan.FromSeconds(30),
-//            errorNumbersToAdd: null);
-//    }));
 
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAllOrigins",
+//        builder => builder.AllowAnyOrigin()
+//                          .AllowAnyMethod()
+//                          .AllowAnyHeader()
+//                           );
+//});
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader()
-                           );
+    options.AddPolicy("AllowSpecificOrigins",
+        policy => policy
+            .WithOrigins(
+                "https://learnix.onrender.com", // או ה-URL האמיתי שלך
+                "http://localhost:5173" // לשימוש מקומי
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 });
-//public void ConfigureServices(IServiceCollection services)
-//{
-//    // Other service registrations
 
-//    services.AddAWSService<IAmazonS3>();
-//}
 
 var app = builder.Build();
 //check for files
 app.UseStaticFiles();
-//---ruti shtraicer
-app.UseCors("AllowAllOrigins");
+
+//app.UseCors("AllowAllOrigins");
+app.UseCors("AllowSpecificOrigins");
 builder.Services.AddEndpointsApiExplorer();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

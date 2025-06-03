@@ -74,15 +74,16 @@ namespace Records.Data.Repositories
 
             if (hasTranscription)
             {
-                var uriFileTranscription = new Uri(record.TranscriptionS3Key);
-                string fileTranscriptionKey = Path.GetFileName(uriFileTranscription.AbsolutePath);
+                //var uriFileTranscription = new Uri(record.TranscriptionS3Key);
+                string fileTranscriptionKey = Path.GetFileName(record.TranscriptionS3Key);
                 objectsToDelete.Add(new KeyVersion { Key = fileTranscriptionKey });
             }
 
             if (hasText)
             {
-                var uriFileText = new Uri(record.TranscriptionTextS3Key);
-                string fileTextKey = Path.GetFileName(uriFileText.AbsolutePath);
+               // var uriFileText = new Uri(record.TranscriptionTextS3Key);
+                //string fileTextKey = Path.GetFileName(uriFileText.AbsolutePath);
+                string fileTextKey = Path.GetFileName(record.TranscriptionTextS3Key);
                 objectsToDelete.Add(new KeyVersion { Key = fileTextKey });
             }
 

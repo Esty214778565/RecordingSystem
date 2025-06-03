@@ -46,16 +46,6 @@ namespace Records.Data
 
             optionsBuilder.LogTo(Message => Debug.WriteLine(Message));
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-
-        //    base.OnConfiguring(optionsBuilder);
-        //    var connectionString = "server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u";
-        //    //optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-        //    optionsBuilder.UseMySql(_configuration["ConnectionStrings:RecordsDB"], ServerVersion.AutoDetect(_configuration["ConnectionStrings:RecordsDB"]));
-        //    // optionsBuilder.UseSqlServer("server=b8jvuypcczfucowkes2u-mysql.services.clever-cloud.com;user=uqitu6fvq4ovwvks;password=3szKAbc6Bcm4woxsAye9;database=b8jvuypcczfucowkes2u");
-        //    optionsBuilder.LogTo(Message => Debug.WriteLine(Message));
-        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure FolderEntity

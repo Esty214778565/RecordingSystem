@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Lesson } from '../Models/Lesson';
 
 //const apiUrl = "https://localhost:7043/api/record";
- const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
+const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
 
 // Fetch lessons
 export const fetchLessons = createAsyncThunk('lessons/fetchLessons', async (_, thunkAPI) => {
@@ -39,7 +39,7 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
         }))
     }
     try {
-debugger;
+        debugger;
         const res = await axios.post(apiUrl, obj, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -122,6 +122,7 @@ export const deleteLesson = createAsyncThunk('lessons/deleteLesson', async (less
     const token = sessionStorage.getItem("token");
 
     try {
+        debugger;
         await axios.delete(`${apiUrl}/${lessonId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -141,7 +142,7 @@ export const transcribe = createAsyncThunk(
         try {
             const res = await axios.post(
 
-               //`https://localhost:7043/api/Transcription/transcribe/${recordId}`,
+                //`https://localhost:7043/api/Transcription/transcribe/${recordId}`,
                 `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
                 { s3Url },
                 {
@@ -166,7 +167,7 @@ export const transcribe = createAsyncThunk(
             //check if need to update the lesson after transcription
             await fetchLessons();
             console.log("Response data in transcribe slice:", res.data);
-            
+
             return res.data;
 
         } catch (error: any) {
