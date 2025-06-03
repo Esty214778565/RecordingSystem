@@ -39,7 +39,7 @@ export const addLesson = createAsyncThunk('lessons/addLesson', async (lessonData
         }))
     }
     try {
-
+debugger;
         const res = await axios.post(apiUrl, obj, {
             headers: {
                 'Authorization': `Bearer ${token}`

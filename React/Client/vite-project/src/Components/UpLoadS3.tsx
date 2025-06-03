@@ -30,9 +30,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
     if (!file) return
 
     try {
+      debugger;
       setIsUploading(true)
       // שלב 1: קבלת Presigned URL מהשרת
-      const response = await axios.get("https://recordingsystem-server.onrender.com/api/upload/presigned-url-up", {
+     // const response = await axios.get("https://recordingsystem-server.onrender.com/api/upload/presigned-url-up", {
+      const response = await axios.get("https://localhost:7043/api/upload/presigned-url-up", {
         params: { fileName: file.name, fileType: file.type },
       })
 

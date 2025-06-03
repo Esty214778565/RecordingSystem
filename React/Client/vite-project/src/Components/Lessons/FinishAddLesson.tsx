@@ -27,9 +27,11 @@ import {
 } from "@mui/material"
 import { Upload, FileAudio, Sparkles, BookOpen, Edit3, CheckCircle, Zap, Star, Clock, FileText } from "lucide-react"
 import './FinishAddLesson.css'
+import { useNavigate } from "react-router-dom"
 
 const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderId }) => {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate();
   const [lessonName, setLessonName] = useState<string>("")
   const [lessonDescription, setLessonDescription] = useState<string>("")
   const [loading, setLoading] = useState(false)
@@ -51,9 +53,8 @@ const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderI
       setUploadProgress(25)
       const result = await dispatch(addLesson(lessonData))
       setUploadProgress(75)
-      console.log("Lesson successfully saved:", result)
       setUploadProgress(100)
-      alert("Lesson uploaded successfully!")
+      console.log("Lesson successfully saved:", result)
       dispatch(fetchListOfTeachers(Number(teacherFolderId)))
       // Safely extract id from payload if it exists
       const lessonId = (result.payload as { id?: number })?.id
@@ -67,12 +68,13 @@ const FinishAddLesson: React.FC<{ teacherFolderId: number }> = ({ teacherFolderI
     } finally {
       setLoading(false)
       setUploadProgress(0)
+      navigate("/courses");
     }
   }
   const handletranscribe = async (s3Key: string, lessonId: number) => {
- 
+
     const res: any = await dispatch(transcribe({ s3Url: s3Key, recordId: lessonId }))
-    
+
     console.log("Transcription result:", res);
 
     console.log(res.payload.TranscriptionVttKey);

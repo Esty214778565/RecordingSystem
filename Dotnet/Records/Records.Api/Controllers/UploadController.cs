@@ -16,17 +16,32 @@ namespace Records.Api.Controllers
         {
             _s3Client = s3Client;
         }
+        
 
+        private static string RemoveInvisibleChars(string input)
+        {
+            // Remove common invisible Unicode characters (like RLM, LRM)
+            return new string(input.Where(c =>
+                c != '\u200E' && // LRM
+                c != '\u200F' && // RLM
+                c != '\u202A' && // LRE
+                c != '\u202B' && // RLE
+                c != '\u202C' && // PDF
+                c != '\u202D' && // LRO
+                c != '\u202E'    // RLO
+            ).ToArray());
+        }
         [HttpGet("presigned-url-up")]
         public async Task<IActionResult> GetPresignedUrlUp([FromQuery] string fileName, [FromQuery] string fileType)
         {
+
             //string contentType = fileType.ToLower() switch
             //{
             //    "mp3" => "audio/mpeg",
             //    "txt" => "text/plain",
             //    _ => throw new ArgumentException("Unsupported file type")
             //};
-
+            fileName = RemoveInvisibleChars(fileName);
             var request = new GetPreSignedUrlRequest
             {
                 BucketName = "my-first-records-bucket.testpnoren",
