@@ -190,33 +190,35 @@ export default function Header() {
                         >
                             Courses
                         </Typography>
+                        {typeof sessionStorage !== "undefined" && sessionStorage.role !== "user" && (
 
-                        <Typography
-                            component="a"
-                            onClick={() => navigate("/add-lesson")}
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                color: theme.palette.custom.main,
-                                textDecoration: "none",
-                                cursor: "pointer",
-                                position: "relative",
-                                transition: "color 0.3s ease",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1,
-                                "&:hover": {
-                                    color: theme.palette.custom.secondary,
-                                    textDecoration: "underline",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "2px",
-                                    textDecorationColor: theme.palette.custom.secondary,
-                                },
-                            }}
-                        >
-                            <PlusCircle size={18} />
-                            Create Masterpiece
-                        </Typography>
+                            <Typography
+                                component="a"
+                                onClick={() => navigate("/add-lesson")}
+                                sx={{
+                                    fontSize: "1rem",
+                                    fontWeight: 600,
+                                    color: theme.palette.custom.main,
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    position: "relative",
+                                    transition: "color 0.3s ease",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                    "&:hover": {
+                                        color: theme.palette.custom.secondary,
+                                        textDecoration: "underline",
+                                        textUnderlineOffset: "4px",
+                                        textDecorationThickness: "2px",
+                                        textDecorationColor: theme.palette.custom.secondary,
+                                    },
+                                }}
+                            >
+                                <PlusCircle size={18} />
+                                Create Masterpiece
+                            </Typography>
+                        )}
                     </Box>
                 )}
 
