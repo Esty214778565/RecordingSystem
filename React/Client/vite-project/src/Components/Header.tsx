@@ -93,81 +93,82 @@ export default function Header() {
                 </Box>
 
                 {/* Center Navigation - Only show when logged in */}
-                {typeof sessionStorage !== "undefined" && sessionStorage.userId !== undefined && (
-                    <Box
-                        component="nav"
+                {/* {typeof sessionStorage !== "undefined" && sessionStorage.userId !== undefined && ( */}
+                <Box
+                    component="nav"
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 4,
+                    }}
+                >
+                    <Typography
+                        component="a"
+                        onClick={() => navigate("/")}
                         sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 4,
+                            fontSize: "1rem",
+                            fontWeight: 600,
+                            color: theme.palette.custom.main,
+                            textDecoration: "none",
+                            cursor: "pointer",
+                            position: "relative",
+                            transition: "color 0.3s ease",
+                            "&:hover": {
+                                color: theme.palette.custom.secondary,
+                                textDecoration: "underline",
+                                textUnderlineOffset: "4px",
+                                textDecorationThickness: "2px",
+                                textDecorationColor: theme.palette.custom.secondary,
+                            },
                         }}
                     >
-                        <Typography
-                            component="a"
-                            onClick={() => navigate("/")}
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                color: theme.palette.custom.main,
-                                textDecoration: "none",
-                                cursor: "pointer",
-                                position: "relative",
-                                transition: "color 0.3s ease",
-                                "&:hover": {
-                                    color: theme.palette.custom.secondary,
-                                    textDecoration: "underline",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "2px",
-                                    textDecorationColor: theme.palette.custom.secondary,
-                                },
-                            }}
-                        >
-                            Home
-                        </Typography>
-                        <Typography
-                            component="a"
-                            onClick={() => navigate("/blog")}
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                color: theme.palette.custom.main,
-                                textDecoration: "none",
-                                cursor: "pointer",
-                                position: "relative",
-                                transition: "color 0.3s ease",
-                                "&:hover": {
-                                    color: theme.palette.custom.secondary,
-                                    textDecoration: "underline",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "2px",
-                                    textDecorationColor: theme.palette.custom.secondary,
-                                },
-                            }}
-                        >
-                            Blog
-                        </Typography>
-                        <Typography
-                            component="a"
-                            onClick={() => navigate("/about")}
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                color: theme.palette.custom.main,
-                                textDecoration: "none",
-                                cursor: "pointer",
-                                position: "relative",
-                                transition: "color 0.3s ease",
-                                "&:hover": {
-                                    color: theme.palette.custom.secondary,
-                                    textDecoration: "underline",
-                                    textUnderlineOffset: "4px",
-                                    textDecorationThickness: "2px",
-                                    textDecorationColor: theme.palette.custom.secondary,
-                                },
-                            }}
-                        >
-                            About
-                        </Typography>
+                        Home
+                    </Typography>
+                    <Typography
+                        component="a"
+                        onClick={() => navigate("/blog")}
+                        sx={{
+                            fontSize: "1rem",
+                            fontWeight: 600,
+                            color: theme.palette.custom.main,
+                            textDecoration: "none",
+                            cursor: "pointer",
+                            position: "relative",
+                            transition: "color 0.3s ease",
+                            "&:hover": {
+                                color: theme.palette.custom.secondary,
+                                textDecoration: "underline",
+                                textUnderlineOffset: "4px",
+                                textDecorationThickness: "2px",
+                                textDecorationColor: theme.palette.custom.secondary,
+                            },
+                        }}
+                    >
+                        Blog
+                    </Typography>
+                    <Typography
+                        component="a"
+                        onClick={() => navigate("/about")}
+                        sx={{
+                            fontSize: "1rem",
+                            fontWeight: 600,
+                            color: theme.palette.custom.main,
+                            textDecoration: "none",
+                            cursor: "pointer",
+                            position: "relative",
+                            transition: "color 0.3s ease",
+                            "&:hover": {
+                                color: theme.palette.custom.secondary,
+                                textDecoration: "underline",
+                                textUnderlineOffset: "4px",
+                                textDecorationThickness: "2px",
+                                textDecorationColor: theme.palette.custom.secondary,
+                            },
+                        }}
+                    >
+                        About
+                    </Typography>
+                    {typeof sessionStorage !== "undefined" && sessionStorage.userId !== undefined && (
                         <Typography
                             component="a"
                             onClick={() => navigate("/courses")}
@@ -190,37 +191,36 @@ export default function Header() {
                         >
                             Courses
                         </Typography>
-                        {typeof sessionStorage !== "undefined" && sessionStorage.role !== "user" && (
-
-                            <Typography
-                                component="a"
-                                onClick={() => navigate("/add-lesson")}
-                                sx={{
-                                    fontSize: "1rem",
-                                    fontWeight: 600,
-                                    color: theme.palette.custom.main,
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                    position: "relative",
-                                    transition: "color 0.3s ease",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 1,
-                                    "&:hover": {
-                                        color: theme.palette.custom.secondary,
-                                        textDecoration: "underline",
-                                        textUnderlineOffset: "4px",
-                                        textDecorationThickness: "2px",
-                                        textDecorationColor: theme.palette.custom.secondary,
-                                    },
-                                }}
-                            >
-                                <PlusCircle size={18} />
-                                Create Masterpiece
-                            </Typography>
-                        )}
-                    </Box>
-                )}
+                    )}
+                    {typeof sessionStorage !== "undefined" && sessionStorage.userId !== undefined && sessionStorage.role !== "user" && (
+                        <Typography
+                            component="a"
+                            onClick={() => navigate("/add-lesson")}
+                            sx={{
+                                fontSize: "1rem",
+                                fontWeight: 600,
+                                color: theme.palette.custom.main,
+                                textDecoration: "none",
+                                cursor: "pointer",
+                                position: "relative",
+                                transition: "color 0.3s ease",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                                "&:hover": {
+                                    color: theme.palette.custom.secondary,
+                                    textDecoration: "underline",
+                                    textUnderlineOffset: "4px",
+                                    textDecorationThickness: "2px",
+                                    textDecorationColor: theme.palette.custom.secondary,
+                                },
+                            }}
+                        >
+                            <PlusCircle size={18} />
+                            Create Masterpiece
+                        </Typography>
+                    )}
+                </Box>
 
                 {/* Right Side - Auth Buttons Only */}
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
