@@ -150,8 +150,8 @@ builder.Services.AddCors(options =>
             .WithOrigins(
                 "https://learnix.onrender.com", // או ה-URL האמיתי שלך
                 "https://learnixadmin.onrender.com",
-                "http://localhost:5173/" ,
-                "http://localhost:4200/"// לשימוש מקומי
+                "http://localhost:5173",
+                "http://localhost:4200"// לשימוש מקומי
             )
             .AllowAnyHeader()
             .AllowAnyMethod());
@@ -163,8 +163,9 @@ var app = builder.Build();
 app.UseStaticFiles();
 
 //app.UseCors("AllowAllOrigins");
-app.UseCors("AllowSpecificOrigins");
-builder.Services.AddEndpointsApiExplorer();
+//app.UseCors("AllowSpecificOrigins");
+//builder.Services.AddEndpointsApiExplorer();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -185,18 +186,21 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 //app.UseCors("AllowAllOrigins");
 app.UseRouting();
+app.UseCors("AllowSpecificOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<MyMiddleWare>();
 
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGet("/", async context =>
-    {
-        await context.Response.WriteAsync("Hello World!");
-    });
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapGet("/", async context =>
+//    {
+//        await context.Response.WriteAsync("Hello World!");
+//    });
+//});
 app.MapControllers();
+
+app.MapGet("/", () => "Hello World!");
 
 app.Run();
