@@ -37,6 +37,7 @@ export const loginUser = createAsyncThunk('auth/login', async (userData: UserLog
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: User, thunkAPI) => {
     try {
+        debugger;
         const res = await axios.post(`${apiUrl}/auth/register`, userData);
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userId", res.data.id.toString());

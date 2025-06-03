@@ -14,17 +14,27 @@ import {
     Chip,
     Divider,
     IconButton,
+    FormControl,
+    FormControlLabel,
+    RadioGroup,
+    Paper,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { Mail, Lock, Shield, Crown, Sparkles, Star, Zap, X, User } from "lucide-react"
-
+import { Mail, Lock, Shield, Crown, Sparkles, Star, Zap, X, User, BookOpen, GraduationCap } from "lucide-react"
+import { Radio } from "@mui/material"
+import { registerUser } from "../Reducers/AuthSlice"
+import { useDispatch } from "react-redux"
+import type { UserDispatch } from "../Store/Store"
 const Register = () => {
+    const dispatch = useDispatch<UserDispatch>()
+
     const navigate = useNavigate()
     const [registerData, setRegisterData] = useState({
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
+        role: "user", // Default role
     })
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(true)
@@ -37,6 +47,12 @@ const Register = () => {
             [name]: value,
         })
     }
+    const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRegisterData({
+            ...registerData,
+            role: e.target.value,
+        });
+    };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setError(null)
@@ -45,12 +61,20 @@ const Register = () => {
             return
         }
         setIsLoading(true)
-        // TODO: Add your registration logic here
-        setTimeout(() => {
-            setIsLoading(false)
-            setOpenModal(false)
+        try {
+            const res: any = await dispatch(registerUser(registerData))
+            if (res.error) {
+                alert("sign up failed")
+                return
+            }
             navigate("/courses")
-        }, 1500)
+            setOpenModal(false);
+        } catch (error) {
+            console.error("Sin up error:", error)
+            alert("sign up failed")
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const handleClose = () => {
@@ -508,6 +532,169 @@ const Register = () => {
                                             },
                                         }}
                                     />
+                                    <Box sx={{ mb: 4 }}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                color: "#0f172a",
+                                                fontWeight: 700,
+                                                mb: 2,
+                                                fontSize: "0.9rem",
+                                                textTransform: "uppercase",
+                                                letterSpacing: "0.5px",
+                                            }}
+                                        >
+                                            Choose Your Role
+                                        </Typography>
+
+                                        <FormControl component="fieldset" fullWidth>
+                                            <RadioGroup row value={registerData.role} onChange={handleRoleChange} sx={{ gap: 2 }}>
+                                                <Paper
+                                                    elevation={0}
+                                                    sx={{
+                                                        flex: 1,
+                                                        p: 3,
+                                                        borderRadius: "20px",
+                                                        border: registerData.role === "student" ? "3px solid #8b5cf6" : "2px solid rgba(139, 92, 246, 0.2)",
+                                                        background:
+                                                            registerData.role === "student"
+                                                                ? "linear-gradient(135deg, #8b5cf615, #06b6d410)"
+                                                                : "rgba(255, 255, 255, 0.8)",
+                                                        transition: "all 0.3s ease",
+                                                        cursor: "pointer",
+                                                        "&:hover": {
+                                                            transform: "translateY(-2px)",
+                                                            boxShadow: "0 12px 32px rgba(139, 92, 246, 0.2)",
+                                                        },
+                                                    }}
+                                                    className="register-role-card"
+                                                    onClick={() => setRegisterData({ ...registerData, role: "student" })}
+                                                >
+                                                    <Box sx={{ textAlign: "center" }}>
+                                                        <Box
+                                                            sx={{
+                                                                width: 60,
+                                                                height: 60,
+                                                                borderRadius: "50%",
+                                                                background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+                                                                display: "flex",
+                                                                alignItems: "center",
+                                                                justifyContent: "center",
+                                                                mx: "auto",
+                                                                mb: 2,
+                                                                boxShadow: "0 12px 32px rgba(139, 92, 246, 0.3)",
+                                                            }}
+                                                        >
+                                                            <GraduationCap style={{ fontSize: "30px", color: "white" }} />
+                                                        </Box>
+                                                        <FormControlLabel
+                                                            value="student"
+                                                            control={
+                                                                <Radio
+                                                                    sx={{
+                                                                        color: "#8b5cf6",
+                                                                        "&.Mui-checked": {
+                                                                            color: "#8b5cf6",
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            }
+                                                            label={
+                                                                <Box>
+                                                                    <Typography
+                                                                        variant="h6"
+                                                                        sx={{
+                                                                            fontWeight: 800,
+                                                                            color: "#0f172a",
+                                                                            fontFamily: "'Playfair Display', serif",
+                                                                        }}
+                                                                    >
+                                                                        Student
+                                                                    </Typography>
+                                                                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 600 }}>
+                                                                        Learn & Explore
+                                                                    </Typography>
+                                                                </Box>
+                                                            }
+                                                            sx={{ m: 0 }}
+                                                        />
+                                                    </Box>
+                                                </Paper>
+
+                                                <Paper
+                                                    elevation={0}
+                                                    sx={{
+                                                        flex: 1,
+                                                        p: 3,
+                                                        borderRadius: "20px",
+                                                        border: registerData.role === "teacher" ? "3px solid #06b6d4" : "2px solid rgba(6, 182, 212, 0.2)",
+                                                        background:
+                                                            registerData.role === "teacher"
+                                                                ? "linear-gradient(135deg, #06b6d415, #10b98110)"
+                                                                : "rgba(255, 255, 255, 0.8)",
+                                                        transition: "all 0.3s ease",
+                                                        cursor: "pointer",
+                                                        "&:hover": {
+                                                            transform: "translateY(-2px)",
+                                                            boxShadow: "0 12px 32px rgba(6, 182, 212, 0.2)",
+                                                        },
+                                                    }}
+                                                    className="register-role-card"
+                                                    onClick={() => setRegisterData({ ...registerData, role: "teacher" })}
+                                                >
+                                                    <Box sx={{ textAlign: "center" }}>
+                                                        <Box
+                                                            sx={{
+                                                                width: 60,
+                                                                height: 60,
+                                                                borderRadius: "50%",
+                                                                background: "linear-gradient(135deg, #06b6d4, #10b981)",
+                                                                display: "flex",
+                                                                alignItems: "center",
+                                                                justifyContent: "center",
+                                                                mx: "auto",
+                                                                mb: 2,
+                                                                boxShadow: "0 12px 32px rgba(6, 182, 212, 0.3)",
+                                                            }}
+                                                        >
+                                                            <BookOpen style={{ fontSize: "30px", color: "white" }} />
+                                                        </Box>
+                                                        <FormControlLabel
+                                                            value="teacher"
+                                                            control={
+                                                                <Radio
+                                                                    sx={{
+                                                                        color: "#06b6d4",
+                                                                        "&.Mui-checked": {
+                                                                            color: "#06b6d4",
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            }
+                                                            label={
+                                                                <Box>
+                                                                    <Typography
+                                                                        variant="h6"
+                                                                        sx={{
+                                                                            fontWeight: 800,
+                                                                            color: "#0f172a",
+                                                                            fontFamily: "'Playfair Display', serif",
+                                                                        }}
+                                                                    >
+                                                                        Teacher
+                                                                    </Typography>
+                                                                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 600 }}>
+                                                                        Teach & Inspire
+                                                                    </Typography>
+                                                                </Box>
+                                                            }
+                                                            sx={{ m: 0 }}
+                                                        />
+                                                    </Box>
+                                                </Paper>
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Box>
                                     {error && (
                                         <Typography
                                             variant="body2"
