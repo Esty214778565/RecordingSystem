@@ -3,25 +3,31 @@ const VideoPlayer: React.FC<{ url: string; vttUrl: string }> = ({ url, vttUrl })
 
     return (
         <div>
-            <video crossOrigin="anonymous" width="600" controls>
-                <source src={videoUrl} type="video/mp4" />
+            <video
+            crossOrigin="anonymous"
+            width="600"
+            controls
+            controlsList="nodownload"
+            onContextMenu={e => e.preventDefault()}
+            >
+            <source src={videoUrl} type="video/mp4" />
 
-                <track
-                    kind="subtitles"
-                    srcLang="he"
-                    src={"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/" + vttUrl}
-                    label="עברית"
-                    default
-                />
-                <track
-                    kind="subtitles"
-                    srcLang="en"
-                    src={"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/" + vttUrl}
-                    label="English"
-                    default
-                />
+            <track
+                kind="subtitles"
+                srcLang="he"
+                src={"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/" + vttUrl}
+                label="עברית"
+                default
+            />
+            <track
+                kind="subtitles"
+                srcLang="en"
+                src={"https://s3.amazonaws.com/my-first-records-bucket.testpnoren/" + vttUrl}
+                label="English"
+                default
+            />
 
-                הדפדפן שלך לא תומך בוידאו.
+            הדפדפן שלך לא תומך בוידאו.
             </video>
         </div>
     );
