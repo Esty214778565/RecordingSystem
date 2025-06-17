@@ -46,15 +46,21 @@ namespace Records.Service
             byte[] fileBytes;
             using (var client = new HttpClient())
             {
-               
-                fileBytes = await client.GetByteArrayAsync(s3Url);
+                try
+                {
+                    fileBytes = await client.GetByteArrayAsync(s3Url);
+                }
+                catch (HttpRequestException ex)
+                {
+                    throw new Exception($"Failed to fetch file from S3 URL: {ex.Message}", ex);
+                }
             }
 
             var (contentType, fileName) = GetContentTypeAndFileName(s3Url);
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
-            // === Request for VTT ===
+            // === Request for VTT ===  
             using var vttContent = new MultipartFormDataContent();
             var fileContentVtt = new ByteArrayContent(fileBytes);
             fileContentVtt.Headers.ContentType = new MediaTypeHeaderValue(contentType);
@@ -62,7 +68,16 @@ namespace Records.Service
             vttContent.Add(new StringContent("whisper-1"), "model");
             vttContent.Add(new StringContent("vtt"), "response_format");
 
-            var vttResponse = await _httpClient.PostAsync("https://api.openai.com/v1/audio/transcriptions", vttContent);
+            HttpResponseMessage vttResponse;
+            try
+            {
+                vttResponse = await _httpClient.PostAsync("https://api.openai.com/v1/audio/transcriptions", vttContent);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Failed to send VTT transcription request: {ex.Message}", ex);
+            }
+
             if (!vttResponse.IsSuccessStatusCode)
             {
                 var error = await vttResponse.Content.ReadAsStringAsync();
@@ -70,7 +85,7 @@ namespace Records.Service
             }
             var vttResult = await vttResponse.Content.ReadAsStringAsync();
 
-            // === Request for Text ===
+            // === Request for Text ===  
             using var textContent = new MultipartFormDataContent();
             var fileContentText = new ByteArrayContent(fileBytes);
             fileContentText.Headers.ContentType = new MediaTypeHeaderValue(contentType);
@@ -78,7 +93,16 @@ namespace Records.Service
             textContent.Add(new StringContent("whisper-1"), "model");
             textContent.Add(new StringContent("text"), "response_format");
 
-            var textResponse = await _httpClient.PostAsync("https://api.openai.com/v1/audio/transcriptions", textContent);
+            HttpResponseMessage textResponse;
+            try
+            {
+                textResponse = await _httpClient.PostAsync("https://api.openai.com/v1/audio/transcriptions", textContent);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Failed to send text transcription request: {ex.Message}", ex);
+            }
+
             if (!textResponse.IsSuccessStatusCode)
             {
                 var error = await textResponse.Content.ReadAsStringAsync();
@@ -86,38 +110,35 @@ namespace Records.Service
             }
             var textResult = await textResponse.Content.ReadAsStringAsync();
 
-            // === Upload to S3 ===
-            var s3BucketLink = "https://s3.us-east-1.amazonaws.com/my-first-records-bucket.testpnoren/";
-
-            //var transcriptionVttKey = $"{s3BucketLink}transcriptions/{Guid.NewGuid()}.vtt";
-            //var uriFile = new Uri(transcriptionVttKey);
-            //string fileKey = Path.GetFileName(uriFile.AbsolutePath);
-            //var encodedFileName = Uri.EscapeDataString(fileKey); // מקודד כמו שצריך
-            //transcriptionVttKey = encodedFileName;
-
-
+            // === Upload to S3 ===  
             var transcriptionVttKey = $"transcriptions/{Guid.NewGuid()}.vtt";
             var transcriptionTextKey = $"transcriptions/{Guid.NewGuid()}.txt";
 
-            await _s3Client.PutObjectAsync(new PutObjectRequest
+            try
             {
-                BucketName = "my-first-records-bucket.testpnoren",
-                Key = transcriptionVttKey,
-                InputStream = new MemoryStream(Encoding.UTF8.GetBytes(vttResult)),
-                ContentType = "text/vtt"
-            });
+                await _s3Client.PutObjectAsync(new PutObjectRequest
+                {
+                    BucketName = "my-first-records-bucket.testpnoren",
+                    Key = transcriptionVttKey,
+                    InputStream = new MemoryStream(Encoding.UTF8.GetBytes(vttResult)),
+                    ContentType = "text/vtt"
+                });
 
-            await _s3Client.PutObjectAsync(new PutObjectRequest
+                await _s3Client.PutObjectAsync(new PutObjectRequest
+                {
+                    BucketName = "my-first-records-bucket.testpnoren",
+                    Key = transcriptionTextKey,
+                    InputStream = new MemoryStream(Encoding.UTF8.GetBytes(textResult)),
+                    ContentType = "text/plain"
+                });
+            }
+            catch (AmazonS3Exception ex)
             {
-                BucketName = "my-first-records-bucket.testpnoren",
-                Key = transcriptionTextKey,
-                InputStream = new MemoryStream(Encoding.UTF8.GetBytes(textResult)),
-                ContentType = "text/plain"
-            });
+                throw new Exception($"Failed to upload transcription files to S3: {ex.Message}", ex);
+            }
 
-            // === Update record ===
+            // === Update record ===  
             record.TranscriptionS3Key = transcriptionVttKey;
-            
             record.UpdateDate = DateTime.UtcNow;
             await _repository.UpdateRecordAsync(record);
 

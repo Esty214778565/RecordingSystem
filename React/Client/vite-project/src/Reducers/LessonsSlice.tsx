@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Lesson } from '../Models/Lesson';
 
-//const apiUrl = "https://localhost:7043/api/record";
+// const apiUrl = "https://localhost:7043/api/record";
 const apiUrl = "https://recordingsystem-server.onrender.com/api/record";
 
 // Fetch lessons
@@ -140,9 +140,11 @@ export const transcribe = createAsyncThunk(
     async ({ s3Url, recordId }: { s3Url: string; recordId: number }, thunkAPI) => {
         const token = sessionStorage.getItem("token");
         try {
+            debugger;
+            console.log("Transcribing from S3 with URL:", s3Url, "and Record ID:", recordId);
             const res = await axios.post(
 
-                //`https://localhost:7043/api/Transcription/transcribe/${recordId}`,
+                // `https://localhost:7043/api/Transcription/transcribe/${recordId}`,
                 `https://recordingsystem-server.onrender.com/api/Transcription/transcribe/${recordId}`,
                 { s3Url },
                 {
@@ -152,18 +154,6 @@ export const transcribe = createAsyncThunk(
                     }
                 }
             );
-
-
-            // const res = await axios.post(
-            //     //  `https://recordingsystem-server.onrender.com/api/Transcription/transcribe`,
-            //     `https://localhost:7043/api/Transcription/transcribe/${recordId}`, { s3Url: s3Url },
-            //     {
-            //         // params: { s3Url, recordId },
-            //         headers: {
-            //             'Authorization': `Bearer ${token}`
-            //         }
-            //     }
-            // );
             //check if need to update the lesson after transcription
             await fetchLessons();
             console.log("Response data in transcribe slice:", res.data);
